@@ -1,4 +1,4 @@
-import { compose } from 'ramda'
+import { compose, curry } from 'ramda'
 
 // Left
 export class Left {
