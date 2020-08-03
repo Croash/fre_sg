@@ -17343,7 +17343,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.scheduleCallback = scheduleCallback;
 exports.shouldYield = shouldYield;
-exports.getTime = void 0;
+exports.getTime = exports.planWork = void 0;
 
 var R = _interopRequireWildcard(require("ramda"));
 
@@ -17367,7 +17367,7 @@ var frameLength = 1000 / 60; // scheduleCallback => planWork[flushWork[flush]]
 var taskQueueFunctor = _functor.Functor.of([]); // :: pushTaskBase ft -> ( ft -> ft )
 
 
-var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // ::pushTask  cb -> taskqFunctor
+var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // ::pushTask  ( -> ) -> taskqFunctor
 
 var pushTask = compose(ap(pushTaskBase), function (cb) {
   return _functor.Functor.of({
@@ -17380,6 +17380,12 @@ var pushTask = compose(ap(pushTaskBase), function (cb) {
 window.pushTask = pushTask;
 var scCallback = compose(planWork, pushTask); // 存疑
 // 今天到此位置 好难啊
+
+var planWork = function planWork(cb) {
+  return setTimeout(cb);
+};
+
+exports.planWork = planWork;
 
 function scheduleCallback(callback) {
   var startTime = getTime();
@@ -17398,12 +17404,11 @@ var getTime = function getTime() {
 };
 
 exports.getTime = getTime;
+console.log(getTime(), getTime());
 
 function shouldYield() {
   return getTime() >= frameDeadline;
 }
-
-var planWork = function planWork() {};
 },{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 

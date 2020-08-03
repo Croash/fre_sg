@@ -13,7 +13,7 @@ const frameLength = 1000 / 60
 const taskQueueFunctor = Functor.of([])
 // :: pushTaskBase ft -> ( ft -> ft )
 const pushTaskBase = map(curry(push))(taskQueueFunctor)
-// ::pushTask  cb -> taskqFunctor
+// ::pushTask  ( -> ) -> taskqFunctor
 const pushTask = compose(
   ap(pushTaskBase),
   (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
@@ -24,6 +24,8 @@ window.pushTask = pushTask
 const scCallback = compose(planWork, pushTask) // 存疑
 
 // 今天到此位置 好难啊
+
+export const planWork = cb => setTimeout(cb)
 
 export function scheduleCallback(callback) {
   const startTime = getTime()
@@ -40,11 +42,7 @@ export function scheduleCallback(callback) {
 }
 
 export const getTime = () => performance.now()
-
+console.log(getTime(), getTime())
 export function shouldYield() {
   return getTime() >= frameDeadline
-}
-
-const planWork = () => {
-
 }
