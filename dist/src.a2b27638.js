@@ -17068,7 +17068,6 @@ exports.peek = peek;
 
 function push(heap, node) {
   var i = heap.length;
-  console.log(heap);
   heap.push(node);
   siftUp(heap, node, i);
   return heap;
@@ -17204,6 +17203,20 @@ var Functor = function Functor(value) {
 
   _defineProperty(this, "map", function (f) {
     return Functor.of(f(_this._value));
+  });
+
+  _defineProperty(this, "join", function () {
+    return _this._value;
+  });
+
+  _defineProperty(this, "chain", function (f) {
+    return _this.map(f).join();
+  });
+
+  _defineProperty(this, "ap", function (other) {
+    return _this.chain(function (f) {
+      return other.map(f);
+    });
   });
 
   this._value = value;
@@ -17344,13 +17357,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var compose = R.compose,
     curry = R.curry,
-    map = R.map; // const global = {
-//   taskQueue: [],
-//   currentCallback: null,
-//   frameDeadline: 0,
-//   frameLength: 1000/60
-// }
-
+    map = R.map,
+    ap = R.ap;
 var taskQueue = [];
 var currentCallback = null;
 var frameDeadline = 0;
@@ -17358,26 +17366,23 @@ var frameLength = 1000 / 60; // scheduleCallback => planWork[flushWork[flush]]
 
 var taskQueueFunctor = _functor.Functor.of([]);
 
-window.taskQueueFunctor = taskQueueFunctor;
-window.push = _heapify.push;
-window.curry = curry;
-var pushHeap = map(_heapify.push); // push(tQ._value, {})
-// map()
+var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // let task = Functor.of({})
+// window.task = task
+// window.Functor = Functor
+// window.pushTaskBase = pushTaskBase
+// window.taskB =  ap(pushTaskBase)(task)
+// // const pushTask
+// window.ap = ap
+// task.map(pushTaskBase._value)
 
-var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor);
-
-var task = _functor.Functor.of({});
-
-window.task = task;
-window.pushTaskBase = pushTaskBase; // task.map(pushTaskBase._value)
-
-var pushTask = compose(taskQueueFunctor, function (cb) {
-  return {
+var pushTask = compose(ap(pushTaskBase), function (cb) {
+  return _functor.Functor.of({
     callback: cb,
     startTime: getTime(),
     dueTime: getTime() + 300
-  };
+  });
 });
+window.pushTask = pushTask;
 var scCallback = compose(planWork, pushTask); // 存疑
 // 今天到此位置 好难啊
 
@@ -17410,7 +17415,6 @@ var planWork = function planWork() {};
 var _scheduler = require("./scheduler");
 
 window.getTime = _scheduler.getTime;
-console.log((0, _scheduler.getTime)());
 },{"./scheduler":"src/scheduler/index.js"}],"../../../../../usr/local/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -17439,7 +17443,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53258" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60624" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

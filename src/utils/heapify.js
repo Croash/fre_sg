@@ -1,6 +1,5 @@
 export function push(heap, node) {
   const i = heap.length
-  console.log(heap)
   heap.push(node)
   siftUp(heap, node, i)
   return heap

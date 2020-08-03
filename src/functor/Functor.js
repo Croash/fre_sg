@@ -7,6 +7,19 @@ class Functor {
     return Functor.of(f(this._value))
   }
 
+  join = () => {
+    return this._value
+  }
+
+  chain = (f) => {
+    return this.map(f).join()
+  }
+
+  ap = (other) => {
+    return this.chain(function(f) {
+      return other.map(f)
+    })
+  }
 }
 
 Functor.of = (val) => {

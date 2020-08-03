@@ -1,15 +1,7 @@
 import * as R from 'ramda'
 import { push, pop, peek } from '../utils/heapify'
 import { Functor } from '../functor'
-
-const { compose, curry, map } = R
-
-// const global = {
-//   taskQueue: [],
-//   currentCallback: null,
-//   frameDeadline: 0,
-//   frameLength: 1000/60
-// }
+const { compose, curry, map, ap } = R
 
 const taskQueue = []
 let currentCallback = null
@@ -19,25 +11,26 @@ const frameLength = 1000 / 60
 // scheduleCallback => planWork[flushWork[flush]]
 
 let taskQueueFunctor = Functor.of([])
-window.taskQueueFunctor = taskQueueFunctor
-window.push = push
-window.curry = curry
+let pushTaskBase = map(curry(push))(taskQueueFunctor)
+// let task = Functor.of({})
 
-const pushHeap = map(push)
-// push(tQ._value, {})
-// map()
-const pushTaskBase = map(curry(push))(taskQueueFunctor)
-const task = Functor.of({})
+// window.task = task
+// window.Functor = Functor
+// window.pushTaskBase = pushTaskBase
 
-window.task = task
-window.pushTaskBase = pushTaskBase
+// window.taskB =  ap(pushTaskBase)(task)
+// // const pushTask
+
+// window.ap = ap
 
 // task.map(pushTaskBase._value)
 
 const pushTask = compose(
-  taskQueueFunctor,
-  (cb) => ({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
+  ap(pushTaskBase),
+  (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
 )
+
+window.pushTask = pushTask
 
 const scCallback = compose(planWork, pushTask) // 存疑
 
