@@ -17364,16 +17364,10 @@ var currentCallback = null;
 var frameDeadline = 0;
 var frameLength = 1000 / 60; // scheduleCallback => planWork[flushWork[flush]]
 
-var taskQueueFunctor = _functor.Functor.of([]);
+var taskQueueFunctor = _functor.Functor.of([]); // :: pushTaskBase ft -> ( ft -> ft )
 
-var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // let task = Functor.of({})
-// window.task = task
-// window.Functor = Functor
-// window.pushTaskBase = pushTaskBase
-// window.taskB =  ap(pushTaskBase)(task)
-// // const pushTask
-// window.ap = ap
-// task.map(pushTaskBase._value)
+
+var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // ::pushTask  cb -> taskqFunctor
 
 var pushTask = compose(ap(pushTaskBase), function (cb) {
   return _functor.Functor.of({
@@ -17381,7 +17375,8 @@ var pushTask = compose(ap(pushTaskBase), function (cb) {
     startTime: getTime(),
     dueTime: getTime() + 300
   });
-});
+}); // 
+
 window.pushTask = pushTask;
 var scCallback = compose(planWork, pushTask); // 存疑
 // 今天到此位置 好难啊

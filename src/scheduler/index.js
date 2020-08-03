@@ -10,26 +10,15 @@ const frameLength = 1000 / 60
 
 // scheduleCallback => planWork[flushWork[flush]]
 
-let taskQueueFunctor = Functor.of([])
-let pushTaskBase = map(curry(push))(taskQueueFunctor)
-// let task = Functor.of({})
-
-// window.task = task
-// window.Functor = Functor
-// window.pushTaskBase = pushTaskBase
-
-// window.taskB =  ap(pushTaskBase)(task)
-// // const pushTask
-
-// window.ap = ap
-
-// task.map(pushTaskBase._value)
-
+const taskQueueFunctor = Functor.of([])
+// :: pushTaskBase ft -> ( ft -> ft )
+const pushTaskBase = map(curry(push))(taskQueueFunctor)
+// ::pushTask  cb -> taskqFunctor
 const pushTask = compose(
   ap(pushTaskBase),
   (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
 )
-
+// 
 window.pushTask = pushTask
 
 const scCallback = compose(planWork, pushTask) // 存疑
