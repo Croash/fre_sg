@@ -32,7 +32,7 @@ Right.of = (val) => {
 
 export const Either = curry(function(f, g, e) {
   switch(e.constructor) {
-    case Left: return f(e.__value);
-    case Right: return g(e.__value);
+    case Left: return f(e._value);
+    case Right: return g(e._value);
   }
 })
