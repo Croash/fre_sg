@@ -17354,7 +17354,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.shouldYield = shouldYield;
-exports.frameLength = exports.getTime = void 0;
+exports.frameLength = exports.updateDeadline = exports.getTime = void 0;
+
+var _functor = require("../functor");
 
 var getTime = function getTime() {
   return performance.now();
@@ -17363,12 +17365,26 @@ var getTime = function getTime() {
 exports.getTime = getTime;
 
 function shouldYield() {
-  return getTime() >= frameDeadline;
+  return getTime() >= deadlineFunctor._value.time; //frameDeadline
 }
 
+var deadlineFunctor = _functor.Functor.of({
+  time: 0
+}); // updateDeadline :: () -> Functor
+
+
+var updateDeadline = function updateDeadline() {
+  return map(function (a) {
+    return Object.assign(a, {
+      time: getTime() + frameLength
+    });
+  })(deadlineFunctor);
+};
+
+exports.updateDeadline = updateDeadline;
 var frameLength = 1000 / 60;
 exports.frameLength = frameLength;
-},{}],"src/scheduler/planwork.js":[function(require,module,exports) {
+},{"../functor":"src/functor/index.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17396,8 +17412,10 @@ var curry = R.curry,
 
 var flushWork = function flushWork(cb) {
   console.log(cb);
+  var t = (0, _common.getTime)();
+  (0, _common.updateDeadline)(t);
 
-  if (cb && cb((0, _common.getTime)())) {
+  if (cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
     planWork(function () {
@@ -17435,64 +17453,7 @@ var f = function f() {
     mem < 3 && mem++;
     return mem < 3;
   };
-}; // const taskCheck = 
-// const taskCheckBase = curry(taskCheck)
-// tb:: currentTask -> Right||Left
-// const tb = 
-
-
-var consoleFunc = function consoleFunc(functor) {
-  console.log(functor);
-  return functor;
-}; // 
-
-
-var flushBase = compose( // flushBase,
-// (v) => flushBase(v),
-consoleFunc, (0, _functor.Either)( // ({ currentTask }) => !!currentTask,
-compose(function (t) {
-  return !!t;
-}, prop('currentTask'), prop('_value')), compose(function (v) {
-  return flushBase(v);
-}, // consoleFunc,
-(0, _functor.Either)(function (v) {
-  return prop('currentTask')(v);
-}, compose(function (_ref) {
-  var didout = _ref.didout,
-      currentTask = _ref.currentTask;
-  var next = currentTask.callback(didout);
-  next ? currentTask.callback = next : (0, _index.popTask)();
-  return prop('_value')((0, _index.peekTask)());
-}, prop('_value'))), function (_ref2) {
-  var initTime = _ref2.initTime,
-      currentTask = _ref2.currentTask;
-  console.log({
-    initTime: initTime,
-    currentTask: currentTask
-  });
-  var didout = initTime < currentTask.duetime;
-  console.log(didout && (0, _common.shouldYield)());
-  return didout && (0, _common.shouldYield)() ? _functor.Right.of({
-    didout: didout,
-    currentTask: currentTask
-  }) : _functor.Left.of({
-    currentTask: null
-  });
-} // prop('_value'),
-// consoleFunc,let func1234 = () => {let testFunct1 =  () => { pushTask(()=>{console.log('123')}); pushTask(()=>{connsole.log('456')}) };testFunct1();flushBase(peekTask()._value)};func1234()
-)), function (currentTask) {
-  var initTime = (0, _common.getTime)(); // console.log(initTime)
-
-  return currentTask ? _functor.Right.of({
-    initTime: initTime,
-    currentTask: currentTask
-  }) : _functor.Left.of({
-    currentTask: currentTask
-  });
-}); // (task)
-
-window.flushBase = flushBase; // const 
-
+};
 /**
  * const newFunc = f()
  * 
@@ -17501,6 +17462,51 @@ window.flushBase = flushBase; // const
  * 这样，flushwork 可以保证每一个planwork启动后，触发结束cb然后做判断再继续planwork
  * 
  */
+// const taskCheck = 
+// const taskCheckBase = curry(taskCheck)
+// tb:: currentTask -> Right||Left
+// const tb = 
+
+
+var consoleFunc = function consoleFunc(functor) {
+  console.log(functor);
+  return functor;
+};
+
+var flushBase = compose((0, _functor.Either)(compose(consoleFunc, function (t) {
+  return !!t;
+}, prop('currentTask'), prop('_value')), compose(function (v) {
+  return flushBase(v);
+}, (0, _functor.Either)(compose(prop('currentTask'), function (v) {
+  console.log('v', v);
+  return v;
+}), compose(function (_ref) {
+  var didout = _ref.didout,
+      currentTask = _ref.currentTask;
+  var next = currentTask.callback(didout);
+  next ? currentTask.callback = next : (0, _index.popTask)();
+  return prop('_value')((0, _index.peekTask)());
+}, consoleFunc // prop('_value')
+)), function (_ref2) {
+  var initTime = _ref2.initTime,
+      currentTask = _ref2.currentTask;
+  var didout = initTime < currentTask.dueTime;
+  return didout && (0, _common.shouldYield)() ? _functor.Right.of({
+    didout: didout,
+    currentTask: currentTask
+  }) : _functor.Left.of({
+    currentTask: null
+  });
+})), function (currentTask) {
+  var initTime = (0, _common.getTime)();
+  return currentTask ? _functor.Right.of({
+    initTime: initTime,
+    currentTask: currentTask
+  }) : _functor.Left.of({
+    currentTask: currentTask
+  });
+});
+window.flushBase = flushBase;
 },{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./index":"src/scheduler/index.js"}],"node_modules/fantasy-land/index.js":[function(require,module,exports) {
 (function() {
 
@@ -18932,6 +18938,7 @@ var pushTask = compose(ap(pushTaskBase), function (cb) {
     dueTime: (0, _common.getTime)() + 300
   });
 });
+window.taskQueueFunctor = taskQueueFunctor;
 
 var peekTask = function peekTask() {
   return map(_heapify.peek)(taskQueueFunctor);
@@ -18950,22 +18957,7 @@ window.popTask = popTask;
 window.peekTask = peekTask; // 
 
 window.pushTask = pushTask;
-window.Task = _funTask.default;
-
-var deadlineFunctor = _functor.Functor.of({
-  time: 0
-}); // updateDeadline :: () -> Functor
-
-
-var updateDeadline = function updateDeadline() {
-  return map(function (a) {
-    return Object.assign(a, {
-      time: (0, _common.getTime)() + _common.frameLength
-    });
-  })(deadlineFunctor);
-};
-
-window.updateDeadline = updateDeadline; // const addFrameLength = 
+window.Task = _funTask.default; // const addFrameLength = 
 
 /** 
  * ::fTest cb -> 

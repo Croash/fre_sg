@@ -19,6 +19,8 @@ const pushTask = compose(
   (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
 )
 
+window.taskQueueFunctor = taskQueueFunctor
+
 export { taskQueueFunctor }
 
 export const peekTask = () => map(peek)(taskQueueFunctor)
@@ -36,13 +38,6 @@ window.peekTask = peekTask
 window.pushTask = pushTask
 window.Task = Task
 
-
-let deadlineFunctor = Functor.of({ time: 0 })
-// updateDeadline :: () -> Functor
-const updateDeadline = () => map((a) => Object.assign(a, {
-  time: getTime() + frameLength
-}))(deadlineFunctor)
-window.updateDeadline = updateDeadline
 // const addFrameLength = 
 
 /** 
