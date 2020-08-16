@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { push, pop, peek } from '../utils/heapify'
 import { Functor, Maybe, Either } from '../functor'
 import { frameLength ,getTime, shouldYield } from './common'
+import { planWork } from './planwork'
 import Task from 'fun-task'
 
 const { compose, curry, map, ap, prop, chain } = R
@@ -10,33 +11,39 @@ const taskQueue = []
 // scheduleCallback => planWork[flushWork[flush]]
 
 const taskQueueFunctor = Functor.of([])
-// :: pushTaskBase ft -> ( ft -> ft )
+// pushTaskBase:: ft -> ( ft -> ft )
 const pushTaskBase = map(curry(push))(taskQueueFunctor)
-// ::pushTask  ( -> ) -> taskqFunctor
+// pushTask::  ( -> ) -> taskqFunctor
 const pushTask = compose(
   ap(pushTaskBase),
   (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
 )
+
+export { taskQueueFunctor }
+
+export const peekTask = () => map(peek)(taskQueueFunctor)
+
+export const popTask = () => map(pop)(taskQueueFunctor)
+
+// window.pushTask = pushTask
+
+window.prop = prop
+window.popTask = popTask
+
+window.peekTask = peekTask
+
 // 
 window.pushTask = pushTask
 window.Task = Task
 
 
 let deadlineFunctor = Functor.of({ time: 0 })
-// :: updateDeadline () -> Functor
+// updateDeadline :: () -> Functor
 const updateDeadline = () => map((a) => Object.assign(a, {
   time: getTime() + frameLength
 }))(deadlineFunctor)
 window.updateDeadline = updateDeadline
 // const addFrameLength = 
-
-
-const planWorkTask = f => Task.create((onSuccess, onFailure) => {
-  const timeout = setTimeout(f)
-  return () => {
-    clearTimeout(timeout)
-  }
-})
 
 /** 
  * ::fTest cb -> 
@@ -51,7 +58,8 @@ const planWorkTask = f => Task.create((onSuccess, onFailure) => {
 
 // 今天到此位置 好难啊
 
-
+// todo flush
+// tail recurse and finish scheduler ! so xx hapi!
 
 export function scheduleCallback(callback) {
   const startTime = getTime()

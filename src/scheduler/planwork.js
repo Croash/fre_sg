@@ -1,5 +1,13 @@
+import * as R from 'ramda'
+import { Either, Left, Right } from '../functor'
+// import { shouldYield } from './common'
+import { getTime, shouldYield } from './common'
+import { peekTask, popTask } from './index'
+
+const { curry, compose, map, prop } = R
+
 // getTime 有问题，应该修改成传入而非使用getTime
-const flushWork = (cb) => {
+export const flushWork = (cb) => {
   console.log(cb)
   if(cb && cb(getTime())) {
     // 因为用了settimeout，是否使用IO????
@@ -26,6 +34,61 @@ let f = () => {
     return mem<3
   }
 }
+
+// const taskCheck = 
+
+// const taskCheckBase = curry(taskCheck)
+// tb:: currentTask -> Right||Left
+// const tb = 
+
+const consoleFunc = (functor) => {
+  console.log(functor)
+  return functor
+}
+
+// 
+const flushBase = compose(
+  // flushBase,
+  // (v) => flushBase(v),
+  consoleFunc,
+  Either(
+    // ({ currentTask }) => !!currentTask,
+    compose(t => !!t, prop('currentTask'), prop('_value')),
+    compose(
+      (v) => flushBase(v),
+      // consoleFunc,
+
+      Either(
+        v => prop('currentTask')(v),
+        compose(
+          ({ didout, currentTask }) => {
+          const next = currentTask.callback(didout)
+          next ? (currentTask.callback = next) : popTask()
+          return prop('_value')(peekTask())
+          },
+          prop('_value')
+        )
+      ), 
+      ({ initTime, currentTask }) => {
+        console.log({ initTime, currentTask })
+        const didout = initTime < currentTask.duetime
+        console.log(didout && shouldYield())
+        return didout && shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask: null })
+      },
+      // prop('_value'),
+      // consoleFunc,let func1234 = () => {let testFunct1 =  () => { pushTask(()=>{console.log('123')}); pushTask(()=>{connsole.log('456')}) };testFunct1();flushBase(peekTask()._value)};func1234()
+    )
+  ),
+  (currentTask) => {
+    const initTime = getTime()
+    // console.log(initTime)
+    return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
+  }
+) // (task)
+
+window.flushBase = flushBase
+
+// const 
 /**
  * const newFunc = f()
  * 

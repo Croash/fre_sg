@@ -17304,7 +17304,19 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Either", {
   enumerable: true,
   get: function () {
-    return _Either.default;
+    return _Either.Either;
+  }
+});
+Object.defineProperty(exports, "Left", {
+  enumerable: true,
+  get: function () {
+    return _Either.Left;
+  }
+});
+Object.defineProperty(exports, "Right", {
+  enumerable: true,
+  get: function () {
+    return _Either.Right;
   }
 });
 Object.defineProperty(exports, "Functor", {
@@ -17326,7 +17338,7 @@ Object.defineProperty(exports, "Maybe", {
   }
 });
 
-var _Either = _interopRequireDefault(require("./Either"));
+var _Either = require("./Either");
 
 var _Functor = _interopRequireDefault(require("./Functor"));
 
@@ -17356,7 +17368,140 @@ function shouldYield() {
 
 var frameLength = 1000 / 60;
 exports.frameLength = frameLength;
-},{}],"node_modules/fantasy-land/index.js":[function(require,module,exports) {
+},{}],"src/scheduler/planwork.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.planWork = exports.flushWork = void 0;
+
+var R = _interopRequireWildcard(require("ramda"));
+
+var _functor = require("../functor");
+
+var _common = require("./common");
+
+var _index = require("./index");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// import { shouldYield } from './common'
+var curry = R.curry,
+    compose = R.compose,
+    map = R.map,
+    prop = R.prop; // getTime 有问题，应该修改成传入而非使用getTime
+
+var flushWork = function flushWork(cb) {
+  console.log(cb);
+
+  if (cb && cb((0, _common.getTime)())) {
+    // 因为用了settimeout，是否使用IO????
+    // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
+    planWork(function () {
+      return flushWork(cb);
+    });
+  }
+}; // ok 就这样配合一下就好了，之后不需要添加
+// planwork 其实是板机，启动后续程序用的
+
+
+exports.flushWork = flushWork;
+
+var planWork = function () {
+  if (typeof MessageChannel !== 'undefined') {
+    var _MessageChannel = new MessageChannel(),
+        port1 = _MessageChannel.port1,
+        port2 = _MessageChannel.port2;
+
+    port1.onmessage = flushWork;
+    return function (cb) {
+      return cb ? requestAnimationFrame(cb) : port2.postMessage(null);
+    };
+  }
+
+  return function (cb) {
+    return setTimeout(cb || flushWork);
+  };
+}();
+
+exports.planWork = planWork;
+
+var f = function f() {
+  var mem = 1;
+  return function () {
+    mem < 3 && mem++;
+    return mem < 3;
+  };
+}; // const taskCheck = 
+// const taskCheckBase = curry(taskCheck)
+// tb:: currentTask -> Right||Left
+// const tb = 
+
+
+var consoleFunc = function consoleFunc(functor) {
+  console.log(functor);
+  return functor;
+}; // 
+
+
+var flushBase = compose( // flushBase,
+// (v) => flushBase(v),
+consoleFunc, (0, _functor.Either)( // ({ currentTask }) => !!currentTask,
+compose(function (t) {
+  return !!t;
+}, prop('currentTask'), prop('_value')), compose(function (v) {
+  return flushBase(v);
+}, // consoleFunc,
+(0, _functor.Either)(function (v) {
+  return prop('currentTask')(v);
+}, compose(function (_ref) {
+  var didout = _ref.didout,
+      currentTask = _ref.currentTask;
+  var next = currentTask.callback(didout);
+  next ? currentTask.callback = next : (0, _index.popTask)();
+  return prop('_value')((0, _index.peekTask)());
+}, prop('_value'))), function (_ref2) {
+  var initTime = _ref2.initTime,
+      currentTask = _ref2.currentTask;
+  console.log({
+    initTime: initTime,
+    currentTask: currentTask
+  });
+  var didout = initTime < currentTask.duetime;
+  console.log(didout && (0, _common.shouldYield)());
+  return didout && (0, _common.shouldYield)() ? _functor.Right.of({
+    didout: didout,
+    currentTask: currentTask
+  }) : _functor.Left.of({
+    currentTask: null
+  });
+} // prop('_value'),
+// consoleFunc,let func1234 = () => {let testFunct1 =  () => { pushTask(()=>{console.log('123')}); pushTask(()=>{connsole.log('456')}) };testFunct1();flushBase(peekTask()._value)};func1234()
+)), function (currentTask) {
+  var initTime = (0, _common.getTime)(); // console.log(initTime)
+
+  return currentTask ? _functor.Right.of({
+    initTime: initTime,
+    currentTask: currentTask
+  }) : _functor.Left.of({
+    currentTask: currentTask
+  });
+}); // (task)
+
+window.flushBase = flushBase; // const 
+
+/**
+ * const newFunc = f()
+ * 
+ * flushWork(f)
+ * 
+ * 这样，flushwork 可以保证每一个planwork启动后，触发结束cb然后做判断再继续planwork
+ * 
+ */
+},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./index":"src/scheduler/index.js"}],"node_modules/fantasy-land/index.js":[function(require,module,exports) {
 (function() {
 
   'use strict';
@@ -18746,6 +18891,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.scheduleCallback = scheduleCallback;
+exports.popTask = exports.peekTask = exports.taskQueueFunctor = void 0;
 
 var R = _interopRequireWildcard(require("ramda"));
 
@@ -18754,6 +18900,8 @@ var _heapify = require("../utils/heapify");
 var _functor = require("../functor");
 
 var _common = require("./common");
+
+var _planwork = require("./planwork");
 
 var _funTask = _interopRequireDefault(require("fun-task"));
 
@@ -18771,10 +18919,11 @@ var compose = R.compose,
     chain = R.chain;
 var taskQueue = []; // scheduleCallback => planWork[flushWork[flush]]
 
-var taskQueueFunctor = _functor.Functor.of([]); // :: pushTaskBase ft -> ( ft -> ft )
+var taskQueueFunctor = _functor.Functor.of([]); // pushTaskBase:: ft -> ( ft -> ft )
 
 
-var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // ::pushTask  ( -> ) -> taskqFunctor
+exports.taskQueueFunctor = taskQueueFunctor;
+var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // pushTask::  ( -> ) -> taskqFunctor
 
 var pushTask = compose(ap(pushTaskBase), function (cb) {
   return _functor.Functor.of({
@@ -18782,14 +18931,30 @@ var pushTask = compose(ap(pushTaskBase), function (cb) {
     startTime: (0, _common.getTime)(),
     dueTime: (0, _common.getTime)() + 300
   });
-}); // 
+});
+
+var peekTask = function peekTask() {
+  return map(_heapify.peek)(taskQueueFunctor);
+};
+
+exports.peekTask = peekTask;
+
+var popTask = function popTask() {
+  return map(_heapify.pop)(taskQueueFunctor);
+}; // window.pushTask = pushTask
+
+
+exports.popTask = popTask;
+window.prop = prop;
+window.popTask = popTask;
+window.peekTask = peekTask; // 
 
 window.pushTask = pushTask;
 window.Task = _funTask.default;
 
 var deadlineFunctor = _functor.Functor.of({
   time: 0
-}); // :: updateDeadline () -> Functor
+}); // updateDeadline :: () -> Functor
 
 
 var updateDeadline = function updateDeadline() {
@@ -18802,14 +18967,6 @@ var updateDeadline = function updateDeadline() {
 
 window.updateDeadline = updateDeadline; // const addFrameLength = 
 
-var planWorkTask = function planWorkTask(f) {
-  return _funTask.default.create(function (onSuccess, onFailure) {
-    var timeout = setTimeout(f);
-    return function () {
-      clearTimeout(timeout);
-    };
-  });
-};
 /** 
  * ::fTest cb -> 
  * const fTest = compose( ,map(cb => (cb && cb(getTime)) ? cb || null),Maybe.of )
@@ -18820,7 +18977,8 @@ var planWorkTask = function planWorkTask(f) {
  */
 // const scCallback = compose(planWork, pushTask) // 存疑
 // 今天到此位置 好难啊
-
+// todo flush
+// tail recurse and finish scheduler ! so xx hapi!
 
 function scheduleCallback(callback) {
   var startTime = (0, _common.getTime)();
@@ -18836,7 +18994,7 @@ function scheduleCallback(callback) {
 
 window.Maybe = _functor.Maybe;
 window.Either = _functor.Either;
-},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","fun-task":"node_modules/fun-task/lib/index.js"}],"src/index.js":[function(require,module,exports) {
+},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./planwork":"src/scheduler/planwork.js","fun-task":"node_modules/fun-task/lib/index.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _scheduler = require("./scheduler");
@@ -18870,7 +19028,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49479" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51986" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
