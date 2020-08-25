@@ -27,8 +27,10 @@ const scheduleCallback = (callback) => {
   })
   console.log(taskQueueFunctor)
   planWork(
-    () => flushBase(
-      peekTask()._value
+    () => flushWork(
+      () => flushBase(
+        peekTask()._value
+      )
     )
   )
 }

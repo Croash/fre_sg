@@ -17487,9 +17487,10 @@ var compose = R.compose,
 // todo currentTask => 
 
 var flushWork = function flushWork(cb) {
-  var t = (0, _common.getTime)();
+  var t = (0, _common.getTime)(); // t要更新的，这个是用来做当前帧起始时间用的，要是把getTime放入flushBase来获取initTime
+  // 会有问题，帧initTime直接变成了动态的，这一帧一辈子都结束不了了。更新deadlineTime
+
   (0, _common.updateDeadline)(t);
-  console.log('????');
 
   if (cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
@@ -17576,12 +17577,10 @@ function (t) {
     didout: didout,
     currentTask: currentTask
   }) : _functor.Left.of({
-    currentTask: null
+    currentTask: currentTask
   });
 })), function (currentTask) {
   var initTime = (0, _common.getTime)();
-  console.log(currentTask);
-  console.log(initTime);
   return currentTask ? _functor.Right.of({
     initTime: initTime,
     currentTask: currentTask
@@ -17649,7 +17648,9 @@ var scheduleCallback = function scheduleCallback(callback) {
   });
   console.log(_taskQueue.taskQueueFunctor);
   (0, _planwork.planWork)(function () {
-    return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
+    return (0, _planwork.flushWork)(function () {
+      return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
+    });
   });
 };
 
@@ -17689,7 +17690,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64533" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55552" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

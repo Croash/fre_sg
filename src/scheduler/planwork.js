@@ -10,6 +10,8 @@ const { compose, prop } = R
 // todo currentTask => 
 const flushWork = (cb) => {
   const t = getTime()
+  // t要更新的，这个是用来做当前帧起始时间用的，要是把getTime放入flushBase来获取initTime
+  // 会有问题，帧initTime直接变成了动态的，这一帧一辈子都结束不了了。更新deadlineTime
   updateDeadline(t)
   if(cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
@@ -89,14 +91,12 @@ const flushBase = compose(
         console.log('initTime', initTime)
         console.log('dueTime', currentTask.dueTime)
         console.log('didout', didout)
-        return didout || !shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask: null })
+        return didout || !shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask })
       },
     )
   ),
   (currentTask) => {
     const initTime = getTime()
-    console.log(currentTask)
-    console.log(initTime)
     return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
   }
 )
