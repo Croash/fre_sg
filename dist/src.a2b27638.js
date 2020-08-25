@@ -17484,10 +17484,12 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var compose = R.compose,
     prop = R.prop; // getTime 有问题，应该修改成传入而非使用getTime
 // flushWork:: callBack => void
+// todo currentTask => 
 
 var flushWork = function flushWork(cb) {
   var t = (0, _common.getTime)();
   (0, _common.updateDeadline)(t);
+  console.log('????');
 
   if (cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
@@ -17566,7 +17568,10 @@ function (t) {
 )), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
-  var didout = initTime < currentTask.dueTime;
+  var didout = currentTask.dueTime <= initTime;
+  console.log('initTime', initTime);
+  console.log('dueTime', currentTask.dueTime);
+  console.log('didout', didout);
   return didout && (0, _common.shouldYield)() ? _functor.Right.of({
     didout: didout,
     currentTask: currentTask
@@ -17625,6 +17630,21 @@ var compose = R.compose,
 
 var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(callback);
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test1');
+  });
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test2');
+  });
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test3');
+  });
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test4');
+  });
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test5');
+  });
   (0, _planwork.planWork)(function () {
     return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
   });

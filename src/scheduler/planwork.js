@@ -7,9 +7,11 @@ const { compose, prop } = R
 
 // getTime 有问题，应该修改成传入而非使用getTime
 // flushWork:: callBack => void
+// todo currentTask => 
 const flushWork = (cb) => {
   const t = getTime()
   updateDeadline(t)
+  console.log('????')
   if(cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
@@ -84,7 +86,10 @@ const flushBase = compose(
         )
       ), 
       ({ initTime, currentTask }) => {
-        const didout = initTime < currentTask.dueTime
+        const didout =  currentTask.dueTime <= initTime
+        console.log('initTime', initTime)
+        console.log('dueTime', currentTask.dueTime)
+        console.log('didout', didout)
         return didout && shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask: null })
       },
     )
