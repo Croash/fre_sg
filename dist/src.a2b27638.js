@@ -17056,73 +17056,7 @@ var _zipWith = _interopRequireDefault(require("./zipWith.js"));
 var _thunkify = _interopRequireDefault(require("./thunkify.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./F.js":"node_modules/ramda/es/F.js","./T.js":"node_modules/ramda/es/T.js","./__.js":"node_modules/ramda/es/__.js","./add.js":"node_modules/ramda/es/add.js","./addIndex.js":"node_modules/ramda/es/addIndex.js","./adjust.js":"node_modules/ramda/es/adjust.js","./all.js":"node_modules/ramda/es/all.js","./allPass.js":"node_modules/ramda/es/allPass.js","./always.js":"node_modules/ramda/es/always.js","./and.js":"node_modules/ramda/es/and.js","./any.js":"node_modules/ramda/es/any.js","./anyPass.js":"node_modules/ramda/es/anyPass.js","./ap.js":"node_modules/ramda/es/ap.js","./aperture.js":"node_modules/ramda/es/aperture.js","./append.js":"node_modules/ramda/es/append.js","./apply.js":"node_modules/ramda/es/apply.js","./applySpec.js":"node_modules/ramda/es/applySpec.js","./applyTo.js":"node_modules/ramda/es/applyTo.js","./ascend.js":"node_modules/ramda/es/ascend.js","./assoc.js":"node_modules/ramda/es/assoc.js","./assocPath.js":"node_modules/ramda/es/assocPath.js","./binary.js":"node_modules/ramda/es/binary.js","./bind.js":"node_modules/ramda/es/bind.js","./both.js":"node_modules/ramda/es/both.js","./call.js":"node_modules/ramda/es/call.js","./chain.js":"node_modules/ramda/es/chain.js","./clamp.js":"node_modules/ramda/es/clamp.js","./clone.js":"node_modules/ramda/es/clone.js","./comparator.js":"node_modules/ramda/es/comparator.js","./complement.js":"node_modules/ramda/es/complement.js","./compose.js":"node_modules/ramda/es/compose.js","./composeK.js":"node_modules/ramda/es/composeK.js","./composeP.js":"node_modules/ramda/es/composeP.js","./composeWith.js":"node_modules/ramda/es/composeWith.js","./concat.js":"node_modules/ramda/es/concat.js","./cond.js":"node_modules/ramda/es/cond.js","./construct.js":"node_modules/ramda/es/construct.js","./constructN.js":"node_modules/ramda/es/constructN.js","./contains.js":"node_modules/ramda/es/contains.js","./converge.js":"node_modules/ramda/es/converge.js","./countBy.js":"node_modules/ramda/es/countBy.js","./curry.js":"node_modules/ramda/es/curry.js","./curryN.js":"node_modules/ramda/es/curryN.js","./dec.js":"node_modules/ramda/es/dec.js","./defaultTo.js":"node_modules/ramda/es/defaultTo.js","./descend.js":"node_modules/ramda/es/descend.js","./difference.js":"node_modules/ramda/es/difference.js","./differenceWith.js":"node_modules/ramda/es/differenceWith.js","./dissoc.js":"node_modules/ramda/es/dissoc.js","./dissocPath.js":"node_modules/ramda/es/dissocPath.js","./divide.js":"node_modules/ramda/es/divide.js","./drop.js":"node_modules/ramda/es/drop.js","./dropLast.js":"node_modules/ramda/es/dropLast.js","./dropLastWhile.js":"node_modules/ramda/es/dropLastWhile.js","./dropRepeats.js":"node_modules/ramda/es/dropRepeats.js","./dropRepeatsWith.js":"node_modules/ramda/es/dropRepeatsWith.js","./dropWhile.js":"node_modules/ramda/es/dropWhile.js","./either.js":"node_modules/ramda/es/either.js","./empty.js":"node_modules/ramda/es/empty.js","./endsWith.js":"node_modules/ramda/es/endsWith.js","./eqBy.js":"node_modules/ramda/es/eqBy.js","./eqProps.js":"node_modules/ramda/es/eqProps.js","./equals.js":"node_modules/ramda/es/equals.js","./evolve.js":"node_modules/ramda/es/evolve.js","./filter.js":"node_modules/ramda/es/filter.js","./find.js":"node_modules/ramda/es/find.js","./findIndex.js":"node_modules/ramda/es/findIndex.js","./findLast.js":"node_modules/ramda/es/findLast.js","./findLastIndex.js":"node_modules/ramda/es/findLastIndex.js","./flatten.js":"node_modules/ramda/es/flatten.js","./flip.js":"node_modules/ramda/es/flip.js","./forEach.js":"node_modules/ramda/es/forEach.js","./forEachObjIndexed.js":"node_modules/ramda/es/forEachObjIndexed.js","./fromPairs.js":"node_modules/ramda/es/fromPairs.js","./groupBy.js":"node_modules/ramda/es/groupBy.js","./groupWith.js":"node_modules/ramda/es/groupWith.js","./gt.js":"node_modules/ramda/es/gt.js","./gte.js":"node_modules/ramda/es/gte.js","./has.js":"node_modules/ramda/es/has.js","./hasIn.js":"node_modules/ramda/es/hasIn.js","./hasPath.js":"node_modules/ramda/es/hasPath.js","./head.js":"node_modules/ramda/es/head.js","./identical.js":"node_modules/ramda/es/identical.js","./identity.js":"node_modules/ramda/es/identity.js","./ifElse.js":"node_modules/ramda/es/ifElse.js","./inc.js":"node_modules/ramda/es/inc.js","./includes.js":"node_modules/ramda/es/includes.js","./indexBy.js":"node_modules/ramda/es/indexBy.js","./indexOf.js":"node_modules/ramda/es/indexOf.js","./init.js":"node_modules/ramda/es/init.js","./innerJoin.js":"node_modules/ramda/es/innerJoin.js","./insert.js":"node_modules/ramda/es/insert.js","./insertAll.js":"node_modules/ramda/es/insertAll.js","./intersection.js":"node_modules/ramda/es/intersection.js","./intersperse.js":"node_modules/ramda/es/intersperse.js","./into.js":"node_modules/ramda/es/into.js","./invert.js":"node_modules/ramda/es/invert.js","./invertObj.js":"node_modules/ramda/es/invertObj.js","./invoker.js":"node_modules/ramda/es/invoker.js","./is.js":"node_modules/ramda/es/is.js","./isEmpty.js":"node_modules/ramda/es/isEmpty.js","./isNil.js":"node_modules/ramda/es/isNil.js","./join.js":"node_modules/ramda/es/join.js","./juxt.js":"node_modules/ramda/es/juxt.js","./keys.js":"node_modules/ramda/es/keys.js","./keysIn.js":"node_modules/ramda/es/keysIn.js","./last.js":"node_modules/ramda/es/last.js","./lastIndexOf.js":"node_modules/ramda/es/lastIndexOf.js","./length.js":"node_modules/ramda/es/length.js","./lens.js":"node_modules/ramda/es/lens.js","./lensIndex.js":"node_modules/ramda/es/lensIndex.js","./lensPath.js":"node_modules/ramda/es/lensPath.js","./lensProp.js":"node_modules/ramda/es/lensProp.js","./lift.js":"node_modules/ramda/es/lift.js","./liftN.js":"node_modules/ramda/es/liftN.js","./lt.js":"node_modules/ramda/es/lt.js","./lte.js":"node_modules/ramda/es/lte.js","./map.js":"node_modules/ramda/es/map.js","./mapAccum.js":"node_modules/ramda/es/mapAccum.js","./mapAccumRight.js":"node_modules/ramda/es/mapAccumRight.js","./mapObjIndexed.js":"node_modules/ramda/es/mapObjIndexed.js","./match.js":"node_modules/ramda/es/match.js","./mathMod.js":"node_modules/ramda/es/mathMod.js","./max.js":"node_modules/ramda/es/max.js","./maxBy.js":"node_modules/ramda/es/maxBy.js","./mean.js":"node_modules/ramda/es/mean.js","./median.js":"node_modules/ramda/es/median.js","./memoizeWith.js":"node_modules/ramda/es/memoizeWith.js","./merge.js":"node_modules/ramda/es/merge.js","./mergeAll.js":"node_modules/ramda/es/mergeAll.js","./mergeDeepLeft.js":"node_modules/ramda/es/mergeDeepLeft.js","./mergeDeepRight.js":"node_modules/ramda/es/mergeDeepRight.js","./mergeDeepWith.js":"node_modules/ramda/es/mergeDeepWith.js","./mergeDeepWithKey.js":"node_modules/ramda/es/mergeDeepWithKey.js","./mergeLeft.js":"node_modules/ramda/es/mergeLeft.js","./mergeRight.js":"node_modules/ramda/es/mergeRight.js","./mergeWith.js":"node_modules/ramda/es/mergeWith.js","./mergeWithKey.js":"node_modules/ramda/es/mergeWithKey.js","./min.js":"node_modules/ramda/es/min.js","./minBy.js":"node_modules/ramda/es/minBy.js","./modulo.js":"node_modules/ramda/es/modulo.js","./move.js":"node_modules/ramda/es/move.js","./multiply.js":"node_modules/ramda/es/multiply.js","./nAry.js":"node_modules/ramda/es/nAry.js","./negate.js":"node_modules/ramda/es/negate.js","./none.js":"node_modules/ramda/es/none.js","./not.js":"node_modules/ramda/es/not.js","./nth.js":"node_modules/ramda/es/nth.js","./nthArg.js":"node_modules/ramda/es/nthArg.js","./o.js":"node_modules/ramda/es/o.js","./objOf.js":"node_modules/ramda/es/objOf.js","./of.js":"node_modules/ramda/es/of.js","./omit.js":"node_modules/ramda/es/omit.js","./once.js":"node_modules/ramda/es/once.js","./or.js":"node_modules/ramda/es/or.js","./otherwise.js":"node_modules/ramda/es/otherwise.js","./over.js":"node_modules/ramda/es/over.js","./pair.js":"node_modules/ramda/es/pair.js","./partial.js":"node_modules/ramda/es/partial.js","./partialRight.js":"node_modules/ramda/es/partialRight.js","./partition.js":"node_modules/ramda/es/partition.js","./path.js":"node_modules/ramda/es/path.js","./paths.js":"node_modules/ramda/es/paths.js","./pathEq.js":"node_modules/ramda/es/pathEq.js","./pathOr.js":"node_modules/ramda/es/pathOr.js","./pathSatisfies.js":"node_modules/ramda/es/pathSatisfies.js","./pick.js":"node_modules/ramda/es/pick.js","./pickAll.js":"node_modules/ramda/es/pickAll.js","./pickBy.js":"node_modules/ramda/es/pickBy.js","./pipe.js":"node_modules/ramda/es/pipe.js","./pipeK.js":"node_modules/ramda/es/pipeK.js","./pipeP.js":"node_modules/ramda/es/pipeP.js","./pipeWith.js":"node_modules/ramda/es/pipeWith.js","./pluck.js":"node_modules/ramda/es/pluck.js","./prepend.js":"node_modules/ramda/es/prepend.js","./product.js":"node_modules/ramda/es/product.js","./project.js":"node_modules/ramda/es/project.js","./prop.js":"node_modules/ramda/es/prop.js","./propEq.js":"node_modules/ramda/es/propEq.js","./propIs.js":"node_modules/ramda/es/propIs.js","./propOr.js":"node_modules/ramda/es/propOr.js","./propSatisfies.js":"node_modules/ramda/es/propSatisfies.js","./props.js":"node_modules/ramda/es/props.js","./range.js":"node_modules/ramda/es/range.js","./reduce.js":"node_modules/ramda/es/reduce.js","./reduceBy.js":"node_modules/ramda/es/reduceBy.js","./reduceRight.js":"node_modules/ramda/es/reduceRight.js","./reduceWhile.js":"node_modules/ramda/es/reduceWhile.js","./reduced.js":"node_modules/ramda/es/reduced.js","./reject.js":"node_modules/ramda/es/reject.js","./remove.js":"node_modules/ramda/es/remove.js","./repeat.js":"node_modules/ramda/es/repeat.js","./replace.js":"node_modules/ramda/es/replace.js","./reverse.js":"node_modules/ramda/es/reverse.js","./scan.js":"node_modules/ramda/es/scan.js","./sequence.js":"node_modules/ramda/es/sequence.js","./set.js":"node_modules/ramda/es/set.js","./slice.js":"node_modules/ramda/es/slice.js","./sort.js":"node_modules/ramda/es/sort.js","./sortBy.js":"node_modules/ramda/es/sortBy.js","./sortWith.js":"node_modules/ramda/es/sortWith.js","./split.js":"node_modules/ramda/es/split.js","./splitAt.js":"node_modules/ramda/es/splitAt.js","./splitEvery.js":"node_modules/ramda/es/splitEvery.js","./splitWhen.js":"node_modules/ramda/es/splitWhen.js","./startsWith.js":"node_modules/ramda/es/startsWith.js","./subtract.js":"node_modules/ramda/es/subtract.js","./sum.js":"node_modules/ramda/es/sum.js","./symmetricDifference.js":"node_modules/ramda/es/symmetricDifference.js","./symmetricDifferenceWith.js":"node_modules/ramda/es/symmetricDifferenceWith.js","./tail.js":"node_modules/ramda/es/tail.js","./take.js":"node_modules/ramda/es/take.js","./takeLast.js":"node_modules/ramda/es/takeLast.js","./takeLastWhile.js":"node_modules/ramda/es/takeLastWhile.js","./takeWhile.js":"node_modules/ramda/es/takeWhile.js","./tap.js":"node_modules/ramda/es/tap.js","./test.js":"node_modules/ramda/es/test.js","./andThen.js":"node_modules/ramda/es/andThen.js","./times.js":"node_modules/ramda/es/times.js","./toLower.js":"node_modules/ramda/es/toLower.js","./toPairs.js":"node_modules/ramda/es/toPairs.js","./toPairsIn.js":"node_modules/ramda/es/toPairsIn.js","./toString.js":"node_modules/ramda/es/toString.js","./toUpper.js":"node_modules/ramda/es/toUpper.js","./transduce.js":"node_modules/ramda/es/transduce.js","./transpose.js":"node_modules/ramda/es/transpose.js","./traverse.js":"node_modules/ramda/es/traverse.js","./trim.js":"node_modules/ramda/es/trim.js","./tryCatch.js":"node_modules/ramda/es/tryCatch.js","./type.js":"node_modules/ramda/es/type.js","./unapply.js":"node_modules/ramda/es/unapply.js","./unary.js":"node_modules/ramda/es/unary.js","./uncurryN.js":"node_modules/ramda/es/uncurryN.js","./unfold.js":"node_modules/ramda/es/unfold.js","./union.js":"node_modules/ramda/es/union.js","./unionWith.js":"node_modules/ramda/es/unionWith.js","./uniq.js":"node_modules/ramda/es/uniq.js","./uniqBy.js":"node_modules/ramda/es/uniqBy.js","./uniqWith.js":"node_modules/ramda/es/uniqWith.js","./unless.js":"node_modules/ramda/es/unless.js","./unnest.js":"node_modules/ramda/es/unnest.js","./until.js":"node_modules/ramda/es/until.js","./update.js":"node_modules/ramda/es/update.js","./useWith.js":"node_modules/ramda/es/useWith.js","./values.js":"node_modules/ramda/es/values.js","./valuesIn.js":"node_modules/ramda/es/valuesIn.js","./view.js":"node_modules/ramda/es/view.js","./when.js":"node_modules/ramda/es/when.js","./where.js":"node_modules/ramda/es/where.js","./whereEq.js":"node_modules/ramda/es/whereEq.js","./without.js":"node_modules/ramda/es/without.js","./xor.js":"node_modules/ramda/es/xor.js","./xprod.js":"node_modules/ramda/es/xprod.js","./zip.js":"node_modules/ramda/es/zip.js","./zipObj.js":"node_modules/ramda/es/zipObj.js","./zipWith.js":"node_modules/ramda/es/zipWith.js","./thunkify.js":"node_modules/ramda/es/thunkify.js"}],"src/utils/heapify.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.push = push;
-exports.pop = pop;
-exports.peek = peek;
-
-function push(heap, node) {
-  var i = heap.length;
-  heap.push(node);
-  siftUp(heap, node, i);
-  return heap;
-}
-
-function pop(heap) {
-  var first = heap[0];
-  if (!first) return null;
-  var last = heap.pop();
-
-  if (last !== first) {
-    heap[0] = last;
-    siftDown(heap, last, 0);
-  }
-
-  return first;
-}
-
-function siftUp(heap, node, i) {
-  while (i > 0) {
-    var pi = i - 1 >>> 1;
-    var parent = heap[pi];
-    if (cmp(parent, node) <= 0) return;
-    heap[pi] = node;
-    heap[i] = parent;
-    i = pi;
-  }
-
-  return heap;
-}
-
-function siftDown(heap, node, i) {
-  for (;;) {
-    var li = i * 2 + 1;
-    var left = heap[li];
-    if (li >= heap.length) return heap;
-    var ri = li + 1;
-    var right = heap[ri];
-    var ci = ri < heap.length && cmp(right, left) < 0 ? ri : li;
-    var child = heap[ci];
-    if (cmp(child, node) > 0) return heap;
-    heap[ci] = node;
-    heap[i] = child;
-    i = ci;
-  }
-}
-
-function cmp(a, b) {
-  return a.dueTime - b.dueTime;
-}
-
-function peek(heap) {
-  return heap[0] || null;
-} // 搞了一个堆，用 dueTime 做排序？ 做啥用的
-},{}],"src/functor/Either.js":[function(require,module,exports) {
+},{"./F.js":"node_modules/ramda/es/F.js","./T.js":"node_modules/ramda/es/T.js","./__.js":"node_modules/ramda/es/__.js","./add.js":"node_modules/ramda/es/add.js","./addIndex.js":"node_modules/ramda/es/addIndex.js","./adjust.js":"node_modules/ramda/es/adjust.js","./all.js":"node_modules/ramda/es/all.js","./allPass.js":"node_modules/ramda/es/allPass.js","./always.js":"node_modules/ramda/es/always.js","./and.js":"node_modules/ramda/es/and.js","./any.js":"node_modules/ramda/es/any.js","./anyPass.js":"node_modules/ramda/es/anyPass.js","./ap.js":"node_modules/ramda/es/ap.js","./aperture.js":"node_modules/ramda/es/aperture.js","./append.js":"node_modules/ramda/es/append.js","./apply.js":"node_modules/ramda/es/apply.js","./applySpec.js":"node_modules/ramda/es/applySpec.js","./applyTo.js":"node_modules/ramda/es/applyTo.js","./ascend.js":"node_modules/ramda/es/ascend.js","./assoc.js":"node_modules/ramda/es/assoc.js","./assocPath.js":"node_modules/ramda/es/assocPath.js","./binary.js":"node_modules/ramda/es/binary.js","./bind.js":"node_modules/ramda/es/bind.js","./both.js":"node_modules/ramda/es/both.js","./call.js":"node_modules/ramda/es/call.js","./chain.js":"node_modules/ramda/es/chain.js","./clamp.js":"node_modules/ramda/es/clamp.js","./clone.js":"node_modules/ramda/es/clone.js","./comparator.js":"node_modules/ramda/es/comparator.js","./complement.js":"node_modules/ramda/es/complement.js","./compose.js":"node_modules/ramda/es/compose.js","./composeK.js":"node_modules/ramda/es/composeK.js","./composeP.js":"node_modules/ramda/es/composeP.js","./composeWith.js":"node_modules/ramda/es/composeWith.js","./concat.js":"node_modules/ramda/es/concat.js","./cond.js":"node_modules/ramda/es/cond.js","./construct.js":"node_modules/ramda/es/construct.js","./constructN.js":"node_modules/ramda/es/constructN.js","./contains.js":"node_modules/ramda/es/contains.js","./converge.js":"node_modules/ramda/es/converge.js","./countBy.js":"node_modules/ramda/es/countBy.js","./curry.js":"node_modules/ramda/es/curry.js","./curryN.js":"node_modules/ramda/es/curryN.js","./dec.js":"node_modules/ramda/es/dec.js","./defaultTo.js":"node_modules/ramda/es/defaultTo.js","./descend.js":"node_modules/ramda/es/descend.js","./difference.js":"node_modules/ramda/es/difference.js","./differenceWith.js":"node_modules/ramda/es/differenceWith.js","./dissoc.js":"node_modules/ramda/es/dissoc.js","./dissocPath.js":"node_modules/ramda/es/dissocPath.js","./divide.js":"node_modules/ramda/es/divide.js","./drop.js":"node_modules/ramda/es/drop.js","./dropLast.js":"node_modules/ramda/es/dropLast.js","./dropLastWhile.js":"node_modules/ramda/es/dropLastWhile.js","./dropRepeats.js":"node_modules/ramda/es/dropRepeats.js","./dropRepeatsWith.js":"node_modules/ramda/es/dropRepeatsWith.js","./dropWhile.js":"node_modules/ramda/es/dropWhile.js","./either.js":"node_modules/ramda/es/either.js","./empty.js":"node_modules/ramda/es/empty.js","./endsWith.js":"node_modules/ramda/es/endsWith.js","./eqBy.js":"node_modules/ramda/es/eqBy.js","./eqProps.js":"node_modules/ramda/es/eqProps.js","./equals.js":"node_modules/ramda/es/equals.js","./evolve.js":"node_modules/ramda/es/evolve.js","./filter.js":"node_modules/ramda/es/filter.js","./find.js":"node_modules/ramda/es/find.js","./findIndex.js":"node_modules/ramda/es/findIndex.js","./findLast.js":"node_modules/ramda/es/findLast.js","./findLastIndex.js":"node_modules/ramda/es/findLastIndex.js","./flatten.js":"node_modules/ramda/es/flatten.js","./flip.js":"node_modules/ramda/es/flip.js","./forEach.js":"node_modules/ramda/es/forEach.js","./forEachObjIndexed.js":"node_modules/ramda/es/forEachObjIndexed.js","./fromPairs.js":"node_modules/ramda/es/fromPairs.js","./groupBy.js":"node_modules/ramda/es/groupBy.js","./groupWith.js":"node_modules/ramda/es/groupWith.js","./gt.js":"node_modules/ramda/es/gt.js","./gte.js":"node_modules/ramda/es/gte.js","./has.js":"node_modules/ramda/es/has.js","./hasIn.js":"node_modules/ramda/es/hasIn.js","./hasPath.js":"node_modules/ramda/es/hasPath.js","./head.js":"node_modules/ramda/es/head.js","./identical.js":"node_modules/ramda/es/identical.js","./identity.js":"node_modules/ramda/es/identity.js","./ifElse.js":"node_modules/ramda/es/ifElse.js","./inc.js":"node_modules/ramda/es/inc.js","./includes.js":"node_modules/ramda/es/includes.js","./indexBy.js":"node_modules/ramda/es/indexBy.js","./indexOf.js":"node_modules/ramda/es/indexOf.js","./init.js":"node_modules/ramda/es/init.js","./innerJoin.js":"node_modules/ramda/es/innerJoin.js","./insert.js":"node_modules/ramda/es/insert.js","./insertAll.js":"node_modules/ramda/es/insertAll.js","./intersection.js":"node_modules/ramda/es/intersection.js","./intersperse.js":"node_modules/ramda/es/intersperse.js","./into.js":"node_modules/ramda/es/into.js","./invert.js":"node_modules/ramda/es/invert.js","./invertObj.js":"node_modules/ramda/es/invertObj.js","./invoker.js":"node_modules/ramda/es/invoker.js","./is.js":"node_modules/ramda/es/is.js","./isEmpty.js":"node_modules/ramda/es/isEmpty.js","./isNil.js":"node_modules/ramda/es/isNil.js","./join.js":"node_modules/ramda/es/join.js","./juxt.js":"node_modules/ramda/es/juxt.js","./keys.js":"node_modules/ramda/es/keys.js","./keysIn.js":"node_modules/ramda/es/keysIn.js","./last.js":"node_modules/ramda/es/last.js","./lastIndexOf.js":"node_modules/ramda/es/lastIndexOf.js","./length.js":"node_modules/ramda/es/length.js","./lens.js":"node_modules/ramda/es/lens.js","./lensIndex.js":"node_modules/ramda/es/lensIndex.js","./lensPath.js":"node_modules/ramda/es/lensPath.js","./lensProp.js":"node_modules/ramda/es/lensProp.js","./lift.js":"node_modules/ramda/es/lift.js","./liftN.js":"node_modules/ramda/es/liftN.js","./lt.js":"node_modules/ramda/es/lt.js","./lte.js":"node_modules/ramda/es/lte.js","./map.js":"node_modules/ramda/es/map.js","./mapAccum.js":"node_modules/ramda/es/mapAccum.js","./mapAccumRight.js":"node_modules/ramda/es/mapAccumRight.js","./mapObjIndexed.js":"node_modules/ramda/es/mapObjIndexed.js","./match.js":"node_modules/ramda/es/match.js","./mathMod.js":"node_modules/ramda/es/mathMod.js","./max.js":"node_modules/ramda/es/max.js","./maxBy.js":"node_modules/ramda/es/maxBy.js","./mean.js":"node_modules/ramda/es/mean.js","./median.js":"node_modules/ramda/es/median.js","./memoizeWith.js":"node_modules/ramda/es/memoizeWith.js","./merge.js":"node_modules/ramda/es/merge.js","./mergeAll.js":"node_modules/ramda/es/mergeAll.js","./mergeDeepLeft.js":"node_modules/ramda/es/mergeDeepLeft.js","./mergeDeepRight.js":"node_modules/ramda/es/mergeDeepRight.js","./mergeDeepWith.js":"node_modules/ramda/es/mergeDeepWith.js","./mergeDeepWithKey.js":"node_modules/ramda/es/mergeDeepWithKey.js","./mergeLeft.js":"node_modules/ramda/es/mergeLeft.js","./mergeRight.js":"node_modules/ramda/es/mergeRight.js","./mergeWith.js":"node_modules/ramda/es/mergeWith.js","./mergeWithKey.js":"node_modules/ramda/es/mergeWithKey.js","./min.js":"node_modules/ramda/es/min.js","./minBy.js":"node_modules/ramda/es/minBy.js","./modulo.js":"node_modules/ramda/es/modulo.js","./move.js":"node_modules/ramda/es/move.js","./multiply.js":"node_modules/ramda/es/multiply.js","./nAry.js":"node_modules/ramda/es/nAry.js","./negate.js":"node_modules/ramda/es/negate.js","./none.js":"node_modules/ramda/es/none.js","./not.js":"node_modules/ramda/es/not.js","./nth.js":"node_modules/ramda/es/nth.js","./nthArg.js":"node_modules/ramda/es/nthArg.js","./o.js":"node_modules/ramda/es/o.js","./objOf.js":"node_modules/ramda/es/objOf.js","./of.js":"node_modules/ramda/es/of.js","./omit.js":"node_modules/ramda/es/omit.js","./once.js":"node_modules/ramda/es/once.js","./or.js":"node_modules/ramda/es/or.js","./otherwise.js":"node_modules/ramda/es/otherwise.js","./over.js":"node_modules/ramda/es/over.js","./pair.js":"node_modules/ramda/es/pair.js","./partial.js":"node_modules/ramda/es/partial.js","./partialRight.js":"node_modules/ramda/es/partialRight.js","./partition.js":"node_modules/ramda/es/partition.js","./path.js":"node_modules/ramda/es/path.js","./paths.js":"node_modules/ramda/es/paths.js","./pathEq.js":"node_modules/ramda/es/pathEq.js","./pathOr.js":"node_modules/ramda/es/pathOr.js","./pathSatisfies.js":"node_modules/ramda/es/pathSatisfies.js","./pick.js":"node_modules/ramda/es/pick.js","./pickAll.js":"node_modules/ramda/es/pickAll.js","./pickBy.js":"node_modules/ramda/es/pickBy.js","./pipe.js":"node_modules/ramda/es/pipe.js","./pipeK.js":"node_modules/ramda/es/pipeK.js","./pipeP.js":"node_modules/ramda/es/pipeP.js","./pipeWith.js":"node_modules/ramda/es/pipeWith.js","./pluck.js":"node_modules/ramda/es/pluck.js","./prepend.js":"node_modules/ramda/es/prepend.js","./product.js":"node_modules/ramda/es/product.js","./project.js":"node_modules/ramda/es/project.js","./prop.js":"node_modules/ramda/es/prop.js","./propEq.js":"node_modules/ramda/es/propEq.js","./propIs.js":"node_modules/ramda/es/propIs.js","./propOr.js":"node_modules/ramda/es/propOr.js","./propSatisfies.js":"node_modules/ramda/es/propSatisfies.js","./props.js":"node_modules/ramda/es/props.js","./range.js":"node_modules/ramda/es/range.js","./reduce.js":"node_modules/ramda/es/reduce.js","./reduceBy.js":"node_modules/ramda/es/reduceBy.js","./reduceRight.js":"node_modules/ramda/es/reduceRight.js","./reduceWhile.js":"node_modules/ramda/es/reduceWhile.js","./reduced.js":"node_modules/ramda/es/reduced.js","./reject.js":"node_modules/ramda/es/reject.js","./remove.js":"node_modules/ramda/es/remove.js","./repeat.js":"node_modules/ramda/es/repeat.js","./replace.js":"node_modules/ramda/es/replace.js","./reverse.js":"node_modules/ramda/es/reverse.js","./scan.js":"node_modules/ramda/es/scan.js","./sequence.js":"node_modules/ramda/es/sequence.js","./set.js":"node_modules/ramda/es/set.js","./slice.js":"node_modules/ramda/es/slice.js","./sort.js":"node_modules/ramda/es/sort.js","./sortBy.js":"node_modules/ramda/es/sortBy.js","./sortWith.js":"node_modules/ramda/es/sortWith.js","./split.js":"node_modules/ramda/es/split.js","./splitAt.js":"node_modules/ramda/es/splitAt.js","./splitEvery.js":"node_modules/ramda/es/splitEvery.js","./splitWhen.js":"node_modules/ramda/es/splitWhen.js","./startsWith.js":"node_modules/ramda/es/startsWith.js","./subtract.js":"node_modules/ramda/es/subtract.js","./sum.js":"node_modules/ramda/es/sum.js","./symmetricDifference.js":"node_modules/ramda/es/symmetricDifference.js","./symmetricDifferenceWith.js":"node_modules/ramda/es/symmetricDifferenceWith.js","./tail.js":"node_modules/ramda/es/tail.js","./take.js":"node_modules/ramda/es/take.js","./takeLast.js":"node_modules/ramda/es/takeLast.js","./takeLastWhile.js":"node_modules/ramda/es/takeLastWhile.js","./takeWhile.js":"node_modules/ramda/es/takeWhile.js","./tap.js":"node_modules/ramda/es/tap.js","./test.js":"node_modules/ramda/es/test.js","./andThen.js":"node_modules/ramda/es/andThen.js","./times.js":"node_modules/ramda/es/times.js","./toLower.js":"node_modules/ramda/es/toLower.js","./toPairs.js":"node_modules/ramda/es/toPairs.js","./toPairsIn.js":"node_modules/ramda/es/toPairsIn.js","./toString.js":"node_modules/ramda/es/toString.js","./toUpper.js":"node_modules/ramda/es/toUpper.js","./transduce.js":"node_modules/ramda/es/transduce.js","./transpose.js":"node_modules/ramda/es/transpose.js","./traverse.js":"node_modules/ramda/es/traverse.js","./trim.js":"node_modules/ramda/es/trim.js","./tryCatch.js":"node_modules/ramda/es/tryCatch.js","./type.js":"node_modules/ramda/es/type.js","./unapply.js":"node_modules/ramda/es/unapply.js","./unary.js":"node_modules/ramda/es/unary.js","./uncurryN.js":"node_modules/ramda/es/uncurryN.js","./unfold.js":"node_modules/ramda/es/unfold.js","./union.js":"node_modules/ramda/es/union.js","./unionWith.js":"node_modules/ramda/es/unionWith.js","./uniq.js":"node_modules/ramda/es/uniq.js","./uniqBy.js":"node_modules/ramda/es/uniqBy.js","./uniqWith.js":"node_modules/ramda/es/uniqWith.js","./unless.js":"node_modules/ramda/es/unless.js","./unnest.js":"node_modules/ramda/es/unnest.js","./until.js":"node_modules/ramda/es/until.js","./update.js":"node_modules/ramda/es/update.js","./useWith.js":"node_modules/ramda/es/useWith.js","./values.js":"node_modules/ramda/es/values.js","./valuesIn.js":"node_modules/ramda/es/valuesIn.js","./view.js":"node_modules/ramda/es/view.js","./when.js":"node_modules/ramda/es/when.js","./where.js":"node_modules/ramda/es/where.js","./whereEq.js":"node_modules/ramda/es/whereEq.js","./without.js":"node_modules/ramda/es/without.js","./xor.js":"node_modules/ramda/es/xor.js","./xprod.js":"node_modules/ramda/es/xprod.js","./zip.js":"node_modules/ramda/es/zip.js","./zipObj.js":"node_modules/ramda/es/zipObj.js","./zipWith.js":"node_modules/ramda/es/zipWith.js","./thunkify.js":"node_modules/ramda/es/thunkify.js"}],"src/functor/Either.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17286,6 +17220,18 @@ var Maybe = function Maybe(value) {
     return _this._value === null || _this._value === undefined;
   });
 
+  _defineProperty(this, "chain", function (f) {
+    return _this.map(f).join();
+  });
+
+  _defineProperty(this, "ap", function (other) {
+    return _this.isNothing() ? Maybe.of(null) : other.map(_this._value);
+  });
+
+  _defineProperty(this, "join", function () {
+    return _this.isNothing() ? Maybe.of(null) : _this._value;
+  });
+
   this._value = value;
 };
 
@@ -17354,19 +17300,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.shouldYield = shouldYield;
-exports.frameLength = exports.updateDeadline = exports.getTime = void 0;
+exports.updateDeadline = exports.frameLength = exports.getTime = void 0;
+
+var R = _interopRequireWildcard(require("ramda"));
 
 var _functor = require("../functor");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var map = R.map;
 
 var getTime = function getTime() {
   return performance.now();
 };
 
 exports.getTime = getTime;
-
-function shouldYield() {
-  return getTime() >= deadlineFunctor._value.time; //frameDeadline
-}
+var frameLength = 1000 / 60;
+exports.frameLength = frameLength;
 
 var deadlineFunctor = _functor.Functor.of({
   time: 0
@@ -17382,15 +17334,140 @@ var updateDeadline = function updateDeadline() {
 };
 
 exports.updateDeadline = updateDeadline;
-var frameLength = 1000 / 60;
-exports.frameLength = frameLength;
-},{"../functor":"src/functor/index.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
+
+function shouldYield() {
+  return getTime() >= deadlineFunctor._value.time; //frameDeadline
+}
+},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js"}],"src/utils/heapify.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.planWork = exports.flushWork = void 0;
+exports.push = push;
+exports.pop = pop;
+exports.peek = peek;
+
+function push(heap, node) {
+  var i = heap.length;
+  heap.push(node);
+  siftUp(heap, node, i);
+  return heap;
+}
+
+function pop(heap) {
+  var first = heap[0];
+  if (!first) return null;
+  var last = heap.pop();
+
+  if (last !== first) {
+    heap[0] = last;
+    siftDown(heap, last, 0);
+  }
+
+  return first;
+}
+
+function siftUp(heap, node, i) {
+  while (i > 0) {
+    var pi = i - 1 >>> 1;
+    var parent = heap[pi];
+    if (cmp(parent, node) <= 0) return;
+    heap[pi] = node;
+    heap[i] = parent;
+    i = pi;
+  }
+
+  return heap;
+}
+
+function siftDown(heap, node, i) {
+  for (;;) {
+    var li = i * 2 + 1;
+    var left = heap[li];
+    if (li >= heap.length) return heap;
+    var ri = li + 1;
+    var right = heap[ri];
+    var ci = ri < heap.length && cmp(right, left) < 0 ? ri : li;
+    var child = heap[ci];
+    if (cmp(child, node) > 0) return heap;
+    heap[ci] = node;
+    heap[i] = child;
+    i = ci;
+  }
+}
+
+function cmp(a, b) {
+  return a.dueTime - b.dueTime;
+}
+
+function peek(heap) {
+  return heap[0] || null;
+} // 搞了一个堆，用 dueTime 做排序？ 做啥用的
+},{}],"src/scheduler/taskQueue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.taskQueueFunctor = exports.popTask = exports.peekTask = exports.pushTask = void 0;
+
+var R = _interopRequireWildcard(require("ramda"));
+
+var _heapify = require("../utils/heapify");
+
+var _functor = require("../functor");
+
+var _common = require("./common");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var compose = R.compose,
+    curry = R.curry,
+    map = R.map,
+    ap = R.ap,
+    prop = R.prop,
+    chain = R.chain;
+var taskQueue = []; // scheduleCallback => planWork[flushWork[flush]]
+
+var taskQueueFunctor = _functor.Functor.of([]); // pushTaskBase:: ft -> ( ft -> ft )
+
+
+exports.taskQueueFunctor = taskQueueFunctor;
+var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // pushTask::  ( -> ) -> taskqFunctor
+
+var pushTask = compose(ap(pushTaskBase), function (cb) {
+  return _functor.Functor.of({
+    callback: cb,
+    startTime: (0, _common.getTime)(),
+    dueTime: (0, _common.getTime)() + 300
+  });
+});
+exports.pushTask = pushTask;
+
+var peekTask = function peekTask() {
+  return map(_heapify.peek)(taskQueueFunctor);
+};
+
+exports.peekTask = peekTask;
+
+var popTask = function popTask() {
+  return map(_heapify.pop)(taskQueueFunctor);
+};
+
+exports.popTask = popTask;
+window.pushTask = pushTask;
+window.popTask = popTask;
+window.peekTask = peekTask;
+},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.planWork = exports.flushWork = exports.flushBase = void 0;
 
 var R = _interopRequireWildcard(require("ramda"));
 
@@ -17398,20 +17475,17 @@ var _functor = require("../functor");
 
 var _common = require("./common");
 
-var _index = require("./index");
+var _taskQueue = require("./taskQueue");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// import { shouldYield } from './common'
-var curry = R.curry,
-    compose = R.compose,
-    map = R.map,
+var compose = R.compose,
     prop = R.prop; // getTime 有问题，应该修改成传入而非使用getTime
+// flushWork:: callBack => void
 
 var flushWork = function flushWork(cb) {
-  console.log(cb);
   var t = (0, _common.getTime)();
   (0, _common.updateDeadline)(t);
 
@@ -17423,7 +17497,8 @@ var flushWork = function flushWork(cb) {
     });
   }
 }; // ok 就这样配合一下就好了，之后不需要添加
-// planwork 其实是板机，启动后续程序用的
+// planwork 其实是扳机，启动后续程序用的
+// planWork:: callback => void
 
 
 exports.flushWork = flushWork;
@@ -17436,7 +17511,7 @@ var planWork = function () {
 
     port1.onmessage = flushWork;
     return function (cb) {
-      return cb ? requestAnimationFrame(cb) : port2.postMessage(null);
+      cb ? requestAnimationFrame(cb) : port2.postMessage(null);
     };
   }
 
@@ -17471,22 +17546,23 @@ var f = function f() {
 var consoleFunc = function consoleFunc(functor) {
   console.log(functor);
   return functor;
-};
+}; // flushBase:: currentTask -> boolean
 
-var flushBase = compose((0, _functor.Either)(compose(consoleFunc, function (t) {
+
+var flushBase = compose((0, _functor.Either)(compose( // consoleFunc,
+function (t) {
   return !!t;
 }, prop('currentTask'), prop('_value')), compose(function (v) {
   return flushBase(v);
-}, (0, _functor.Either)(compose(prop('currentTask'), function (v) {
-  console.log('v', v);
-  return v;
-}), compose(function (_ref) {
+}, (0, _functor.Either)(compose(prop('currentTask') // (v) => { console.log('v', v); return v }
+), compose(function (_ref) {
   var didout = _ref.didout,
       currentTask = _ref.currentTask;
   var next = currentTask.callback(didout);
-  next ? currentTask.callback = next : (0, _index.popTask)();
-  return prop('_value')((0, _index.peekTask)());
-}, consoleFunc // prop('_value')
+  next ? currentTask.callback = next : (0, _taskQueue.popTask)();
+  return prop('_value')((0, _taskQueue.peekTask)());
+} // consoleFunc,
+// prop('_value')
 )), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
@@ -17506,1487 +17582,67 @@ var flushBase = compose((0, _functor.Either)(compose(consoleFunc, function (t) {
     currentTask: currentTask
   });
 });
-window.flushBase = flushBase;
-},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./index":"src/scheduler/index.js"}],"node_modules/fantasy-land/index.js":[function(require,module,exports) {
-(function() {
-
-  'use strict';
-
-  var mapping = {
-    equals: 'fantasy-land/equals',
-    concat: 'fantasy-land/concat',
-    empty: 'fantasy-land/empty',
-    map: 'fantasy-land/map',
-    ap: 'fantasy-land/ap',
-    of: 'fantasy-land/of',
-    reduce: 'fantasy-land/reduce',
-    traverse: 'fantasy-land/traverse',
-    chain: 'fantasy-land/chain',
-    chainRec: 'fantasy-land/chainRec',
-    extend: 'fantasy-land/extend',
-    extract: 'fantasy-land/extract',
-    bimap: 'fantasy-land/bimap',
-    promap: 'fantasy-land/promap'
-  };
-
-  if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = mapping;
-  } else {
-    self.FantasyLand = mapping;
-  }
-
-}());
-
-},{}],"node_modules/fun-task/lib/index.js":[function(require,module,exports) {
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var fl = _interopDefault(require('fantasy-land'));
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-
-
-
-
-var asyncGenerator = function () {
-  function AwaitValue(value) {
-    this.value = value;
-  }
-
-  function AsyncGenerator(gen) {
-    var front, back;
-
-    function send(key, arg) {
-      return new Promise(function (resolve, reject) {
-        var request = {
-          key: key,
-          arg: arg,
-          resolve: resolve,
-          reject: reject,
-          next: null
-        };
-
-        if (back) {
-          back = back.next = request;
-        } else {
-          front = back = request;
-          resume(key, arg);
-        }
-      });
-    }
-
-    function resume(key, arg) {
-      try {
-        var result = gen[key](arg);
-        var value = result.value;
-
-        if (value instanceof AwaitValue) {
-          Promise.resolve(value.value).then(function (arg) {
-            resume("next", arg);
-          }, function (arg) {
-            resume("throw", arg);
-          });
-        } else {
-          settle(result.done ? "return" : "normal", result.value);
-        }
-      } catch (err) {
-        settle("throw", err);
-      }
-    }
-
-    function settle(type, value) {
-      switch (type) {
-        case "return":
-          front.resolve({
-            value: value,
-            done: true
-          });
-          break;
-
-        case "throw":
-          front.reject(value);
-          break;
-
-        default:
-          front.resolve({
-            value: value,
-            done: false
-          });
-          break;
-      }
-
-      front = front.next;
-
-      if (front) {
-        resume(front.key, front.arg);
-      } else {
-        back = null;
-      }
-    }
-
-    this._invoke = send;
-
-    if (typeof gen.return !== "function") {
-      this.return = undefined;
-    }
-  }
-
-  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-      return this;
-    };
-  }
-
-  AsyncGenerator.prototype.next = function (arg) {
-    return this._invoke("next", arg);
-  };
-
-  AsyncGenerator.prototype.throw = function (arg) {
-    return this._invoke("throw", arg);
-  };
-
-  AsyncGenerator.prototype.return = function (arg) {
-    return this._invoke("return", arg);
-  };
-
-  return {
-    wrap: function (fn) {
-      return function () {
-        return new AsyncGenerator(fn.apply(this, arguments));
-      };
-    },
-    await: function (value) {
-      return new AwaitValue(value);
-    }
-  };
-}();
-
-
-
-
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-
-
-var get = function get(object, property, receiver) {
-  if (object === null) object = Function.prototype;
-  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent === null) {
-      return undefined;
-    } else {
-      return get(parent, property, receiver);
-    }
-  } else if ("value" in desc) {
-    return desc.value;
-  } else {
-    var getter = desc.get;
-
-    if (getter === undefined) {
-      return undefined;
-    }
-
-    return getter.call(receiver);
-  }
-};
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-
-
-
-
-
-
-
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-
-
-var set = function set(object, property, value, receiver) {
-  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent !== null) {
-      set(parent, property, value, receiver);
-    }
-  } else if ("value" in desc && desc.writable) {
-    desc.value = value;
-  } else {
-    var setter = desc.set;
-
-    if (setter !== undefined) {
-      setter.call(receiver, value);
-    }
-  }
-
-  return value;
-};
-
-var chainRecNext = function chainRecNext(x) {
-  return { type: 'next', value: x };
-};
-var chainRecDone = function chainRecDone(x) {
-  return { type: 'done', value: x };
-};
-
-var defaultFailureHandler = function defaultFailureHandler(failure) {
-  if (failure instanceof Error) {
-    throw failure;
-  } else {
-    throw new Error('Unhandled task failure: ' + String(failure));
-  }
-};
-var noop = function noop() {};
-
-var runHelper = function runHelper(body, handlers) {
-  var success = handlers.success;
-  var failure = handlers.failure;
-  var catch_ = handlers.catch;
-
-  var onCancel = noop;
-  var onClose = noop;
-  var _close = function close() {
-    onClose();
-    // The idea here is to kill links to all stuff that we exposed from runHelper closure.
-    // We expose via the return value (cancelation function) and by passing callbacks to the body.
-    // We reason from an assumption that outer code may keep links to values that we exposed forever.
-    // So we look at all things that referenced in the exposed callbacks and kill them.
-    success = noop;
-    failure = noop;
-    catch_ = noop;
-    onCancel = noop;
-    _close = noop;
-  };
-  var bodyReturn = body(function (x) {
-    var s = success;
-    _close();
-    s(x);
-  }, function (x) {
-    var f = failure;
-    _close();
-    f(x);
-  }, catch_ && function (x) {
-    var c = catch_;
-    _close();
-    c(x);
-  });
-  onCancel = bodyReturn.onCancel || noop;
-  onClose = bodyReturn.onClose || noop;
-  if (_close === noop) {
-    onCancel = noop;
-    onClose();
-  }
-  return function () {
-    onCancel();_close();
-  };
-};
-
-function isTask(maybeTask) {
-  return maybeTask instanceof Task;
-}
-
-function isFun(maybeFunction) {
-  return typeof maybeFunction === 'function';
-}
-
-function isArrayOfTasks(maybeArray) {
-  if (!Array.isArray(maybeArray)) {
-    return false;
-  }
-  for (var i = 0; i < maybeArray.length; i++) {
-    if (!(maybeArray[i] instanceof Task)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function isThenableOrFn(maybeThenable) {
-  return typeof maybeThenable === 'function' || (typeof maybeThenable === 'undefined' ? 'undefined' : _typeof(maybeThenable)) === 'object' && maybeThenable !== null && typeof maybeThenable.then === 'function';
-}
-
-function inv(shouldBeTrue, errorMessage, actualValue) {
-  if (!shouldBeTrue) {
-    throw new TypeError(errorMessage + '. Actual value: ' + actualValue);
-  }
-}
-
-var Task = function () {
-  function Task() {
-    classCallCheck(this, Task);
-
-    if (this.constructor === Task) {
-      throw new Error('Don\'t call `new Task()`, call `Task.create()` instead');
-    }
-  }
-
-  // Creates a task with an arbitrary computation
-
-
-  createClass(Task, [{
-    key: 'map',
-    value: function map(fn) {
-      inv(isFun(fn), 'task.map(f): f is not a function', fn);
-      return new Map(this, fn);
-    }
-
-    // Transforms a task by applying `fn` to the failure value
-
-  }, {
-    key: 'mapRejected',
-    value: function mapRejected(fn) {
-      inv(isFun(fn), 'task.mapRejected(f): f is not a function', fn);
-      return new MapRejected(this, fn);
-    }
-
-    // Transforms a task by applying `sf` to the successful value or `ff` to the failure value
-
-  }, {
-    key: 'bimap',
-    value: function bimap(ff, fs) {
-      inv(isFun(ff), 'task.bimap(f, _): f is not a function', ff);
-      inv(isFun(fs), 'task.bimap(_, f): f is not a function', fs);
-      return this.map(fs).mapRejected(ff);
-    }
-
-    // Transforms a task by applying `fn` to the successful value, where `fn` returns a Task
-
-  }, {
-    key: 'chain',
-    value: function chain(fn) {
-      inv(isFun(fn), 'task.chain(f): f is not a function', fn);
-      return new Chain(this, fn);
-    }
-
-    // Transforms a task by applying `fn` to the failure value, where `fn` returns a Task
-
-  }, {
-    key: 'orElse',
-    value: function orElse(fn) {
-      inv(isFun(fn), 'task.orElse(f): f is not a function', fn);
-      return new OrElse(this, fn);
-    }
-  }, {
-    key: 'recur',
-    value: function recur(fn) {
-      inv(isFun(fn), 'task.recur(f): f is not a function', fn);
-      return new Recur(this, fn);
-    }
-  }, {
-    key: 'ap',
-    value: function ap(otherTask) {
-      var _this = this;
-
-      inv(isTask(otherTask), 'task.ap(t): t is not a task', otherTask);
-      return otherTask.chain(function (f) {
-        return _this.map(function (x) {
-          return f(x);
-        });
-      });
-    }
-
-    // Selects the earlier of the two tasks
-
-  }, {
-    key: 'concat',
-    value: function concat(otherTask) {
-      inv(isTask(otherTask), 'task.concat(t): t is not a task', otherTask);
-      return Task.race([this, otherTask]);
-    }
-  }, {
-    key: '_run',
-    value: function _run(handlers) {
-      // eslint-disable-line
-      throw new Error('Method run() is not implemented in basic Task class.');
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return '<abstract>';
-    }
-  }, {
-    key: 'toString',
-    value: function toString() {
-      return 'Task.' + this._toString();
-    }
-  }, {
-    key: 'run',
-    value: function run(h) {
-      var handlers = typeof h === 'function' ? { success: h, failure: defaultFailureHandler } : { success: h.success || noop, failure: h.failure || defaultFailureHandler, catch: h.catch };
-      return this._run(handlers);
-    }
-  }, {
-    key: 'toPromise',
-    value: function toPromise() {
-      var _this2 = this;
-
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { catch: true };
-
-      return new Promise(function (suc, err) {
-        _this2.run({
-          success: function success(x) {
-            suc({ success: x });
-          },
-          failure: function failure(x) {
-            suc({ failure: x });
-          },
-
-          catch: options.catch ? err : undefined
-        });
-      });
-    }
-  }, {
-    key: 'runAndLog',
-    value: function runAndLog() {
-      this.run({
-        success: function success(x) {
-          console.log('Success:', x);
-        },
-        // eslint-disable-line
-        failure: function failure(x) {
-          console.log('Failure:', x);
-        }
-      });
-    }
-  }], [{
-    key: 'create',
-    value: function create(computation) {
-      inv(isFun(computation), 'Task.create(f): f is not a function', computation);
-      return new FromComputation(computation);
-    }
-
-    // Creates a task that resolves with a given value
-
-  }, {
-    key: 'of',
-    value: function of(value) {
-      return new Of(value);
-    }
-
-    // Creates a task that fails with a given error
-
-  }, {
-    key: 'rejected',
-    value: function rejected(error) {
-      return new Rejected(error);
-    }
-
-    // Creates a task that never completes
-
-  }, {
-    key: 'empty',
-    value: function empty() {
-      return new Empty();
-    }
-
-    // Given array of tasks creates a task of array
-
-  }, {
-    key: 'parallel',
-    value: function parallel(tasks) {
-      inv(isArrayOfTasks(tasks), 'Task.parallel(a): a is not an array of tasks', tasks);
-      return new Parallel(tasks);
-    }
-
-    // Given array of tasks creates a task that completes with the earliest value or error
-
-  }, {
-    key: 'race',
-    value: function race(tasks) {
-      inv(isArrayOfTasks(tasks), 'Task.race(a): a is not an array of tasks', tasks);
-      return new Race(tasks);
-    }
-
-    // Transforms a task by applying `fn` to the successful value
-
-  }, {
-    key: 'map',
-    value: function map(fn, task) {
-      inv(isFun(fn), 'Task.map(f, _): f is not a function', fn);
-      inv(isTask(task), 'Task.map(_, t): t is not a task', task);
-      return new Map(task, fn);
-    }
-  }, {
-    key: 'mapRejected',
-    value: function mapRejected(fn, task) {
-      inv(isFun(fn), 'Task.mapRejected(f, _): f is not a function', fn);
-      inv(isTask(task), 'Task.mapRejected(_, t): t is not a task', task);
-      return new MapRejected(task, fn);
-    }
-  }, {
-    key: 'bimap',
-    value: function bimap(ff, fs, task) {
-      inv(isFun(ff), 'Task.bimap(f, _, _): f is not a function', ff);
-      inv(isFun(fs), 'Task.bimap(_, f, _): f is not a function', fs);
-      inv(isTask(task), 'Task.bimap(_, _, t): t is not a task', task);
-      return task.map(fs).mapRejected(ff);
-    }
-  }, {
-    key: 'chain',
-    value: function chain(fn, task) {
-      inv(isFun(fn), 'Task.chain(f, _): f is not a function', fn);
-      inv(isTask(task), 'Task.chain(_, t): t is not a task', task);
-      return new Chain(task, fn);
-    }
-  }, {
-    key: 'orElse',
-    value: function orElse(fn, task) {
-      inv(isFun(fn), 'Task.orElse(f, _): f is not a function', fn);
-      inv(isTask(task), 'Task.orElse(_, t): t is not a task', task);
-      return new OrElse(task, fn);
-    }
-  }, {
-    key: 'recur',
-    value: function recur(fn, task) {
-      inv(isFun(fn), 'Task.recur(f, _): f is not a function', fn);
-      inv(isTask(task), 'Task.recur(_, t): t is not a task', task);
-      return new Recur(task, fn);
-    }
-  }, {
-    key: 'chainRec',
-    value: function chainRec(fn, initial) {
-      inv(isFun(fn), 'Task.chainRec(f, _): f is not a function', fn);
-      return new ChainRec(fn, initial);
-    }
-
-    // Applies the successful value of task `this` to the successful value of task `otherTask`
-
-  }, {
-    key: 'ap',
-    value: function ap(tf, tx) {
-      inv(isTask(tf), 'Task.ap(t, _): t is not a task', tf);
-      inv(isTask(tx), 'Task.ap(_, t): t is not a task', tx);
-      return tf.chain(function (f) {
-        return tx.map(function (x) {
-          return f(x);
-        });
-      });
-    }
-  }, {
-    key: 'concat',
-    value: function concat(a, b) {
-      inv(isTask(a), 'Task.concat(t, _): t is not a task', a);
-      inv(isTask(b), 'Task.concat(_, t): t is not a task', b);
-      return Task.race([a, b]);
-    }
-  }, {
-    key: 'do',
-    value: function _do(generator) {
-      inv(isFun(generator), 'Task.do(f): f is not a function', generator);
-      return new Do(generator);
-    }
-  }, {
-    key: 'fromPromise',
-    value: function fromPromise(promise) {
-      inv(isThenableOrFn(promise), 'Task.fromPromise(p): p is not a promise', promise);
-      return new FromPromise(promise);
-    }
-  }]);
-  return Task;
-}();
-
-function makeFLCompatible(constructor) {
-  constructor.prototype[fl.of] = constructor[fl.of] = constructor.of;
-  constructor.prototype[fl.empty] = constructor[fl.empty] = constructor.empty;
-  constructor.prototype[fl.chainRec] = constructor[fl.chainRec] = constructor.chainRec;
-  constructor.prototype[fl.concat] = constructor.prototype.concat;
-  constructor.prototype[fl.map] = constructor.prototype.map;
-  constructor.prototype[fl.bimap] = constructor.prototype.bimap;
-  constructor.prototype[fl.ap] = constructor.prototype.ap;
-  constructor.prototype[fl.chain] = constructor.prototype.chain;
-}
-
-makeFLCompatible(Task);
-
-var FromComputation = function (_Task) {
-  inherits(FromComputation, _Task);
-
-  function FromComputation(computation) {
-    classCallCheck(this, FromComputation);
-
-    var _this3 = possibleConstructorReturn(this, (FromComputation.__proto__ || Object.getPrototypeOf(FromComputation)).call(this));
-
-    _this3._computation = computation;
-    return _this3;
-  }
-
-  createClass(FromComputation, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _computation = this._computation;
-
-      return runHelper(function (s, f, c) {
-        var cancel = void 0;
-        if (c) {
-          try {
-            cancel = _computation(s, f);
-          } catch (e) {
-            c(e);
-          }
-        } else {
-          cancel = _computation(s, f);
-        }
-        return { onCancel: cancel || noop };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'create(..)';
-    }
-  }]);
-  return FromComputation;
-}(Task);
-
-var Of = function (_Task2) {
-  inherits(Of, _Task2);
-
-  function Of(value) {
-    classCallCheck(this, Of);
-
-    var _this4 = possibleConstructorReturn(this, (Of.__proto__ || Object.getPrototypeOf(Of)).call(this));
-
-    _this4._value = value;
-    return _this4;
-  }
-
-  createClass(Of, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var success = handlers.success;
-
-      success(this._value);
-      return noop;
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'of(..)';
-    }
-  }]);
-  return Of;
-}(Task);
-
-var Rejected = function (_Task3) {
-  inherits(Rejected, _Task3);
-
-  function Rejected(error) {
-    classCallCheck(this, Rejected);
-
-    var _this5 = possibleConstructorReturn(this, (Rejected.__proto__ || Object.getPrototypeOf(Rejected)).call(this));
-
-    _this5._error = error;
-    return _this5;
-  }
-
-  createClass(Rejected, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var failure = handlers.failure;
-
-      failure(this._error);
-      return noop;
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'rejected(..)';
-    }
-  }]);
-  return Rejected;
-}(Task);
-
-var Empty = function (_Task4) {
-  inherits(Empty, _Task4);
-
-  function Empty() {
-    classCallCheck(this, Empty);
-    return possibleConstructorReturn(this, (Empty.__proto__ || Object.getPrototypeOf(Empty)).apply(this, arguments));
-  }
-
-  createClass(Empty, [{
-    key: 'run',
-    value: function run() {
-      return noop;
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'empty()';
-    }
-  }]);
-  return Empty;
-}(Task);
-
-var Parallel = function (_Task5) {
-  inherits(Parallel, _Task5);
-
-  function Parallel(tasks) {
-    classCallCheck(this, Parallel);
-
-    var _this7 = possibleConstructorReturn(this, (Parallel.__proto__ || Object.getPrototypeOf(Parallel)).call(this));
-
-    _this7._tasks = tasks;
-    return _this7;
-  }
-
-  createClass(Parallel, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _this8 = this;
-
-      return runHelper(function (s, f, c) {
-        var length = _this8._tasks.length;
-        var values = Array(length);
-        var completedCount = 0;
-        var runTask = function runTask(task, index) {
-          return task.run({
-            success: function success(x) {
-              values[index] = x;
-              completedCount++;
-              if (completedCount === length) {
-                s(values);
-              }
-            },
-
-            failure: f,
-            catch: c
-          });
-        };
-        var cancels = _this8._tasks.map(runTask);
-        return {
-          onClose: function onClose() {
-            cancels.forEach(function (cancel) {
-              return cancel();
-            });
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'parallel([' + this._tasks.map(function (x) {
-        return x._toString();
-      }).join(', ') + '])';
-    }
-  }]);
-  return Parallel;
-}(Task);
-
-var Race = function (_Task6) {
-  inherits(Race, _Task6);
-
-  function Race(tasks) {
-    classCallCheck(this, Race);
-
-    var _this9 = possibleConstructorReturn(this, (Race.__proto__ || Object.getPrototypeOf(Race)).call(this));
-
-    _this9._tasks = tasks;
-    return _this9;
-  }
-
-  createClass(Race, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _this10 = this;
-
-      return runHelper(function (success, failure, _catch) {
-        var handlers = { success: success, failure: failure, catch: _catch };
-        var cancels = _this10._tasks.map(function (task) {
-          return task.run(handlers);
-        });
-        return {
-          onClose: function onClose() {
-            cancels.forEach(function (cancel) {
-              return cancel();
-            });
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'race([' + this._tasks.map(function (x) {
-        return x._toString();
-      }).join(', ') + '])';
-    }
-  }]);
-  return Race;
-}(Task);
-
-var Map = function (_Task7) {
-  inherits(Map, _Task7);
-
-  function Map(task, fn) {
-    classCallCheck(this, Map);
-
-    var _this11 = possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this));
-
-    _this11._task = task;
-    _this11._fn = fn;
-    return _this11;
-  }
-
-  createClass(Map, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var success = handlers.success;
-      var failure = handlers.failure;
-      var catch_ = handlers.catch;
-
-      return this._task.run({
-        success: function (_success) {
-          function success(_x3) {
-            return _success.apply(this, arguments);
-          }
-
-          success.toString = function () {
-            return _success.toString();
-          };
-
-          return success;
-        }(function (x) {
-          var value = void 0;
-          if (catch_) {
-            try {
-              value = _fn(x);
-            } catch (e) {
-              catch_(e);
-              return;
-            }
-          } else {
-            value = _fn(x);
-          }
-          success(value);
-        }),
-
-        failure: failure,
-        catch: catch_
-      });
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return this._task._toString() + '.map(..)';
-    }
-  }]);
-  return Map;
-}(Task);
-
-var MapRejected = function (_Task8) {
-  inherits(MapRejected, _Task8);
-
-  function MapRejected(task, fn) {
-    classCallCheck(this, MapRejected);
-
-    var _this12 = possibleConstructorReturn(this, (MapRejected.__proto__ || Object.getPrototypeOf(MapRejected)).call(this));
-
-    _this12._task = task;
-    _this12._fn = fn;
-    return _this12;
-  }
-
-  createClass(MapRejected, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var success = handlers.success;
-      var failure = handlers.failure;
-      var catch_ = handlers.catch;
-
-      return this._task.run({
-        success: success,
-        failure: function (_failure) {
-          function failure(_x4) {
-            return _failure.apply(this, arguments);
-          }
-
-          failure.toString = function () {
-            return _failure.toString();
-          };
-
-          return failure;
-        }(function (x) {
-          var value = void 0;
-          if (catch_) {
-            try {
-              value = _fn(x);
-            } catch (e) {
-              catch_(e);
-              return;
-            }
-          } else {
-            value = _fn(x);
-          }
-          failure(value);
-        }),
-
-        catch: catch_
-      });
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return this._task._toString() + '.mapRejected(..)';
-    }
-  }]);
-  return MapRejected;
-}(Task);
-
-var Chain = function (_Task9) {
-  inherits(Chain, _Task9);
-
-  function Chain(task, fn) {
-    classCallCheck(this, Chain);
-
-    var _this13 = possibleConstructorReturn(this, (Chain.__proto__ || Object.getPrototypeOf(Chain)).call(this));
-
-    _this13._task = task;
-    _this13._fn = fn;
-    return _this13;
-  }
-
-  createClass(Chain, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var _task = this._task;
-
-      return runHelper(function (success, failure, catch_) {
-        var cancel = noop;
-        var spawnedHasBeenRun = false;
-        var cancel1 = _task.run({
-          // #1
-          success: function (_success2) {
-            function success(_x5) {
-              return _success2.apply(this, arguments);
-            }
-
-            success.toString = function () {
-              return _success2.toString();
-            };
-
-            return success;
-          }(function (x) {
-            var spawned = void 0;
-            if (catch_) {
-              try {
-                spawned = _fn(x);
-              } catch (e) {
-                catch_(e);
-              }
-            } else {
-              spawned = _fn(x);
-            }
-            if (spawned) {
-              cancel = spawned.run({ success: success, failure: failure, catch: catch_ }); // #2
-              spawnedHasBeenRun = true;
-            }
-          }),
-
-          failure: failure,
-          catch: catch_
-        });
-        if (!spawnedHasBeenRun) {
-          // #2 run() may return before #1 run() returns
-          cancel = cancel1;
-        }
-        return {
-          onCancel: function onCancel() {
-            cancel();
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return this._task._toString() + '.chain(..)';
-    }
-  }]);
-  return Chain;
-}(Task);
-
-var OrElse = function (_Task10) {
-  inherits(OrElse, _Task10);
-
-  function OrElse(task, fn) {
-    classCallCheck(this, OrElse);
-
-    var _this14 = possibleConstructorReturn(this, (OrElse.__proto__ || Object.getPrototypeOf(OrElse)).call(this));
-
-    _this14._task = task;
-    _this14._fn = fn;
-    return _this14;
-  }
-
-  createClass(OrElse, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var _task = this._task;
-
-      return runHelper(function (success, failure, catch_) {
-        var cancel = noop;
-        var spawnedHasBeenRun = false;
-        var cancel1 = _task.run({ // #1
-          success: success,
-          failure: function (_failure2) {
-            function failure(_x6) {
-              return _failure2.apply(this, arguments);
-            }
-
-            failure.toString = function () {
-              return _failure2.toString();
-            };
-
-            return failure;
-          }(function (x) {
-            var spawned = void 0;
-            if (catch_) {
-              try {
-                spawned = _fn(x);
-              } catch (e) {
-                catch_(e);
-              }
-            } else {
-              spawned = _fn(x);
-            }
-            if (spawned) {
-              cancel = spawned.run({ success: success, failure: failure, catch: catch_ }); // #2
-              spawnedHasBeenRun = true;
-            }
-          }),
-
-          catch: catch_
-        });
-        if (!spawnedHasBeenRun) {
-          // #2 run() may return before #1 run() returns
-          cancel = cancel1;
-        }
-        return {
-          onCancel: function onCancel() {
-            cancel();
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return this._task._toString() + '.orElse(..)';
-    }
-  }]);
-  return OrElse;
-}(Task);
-
-var Recur = function (_Task11) {
-  inherits(Recur, _Task11);
-
-  function Recur(task, fn) {
-    classCallCheck(this, Recur);
-
-    var _this15 = possibleConstructorReturn(this, (Recur.__proto__ || Object.getPrototypeOf(Recur)).call(this));
-
-    _this15._task = task;
-    _this15._fn = fn;
-    return _this15;
-  }
-
-  createClass(Recur, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var _task = this._task;
-
-      return runHelper(function (_, failure, catch_) {
-        var x = void 0;
-        var haveNewX = false;
-        var inLoop = false;
-        var spawnedHasBeenRun = false;
-        var sharedCancel = noop;
-        var success = function success(_x) {
-          haveNewX = true;
-          x = _x;
-          if (inLoop) {
-            return;
-          }
-          inLoop = true;
-          while (haveNewX) {
-            haveNewX = false;
-            var spawned = void 0;
-            if (catch_) {
-              try {
-                spawned = _fn(x);
-              } catch (e) {
-                catch_(e);
-              }
-            } else {
-              spawned = _fn(x);
-            }
-            if (spawned) {
-              sharedCancel = spawned.run({ success: success, failure: failure, catch: catch_ }); // #2
-              spawnedHasBeenRun = true;
-            }
-          }
-          inLoop = false;
-        };
-        var cancel = _task.run({ success: success, failure: failure, catch: catch_ }); // #1
-        if (!spawnedHasBeenRun) {
-          // #2 run() may return before #1 run() returns
-          sharedCancel = cancel;
-        }
-        return {
-          onCancel: function onCancel() {
-            sharedCancel();
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return this._task._toString() + '.recur(..)';
-    }
-  }]);
-  return Recur;
-}(Task);
-
-var ChainRec = function (_Task12) {
-  inherits(ChainRec, _Task12);
-
-  function ChainRec(fn, initial) {
-    classCallCheck(this, ChainRec);
-
-    var _this16 = possibleConstructorReturn(this, (ChainRec.__proto__ || Object.getPrototypeOf(ChainRec)).call(this));
-
-    _this16._fn = fn;
-    _this16._initial = initial;
-    return _this16;
-  }
-
-  createClass(ChainRec, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _fn = this._fn;
-      var _initial = this._initial;
-
-      return runHelper(function (success, failure, catch_) {
-        var newNext = null;
-        var haveNewNext = false;
-        var inLoop = false;
-        var sharedCancel = noop;
-        var step = function step(result) {
-          if (result.type === 'done') {
-            success(result.value);
-            return;
-          }
-          newNext = result.value;
-          haveNewNext = true;
-          if (inLoop) {
-            return;
-          }
-          inLoop = true;
-          while (haveNewNext) {
-            haveNewNext = false;
-            var spawned = void 0;
-            if (catch_) {
-              try {
-                spawned = _fn(chainRecNext, chainRecDone, newNext);
-              } catch (e) {
-                catch_(e);
-              }
-            } else {
-              spawned = _fn(chainRecNext, chainRecDone, newNext);
-            }
-            if (spawned) {
-              sharedCancel = spawned.run({ success: step, failure: failure, catch: catch_ });
-            }
-          }
-          inLoop = false;
-        };
-        step(chainRecNext(_initial));
-        return {
-          onCancel: function onCancel() {
-            sharedCancel();
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'chainRec(..)';
-    }
-  }]);
-  return ChainRec;
-}(Task);
-
-var Do = function (_Task13) {
-  inherits(Do, _Task13);
-
-  function Do(generator) {
-    classCallCheck(this, Do);
-
-    var _this17 = possibleConstructorReturn(this, (Do.__proto__ || Object.getPrototypeOf(Do)).call(this));
-
-    _this17._generator = generator;
-    return _this17;
-  }
-
-  createClass(Do, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _generator = this._generator;
-
-      return runHelper(function (success, failure, catch_) {
-        var iterator = _generator();
-        var x = void 0;
-        var haveNewX = false;
-        var inLoop = false;
-        var sharedCancel = noop;
-        var step = function step(_x) {
-          haveNewX = true;
-          x = _x;
-          if (inLoop) {
-            return;
-          }
-          inLoop = true;
-          while (haveNewX) {
-            haveNewX = false;
-            var iteratorNext = void 0;
-            if (catch_) {
-              try {
-                iteratorNext = iterator.next(x);
-              } catch (e) {
-                catch_(e);
-              }
-            } else {
-              iteratorNext = iterator.next(x);
-            }
-            if (iteratorNext) {
-              var _iteratorNext = iteratorNext;
-              var spawned = _iteratorNext.value;
-              var _done = _iteratorNext.done;
-
-              sharedCancel = spawned.run({ success: _done ? success : step, failure: failure, catch: catch_ });
-            }
-          }
-          inLoop = false;
-        };
-        step(undefined);
-        return {
-          onCancel: function onCancel() {
-            sharedCancel();
-          }
-        };
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'do(..)';
-    }
-  }]);
-  return Do;
-}(Task);
-
-var FromPromise = function (_Task14) {
-  inherits(FromPromise, _Task14);
-
-  function FromPromise(promise) {
-    classCallCheck(this, FromPromise);
-
-    var _this18 = possibleConstructorReturn(this, (FromPromise.__proto__ || Object.getPrototypeOf(FromPromise)).call(this));
-
-    _this18._promise = promise;
-    return _this18;
-  }
-
-  createClass(FromPromise, [{
-    key: '_run',
-    value: function _run(handlers) {
-      var _promise = this._promise;
-
-      var promise = typeof _promise === 'function' ? _promise() : _promise;
-      return runHelper(function (success, _, catch_) {
-        promise.then(success, catch_);
-        return {};
-      }, handlers);
-    }
-  }, {
-    key: '_toString',
-    value: function _toString() {
-      return 'fromPromise(..)';
-    }
-  }]);
-  return FromPromise;
-}(Task);
-
-module.exports = Task;
-
-},{"fantasy-land":"node_modules/fantasy-land/index.js"}],"src/scheduler/index.js":[function(require,module,exports) {
+exports.flushBase = flushBase;
+window.flushBase = flushBase; // window.flushBase = flushBase
+},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js"}],"src/scheduler/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.scheduleCallback = scheduleCallback;
-exports.popTask = exports.peekTask = exports.taskQueueFunctor = void 0;
+Object.defineProperty(exports, "shouldYield", {
+  enumerable: true,
+  get: function () {
+    return _common.shouldYield;
+  }
+});
+Object.defineProperty(exports, "planWork", {
+  enumerable: true,
+  get: function () {
+    return _planwork.planWork;
+  }
+});
+exports.scheduleCallback = void 0;
 
 var R = _interopRequireWildcard(require("ramda"));
 
-var _heapify = require("../utils/heapify");
-
-var _functor = require("../functor");
-
 var _common = require("./common");
 
+var _taskQueue = require("./taskQueue");
+
 var _planwork = require("./planwork");
-
-var _funTask = _interopRequireDefault(require("fun-task"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+// import { push, pop, peek } from '../utils/heapify'
+// import { Functor, Maybe, Either } from '../functor'
 var compose = R.compose,
     curry = R.curry,
     map = R.map,
-    ap = R.ap,
-    prop = R.prop,
-    chain = R.chain;
-var taskQueue = []; // scheduleCallback => planWork[flushWork[flush]]
+    ap = R.ap; // scheduleCallback:: 
 
-var taskQueueFunctor = _functor.Functor.of([]); // pushTaskBase:: ft -> ( ft -> ft )
-
-
-exports.taskQueueFunctor = taskQueueFunctor;
-var pushTaskBase = map(curry(_heapify.push))(taskQueueFunctor); // pushTask::  ( -> ) -> taskqFunctor
-
-var pushTask = compose(ap(pushTaskBase), function (cb) {
-  return _functor.Functor.of({
-    callback: cb,
-    startTime: (0, _common.getTime)(),
-    dueTime: (0, _common.getTime)() + 300
+var scheduleCallback = function scheduleCallback(callback) {
+  (0, _taskQueue.pushTask)(callback);
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test1');
   });
-});
-window.taskQueueFunctor = taskQueueFunctor;
-
-var peekTask = function peekTask() {
-  return map(_heapify.peek)(taskQueueFunctor);
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test2');
+  });
+  (0, _taskQueue.pushTask)(function () {
+    console.log('test3');
+  });
+  (0, _planwork.planWork)(function () {
+    return (0, _planwork.flushBase)( // ()=>{console.log('pop')}
+    (0, _taskQueue.peekTask)()._value);
+  });
 };
 
-exports.peekTask = peekTask;
-
-var popTask = function popTask() {
-  return map(_heapify.pop)(taskQueueFunctor);
-}; // window.pushTask = pushTask
-
-
-exports.popTask = popTask;
-window.prop = prop;
-window.popTask = popTask;
-window.peekTask = peekTask; // 
-
-window.pushTask = pushTask;
-window.Task = _funTask.default; // const addFrameLength = 
-
-/** 
- * ::fTest cb -> 
- * const fTest = compose( ,map(cb => (cb && cb(getTime)) ? cb || null),Maybe.of )
- *   
- *
- * 
- * 
- */
-// const scCallback = compose(planWork, pushTask) // 存疑
-// 今天到此位置 好难啊
-// todo flush
-// tail recurse and finish scheduler ! so xx hapi!
-
-function scheduleCallback(callback) {
-  var startTime = (0, _common.getTime)();
-  var newTask = {
-    callback: callback,
-    startTime: startTime,
-    dueTime: startTime + 300
-  };
-  (0, _heapify.push)(taskQueue, newTask); // currentCallback = flush
-  // planWork()
-} // show on window
-
-
-window.Maybe = _functor.Maybe;
-window.Either = _functor.Either;
-},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./planwork":"src/scheduler/planwork.js","fun-task":"node_modules/fun-task/lib/index.js"}],"src/index.js":[function(require,module,exports) {
+exports.scheduleCallback = scheduleCallback;
+window.scheduleCallback = scheduleCallback;
+},{"ramda":"node_modules/ramda/es/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js","./planwork":"src/scheduler/planwork.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 var _scheduler = require("./scheduler");
@@ -19020,7 +17676,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51986" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64533" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

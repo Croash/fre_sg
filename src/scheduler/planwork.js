@@ -1,14 +1,13 @@
 import * as R from 'ramda'
 import { Either, Left, Right } from '../functor'
-// import { shouldYield } from './common'
 import { getTime, shouldYield, updateDeadline } from './common'
-import { peekTask, popTask } from './index'
+import { peekTask, popTask } from './taskQueue'
 
-const { curry, compose, map, prop } = R
+const { compose, prop } = R
 
 // getTime 有问题，应该修改成传入而非使用getTime
-export const flushWork = (cb) => {
-  console.log(cb)
+// flushWork:: callBack => void
+const flushWork = (cb) => {
   const t = getTime()
   updateDeadline(t)
   if(cb && cb(t)) {
@@ -19,12 +18,13 @@ export const flushWork = (cb) => {
 }
 
 // ok 就这样配合一下就好了，之后不需要添加
-// planwork 其实是板机，启动后续程序用的
-export const planWork = (() => {
+// planwork 其实是扳机，启动后续程序用的
+// planWork:: callback => void
+const planWork = (() => {
   if (typeof MessageChannel !== 'undefined') {
     const { port1, port2 } = new MessageChannel()
     port1.onmessage = flushWork
-    return cb => (cb ? requestAnimationFrame(cb) : port2.postMessage(null))
+    return cb => { cb ? requestAnimationFrame(cb) : port2.postMessage(null) }
   }
   return cb => setTimeout(cb || flushWork)
 })()
@@ -57,10 +57,11 @@ const consoleFunc = (functor) => {
   return functor
 }
 
+// flushBase:: currentTask -> boolean
 const flushBase = compose(
   Either(
     compose(
-      consoleFunc,
+      // consoleFunc,
       t => !!t, 
       prop('currentTask'),
       prop('_value')
@@ -70,7 +71,7 @@ const flushBase = compose(
       Either(
         compose(
           prop('currentTask'),
-          (v) => { console.log('v', v); return v }
+          // (v) => { console.log('v', v); return v }
         ),
         compose(
           ({ didout, currentTask }) => {
@@ -78,7 +79,7 @@ const flushBase = compose(
           next ? (currentTask.callback = next) : popTask()
           return prop('_value')(peekTask())
           },
-          consoleFunc,
+          // consoleFunc,
           // prop('_value')
         )
       ), 
@@ -95,4 +96,12 @@ const flushBase = compose(
 )
 
 window.flushBase = flushBase
+
+export {
+  flushBase,
+  flushWork,
+  planWork
+}
+
+// window.flushBase = flushBase
 
