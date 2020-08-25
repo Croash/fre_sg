@@ -17621,22 +17621,12 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var compose = R.compose,
     curry = R.curry,
     map = R.map,
-    ap = R.ap; // scheduleCallback:: 
+    ap = R.ap; // scheduleCallback:: callback => void
 
 var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(callback);
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test1');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test2');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test3');
-  });
   (0, _planwork.planWork)(function () {
-    return (0, _planwork.flushBase)( // ()=>{console.log('pop')}
-    (0, _taskQueue.peekTask)()._value);
+    return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
   });
 };
 
