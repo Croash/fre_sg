@@ -11,7 +11,6 @@ const { compose, prop } = R
 const flushWork = (cb) => {
   const t = getTime()
   updateDeadline(t)
-  console.log('????')
   if(cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
@@ -90,12 +89,14 @@ const flushBase = compose(
         console.log('initTime', initTime)
         console.log('dueTime', currentTask.dueTime)
         console.log('didout', didout)
-        return didout && shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask: null })
+        return didout || !shouldYield() ? Right.of({ didout, currentTask }) : Left.of({ currentTask: null })
       },
     )
   ),
   (currentTask) => {
     const initTime = getTime()
+    console.log(currentTask)
+    console.log(initTime)
     return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
   }
 )

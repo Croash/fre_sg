@@ -17572,7 +17572,7 @@ function (t) {
   console.log('initTime', initTime);
   console.log('dueTime', currentTask.dueTime);
   console.log('didout', didout);
-  return didout && (0, _common.shouldYield)() ? _functor.Right.of({
+  return didout || !(0, _common.shouldYield)() ? _functor.Right.of({
     didout: didout,
     currentTask: currentTask
   }) : _functor.Left.of({
@@ -17580,6 +17580,8 @@ function (t) {
   });
 })), function (currentTask) {
   var initTime = (0, _common.getTime)();
+  console.log(currentTask);
+  console.log(initTime);
   return currentTask ? _functor.Right.of({
     initTime: initTime,
     currentTask: currentTask
@@ -17645,6 +17647,7 @@ var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(function () {
     console.log('test5');
   });
+  console.log(_taskQueue.taskQueueFunctor);
   (0, _planwork.planWork)(function () {
     return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
   });
