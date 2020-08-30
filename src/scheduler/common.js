@@ -22,7 +22,7 @@ const updateDeadline = () => map(
 
 function shouldYield() {
   const t = getTime()
-  console.log(t, timeFunctor._value.time)
+  // console.log(t, timeFunctor._value.time)
   return t >= timeFunctor._value.time//frameDeadline
 }
 

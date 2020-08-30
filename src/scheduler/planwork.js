@@ -9,13 +9,11 @@ const { compose, prop } = R
 // flushWork:: callBack => void
 // todo currentTask => 
 const flushWork = (cb) => {
-  console.log('start')
   const t = getTime()
   // t要更新的，这个是用来做当前帧起始时间用的，要是把getTime放入flushBase来获取initTime
   // 会有问题，帧initTime直接变成了动态的，这一帧一辈子都结束不了了。更新deadlineTime
   updateDeadline(t)
-  console.log('??', cb)
-  if(cb && (() => { let r = cb(t); console.log('r123', r); return r })()) {
+  if(cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
     planWork(() => flushWork(cb))
@@ -77,19 +75,11 @@ const flushBase = compose(
 
       t => !!t, 
       prop('currentTask'),
-      prop('_value'),
-      (v) => {
-        console.log('test??',v)
-        return v
-      },
+      prop('_value')
     ),
     // 循环写错了
     compose(
       // consoleFunc,
-      (v) => {
-        console.log('test',v)
-        return v
-      },
       (v) => flushBase(v),
       // 这里错了 出不去了
       // Either(
@@ -99,12 +89,10 @@ const flushBase = compose(
         // ),
       compose(
         ({ didout, currentTask }) => {
-        const next = currentTask.callback(didout)
-        // console.log('next', next)
-        next ? (currentTask.callback = next) : popTask()
-        return prop('_value')(peekTask())
-        },
-        // prop('_value')
+          const next = currentTask.callback(didout)
+          next ? (currentTask.callback = next) : popTask()
+          return prop('_value')(peekTask())
+        }
       )
     ), 
 
@@ -113,20 +101,10 @@ const flushBase = compose(
   ),
   ({ initTime, currentTask }) => {
     const didout =  currentTask.dueTime <= initTime  // initTime
-    // console.log(currentTask)
-    // console.log('initTime', initTime)
-    // console.log(`didout:${didout}`)
-    // console.log(`shouldYield:${shouldYield()}`)
-    // console.log(`initTime:${initTime}`)
-    // console.log(`getTime:${getTime()}`)
-    // console.log('taskQueue', taskQueueFunctor._value.length, didout || !shouldYield())
-    // console.log('didout', didout)
-    console.log('tag', currentTask && (didout || !shouldYield()))
     return currentTask && (didout || !shouldYield()) ? Right.of({ didout, currentTask }) : Left.of({ currentTask })
   },
   (currentTask) => {
     // r or left
-    console.log('currentTask:', currentTask)
     const initTime = timeFunctor._value.initTime
     // console.log(currentTask)
     return { initTime, currentTask }

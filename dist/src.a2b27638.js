@@ -17341,8 +17341,8 @@ var updateDeadline = function updateDeadline() {
 exports.updateDeadline = updateDeadline;
 
 function shouldYield() {
-  var t = getTime();
-  console.log(t, timeFunctor._value.time);
+  var t = getTime(); // console.log(t, timeFunctor._value.time)
+
   return t >= timeFunctor._value.time; //frameDeadline
 }
 },{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js"}],"src/utils/heapify.js":[function(require,module,exports) {
@@ -17494,18 +17494,12 @@ var compose = R.compose,
 // todo currentTask => 
 
 var flushWork = function flushWork(cb) {
-  console.log('start');
   var t = (0, _common.getTime)(); // t要更新的，这个是用来做当前帧起始时间用的，要是把getTime放入flushBase来获取initTime
   // 会有问题，帧initTime直接变成了动态的，这一帧一辈子都结束不了了。更新deadlineTime
 
   (0, _common.updateDeadline)(t);
-  console.log('??', cb);
 
-  if (cb && function () {
-    var r = cb(t);
-    console.log('r123', r);
-    return r;
-  }()) {
+  if (cb && cb(t)) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
     planWork(function () {
@@ -17575,15 +17569,9 @@ var consoleFunc = function consoleFunc(functor) {
 
 var flushBase = compose((0, _functor.Either)(compose(function (t) {
   return !!t;
-}, prop('currentTask'), prop('_value'), function (v) {
-  console.log('test??', v);
-  return v;
-}), // 循环写错了
+}, prop('currentTask'), prop('_value')), // 循环写错了
 compose( // consoleFunc,
 function (v) {
-  console.log('test', v);
-  return v;
-}, function (v) {
   return flushBase(v);
 }, // 这里错了 出不去了
 // Either(
@@ -17594,26 +17582,15 @@ function (v) {
 compose(function (_ref) {
   var didout = _ref.didout,
       currentTask = _ref.currentTask;
-  var next = currentTask.callback(didout); // console.log('next', next)
-
+  var next = currentTask.callback(didout);
   next ? currentTask.callback = next : (0, _taskQueue.popTask)();
   return prop('_value')((0, _taskQueue.peekTask)());
-} // prop('_value')
-)) // ),
+})) // ),
 ), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
   var didout = currentTask.dueTime <= initTime; // initTime
-  // console.log(currentTask)
-  // console.log('initTime', initTime)
-  // console.log(`didout:${didout}`)
-  // console.log(`shouldYield:${shouldYield()}`)
-  // console.log(`initTime:${initTime}`)
-  // console.log(`getTime:${getTime()}`)
-  // console.log('taskQueue', taskQueueFunctor._value.length, didout || !shouldYield())
-  // console.log('didout', didout)
 
-  console.log('tag', currentTask && (didout || !(0, _common.shouldYield)()));
   return currentTask && (didout || !(0, _common.shouldYield)()) ? _functor.Right.of({
     didout: didout,
     currentTask: currentTask
@@ -17622,7 +17599,6 @@ compose(function (_ref) {
   });
 }, function (currentTask) {
   // r or left
-  console.log('currentTask:', currentTask);
   var initTime = _common.timeFunctor._value.initTime; // console.log(currentTask)
 
   return {
