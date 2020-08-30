@@ -10,27 +10,23 @@ const { compose, curry, map, ap } = R
 // scheduleCallback:: callback => void
 const scheduleCallback = (callback) => {
   pushTask(callback)
-  pushTask(() => {
-    console.log('test1')
-  })
-  pushTask(() => {
-    console.log('test2')
-  })
-  pushTask(() => {
-    console.log('test3')
-  })
-  pushTask(() => {
-    console.log('test4')
-  })
-  pushTask(() => {
-    console.log('test5')
-  })
-  console.log(taskQueueFunctor)
+  let num = 10000
+  for(let i=0;i<num;i++) {
+    pushTask(() => {
+      console.log(`task${i}`)
+    })
+  }
   planWork(
     () => flushWork(
-      () => flushBase(
-        peekTask()._value
-      )
+      // planWork(
+        () => {
+          const r = flushBase(
+            peekTask()._value
+          )
+          // console.log(peekTask()._value)
+          return !!peekTask()._value
+        }
+      // )
     )
   )
 }

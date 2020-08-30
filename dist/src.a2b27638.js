@@ -17300,7 +17300,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.shouldYield = shouldYield;
-exports.updateDeadline = exports.frameLength = exports.getTime = void 0;
+exports.updateDeadline = exports.frameLength = exports.timeFunctor = exports.getTime = void 0;
 
 var R = _interopRequireWildcard(require("ramda"));
 
@@ -17320,23 +17320,30 @@ exports.getTime = getTime;
 var frameLength = 1000 / 60;
 exports.frameLength = frameLength;
 
-var deadlineFunctor = _functor.Functor.of({
-  time: 0
+var timeFunctor = _functor.Functor.of({
+  time: 0,
+  initTime: 0
 }); // updateDeadline :: () -> Functor
 
 
+exports.timeFunctor = timeFunctor;
+
 var updateDeadline = function updateDeadline() {
   return map(function (a) {
-    return Object.assign(a, {
-      time: getTime() + frameLength
+    var t = getTime();
+    Object.assign(a, {
+      time: t + frameLength,
+      initTime: t
     });
-  })(deadlineFunctor);
+  })(timeFunctor);
 };
 
 exports.updateDeadline = updateDeadline;
 
 function shouldYield() {
-  return getTime() >= deadlineFunctor._value.time; //frameDeadline
+  var t = getTime();
+  console.log(t, timeFunctor._value.time);
+  return t >= timeFunctor._value.time; //frameDeadline
 }
 },{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js"}],"src/utils/heapify.js":[function(require,module,exports) {
 "use strict";
@@ -17487,12 +17494,18 @@ var compose = R.compose,
 // todo currentTask => 
 
 var flushWork = function flushWork(cb) {
+  console.log('start');
   var t = (0, _common.getTime)(); // t要更新的，这个是用来做当前帧起始时间用的，要是把getTime放入flushBase来获取initTime
   // 会有问题，帧initTime直接变成了动态的，这一帧一辈子都结束不了了。更新deadlineTime
 
   (0, _common.updateDeadline)(t);
+  console.log('??', cb);
 
-  if (cb && cb(t)) {
+  if (cb && function () {
+    var r = cb(t);
+    console.log('r123', r);
+    return r;
+  }()) {
     // 因为用了settimeout，是否使用IO????
     // 不使用task了，直接使用两个函数互相调用递归，来保证时间的正确性
     planWork(function () {
@@ -17528,14 +17541,18 @@ exports.planWork = planWork;
 var f = function f() {
   var mem = 1;
   return function () {
+    console.log('mem:', mem);
     mem < 3 && mem++;
     return mem < 3;
   };
 };
+
+window.flushWork = flushWork;
+window.f = f;
 /**
  * const newFunc = f()
  * 
- * flushWork(f)
+ * flushWork(f())
  * 
  * 这样，flushwork 可以保证每一个planwork启动后，触发结束cb然后做判断再继续planwork
  * 
@@ -17545,48 +17562,73 @@ var f = function f() {
 // tb:: currentTask -> Right||Left
 // const tb = 
 
-
 var consoleFunc = function consoleFunc(functor) {
   console.log(functor);
   return functor;
-}; // flushBase:: currentTask -> boolean
+};
+/**
+ * 思考一下，这里写错了，不应该这么循环
+ * 
+ */
+// flushBase:: currentTask -> boolean
 
 
-var flushBase = compose((0, _functor.Either)(compose( // consoleFunc,
-function (t) {
+var flushBase = compose((0, _functor.Either)(compose(function (t) {
   return !!t;
-}, prop('currentTask'), prop('_value')), compose(function (v) {
+}, prop('currentTask'), prop('_value'), function (v) {
+  console.log('test??', v);
+  return v;
+}), // 循环写错了
+compose( // consoleFunc,
+function (v) {
+  console.log('test', v);
+  return v;
+}, function (v) {
   return flushBase(v);
-}, (0, _functor.Either)(compose(prop('currentTask') // (v) => { console.log('v', v); return v }
-), compose(function (_ref) {
+}, // 这里错了 出不去了
+// Either(
+// compose(
+// prop('currentTask'),
+// (v) => { console.log('v', v); return v }
+// ),
+compose(function (_ref) {
   var didout = _ref.didout,
       currentTask = _ref.currentTask;
-  var next = currentTask.callback(didout);
+  var next = currentTask.callback(didout); // console.log('next', next)
+
   next ? currentTask.callback = next : (0, _taskQueue.popTask)();
   return prop('_value')((0, _taskQueue.peekTask)());
-} // consoleFunc,
-// prop('_value')
-)), function (_ref2) {
+} // prop('_value')
+)) // ),
+), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
-  var didout = currentTask.dueTime <= initTime;
-  console.log('initTime', initTime);
-  console.log('dueTime', currentTask.dueTime);
-  console.log('didout', didout);
-  return didout || !(0, _common.shouldYield)() ? _functor.Right.of({
+  var didout = currentTask.dueTime <= initTime; // initTime
+  // console.log(currentTask)
+  // console.log('initTime', initTime)
+  // console.log(`didout:${didout}`)
+  // console.log(`shouldYield:${shouldYield()}`)
+  // console.log(`initTime:${initTime}`)
+  // console.log(`getTime:${getTime()}`)
+  // console.log('taskQueue', taskQueueFunctor._value.length, didout || !shouldYield())
+  // console.log('didout', didout)
+
+  console.log('tag', currentTask && (didout || !(0, _common.shouldYield)()));
+  return currentTask && (didout || !(0, _common.shouldYield)()) ? _functor.Right.of({
     didout: didout,
     currentTask: currentTask
   }) : _functor.Left.of({
     currentTask: currentTask
   });
-})), function (currentTask) {
-  var initTime = (0, _common.getTime)();
-  return currentTask ? _functor.Right.of({
+}, function (currentTask) {
+  // r or left
+  console.log('currentTask:', currentTask);
+  var initTime = _common.timeFunctor._value.initTime; // console.log(currentTask)
+
+  return {
     initTime: initTime,
     currentTask: currentTask
-  }) : _functor.Left.of({
-    currentTask: currentTask
-  });
+  }; // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
 });
 exports.flushBase = flushBase;
 window.flushBase = flushBase; // window.flushBase = flushBase
@@ -17631,26 +17673,26 @@ var compose = R.compose,
 
 var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(callback);
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test1');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test2');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test3');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test4');
-  });
-  (0, _taskQueue.pushTask)(function () {
-    console.log('test5');
-  });
-  console.log(_taskQueue.taskQueueFunctor);
-  (0, _planwork.planWork)(function () {
-    return (0, _planwork.flushWork)(function () {
-      return (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
+  var num = 10000;
+
+  var _loop = function _loop(i) {
+    (0, _taskQueue.pushTask)(function () {
+      console.log("task".concat(i));
     });
+  };
+
+  for (var i = 0; i < num; i++) {
+    _loop(i);
+  }
+
+  (0, _planwork.planWork)(function () {
+    return (0, _planwork.flushWork)( // planWork(
+    function () {
+      var r = (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value); // console.log(peekTask()._value)
+
+      return !!(0, _taskQueue.peekTask)()._value;
+    } // )
+    );
   });
 };
 
