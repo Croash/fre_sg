@@ -72,7 +72,6 @@ const consoleFunc = (functor) => {
 const flushBase = compose(
   Either(
     compose(
-
       t => !!t, 
       prop('currentTask'),
       prop('_value')
@@ -95,9 +94,6 @@ const flushBase = compose(
         }
       )
     ), 
-
-    // ),
-
   ),
   ({ initTime, currentTask }) => {
     const didout =  currentTask.dueTime <= initTime  // initTime
