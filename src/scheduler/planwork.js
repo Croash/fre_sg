@@ -86,6 +86,7 @@ const flushBase = compose(
           // prop('currentTask'),
           // (v) => { console.log('v', v); return v }
         // ),
+      // 非常重要的一步，next不为空时，callback直接做替换，然后继续执行（虽然觉着可以用push和pop来代替，不过，就先这样吧）
       compose(
         ({ didout, currentTask }) => {
           const next = currentTask.callback(didout)

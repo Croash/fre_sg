@@ -17579,14 +17579,14 @@ function (v) {
 // prop('currentTask'),
 // (v) => { console.log('v', v); return v }
 // ),
+// 非常重要的一步，next不为空时，callback直接做替换，然后继续执行（虽然觉着可以用push和pop来代替，不过，就先这样吧）
 compose(function (_ref) {
   var didout = _ref.didout,
       currentTask = _ref.currentTask;
   var next = currentTask.callback(didout);
   next ? currentTask.callback = next : (0, _taskQueue.popTask)();
   return prop('_value')((0, _taskQueue.peekTask)());
-})) // ),
-), function (_ref2) {
+}))), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
   var didout = currentTask.dueTime <= initTime; // initTime
@@ -17708,7 +17708,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55552" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64913" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
