@@ -1,5 +1,6 @@
 import { compose, curry, map, props } from 'ramda'
 import { scheduleCallback, shouldYield } from '../scheduler'
+import { getTime } from '../scheduler/common'
 import { updateQueueFunctor, pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { trampoline } from '../utils'
 import { push } from '../utils/heapify'
@@ -26,9 +27,13 @@ export function scheduleWork(fiber) {
 // fiberMock : fiber计数用
 let fiberMock = 2
 const reconcileMock = fiber => {
-  const res = fiberMock > 5 ? null : fiber
-  fiberMock > 5 ? fiberMock = 0 : fiberMock ++
-  console.log('res', res, fiberMock)
+  let num = 100000
+  const res = fiberMock > num ? null : fiber
+  if(fiberMock >= num-1) {
+    console.log(fiberMock)
+  }
+  fiberMock > num ? fiberMock = 0 : fiberMock ++
+  // console.log('res', res, fiberMock)
   return res
 }
 const reconcile = fiber => fiber
@@ -37,9 +42,8 @@ const reconcile = fiber => fiber
 const reconcileLoop = (didout, shouldYieldStatus, fiber) => {
   // shouldYield 没想到怎么处理成参数，怎么curryfy
   // use liftA2
-  console.log(shouldYieldStatus)
+  // console.log(shouldYieldStatus)
   const fiberNext = reconcileMock(fiber)
-  console.log()
   return fiberNext ? () => reconcileLoop(didout, shouldYield(), fiberNext) : null
 }
 
@@ -49,10 +53,12 @@ const reconcileLoop = (didout, shouldYieldStatus, fiber) => {
 const reconcileWork = compose(
   (v) => {
     console.log(v)
+    console.log(getTime())
     return v
   },
   (didout) => {
     const curFiber = shiftUpdateItem()
+    console.log(getTime())
     return trampoline(reconcileLoop)(didout, shouldYield(), curFiber)
   }
 )

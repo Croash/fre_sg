@@ -17241,7 +17241,25 @@ Maybe.of = function (val) {
 
 var _default = Maybe;
 exports.default = _default;
-},{}],"src/functor/index.js":[function(require,module,exports) {
+},{}],"src/functor/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.liftA3 = exports.liftA2 = void 0;
+
+var _ramda = require("ramda");
+
+var liftA2 = (0, _ramda.curry)(function (f, a1, a2) {
+  return a1.map(f).ap(a2);
+});
+exports.liftA2 = liftA2;
+var liftA3 = (0, _ramda.curry)(function (f, a1, a2, a3) {
+  return a1.map(f).ap(a2).ap(a3);
+});
+exports.liftA3 = liftA3;
+},{"ramda":"node_modules/ramda/es/index.js"}],"src/functor/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17283,6 +17301,18 @@ Object.defineProperty(exports, "Maybe", {
     return _Maybe.default;
   }
 });
+Object.defineProperty(exports, "liftA2", {
+  enumerable: true,
+  get: function () {
+    return _utils.liftA2;
+  }
+});
+Object.defineProperty(exports, "liftA3", {
+  enumerable: true,
+  get: function () {
+    return _utils.liftA3;
+  }
+});
 
 var _Either = require("./Either");
 
@@ -17292,8 +17322,10 @@ var _IO = _interopRequireDefault(require("./IO"));
 
 var _Maybe = _interopRequireDefault(require("./Maybe"));
 
+var _utils = require("./utils");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Either":"src/functor/Either.js","./Functor":"src/functor/Functor.js","./IO":"src/functor/IO.js","./Maybe":"src/functor/Maybe.js"}],"src/scheduler/common.js":[function(require,module,exports) {
+},{"./Either":"src/functor/Either.js","./Functor":"src/functor/Functor.js","./IO":"src/functor/IO.js","./Maybe":"src/functor/Maybe.js","./utils":"src/functor/utils.js"}],"src/scheduler/common.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17708,7 +17740,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64913" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56896" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
