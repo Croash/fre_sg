@@ -33,7 +33,6 @@ export function createElement(fiber) {
       : fiber.tag === SVG
       ? document.createElementNS('http://www.w3.org/2000/svg', fiber.type)
       : document.createElement(fiber.type)
-  console.log('dom', dom)
   updateElement(dom, {}, fiber.props)
   return dom
 }

@@ -17497,7 +17497,7 @@ var popTask = function popTask() {
 };
 
 exports.popTask = popTask;
-window.pushTask = pushTask;
+window.taskQueueFunctor = taskQueueFunctor;
 window.popTask = popTask;
 window.peekTask = peekTask;
 },{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
@@ -17560,21 +17560,17 @@ var planWork = function () {
   return function (cb) {
     return setTimeout(cb || flushWork);
   };
-}();
+}(); // let f = () => {
+//   var mem = 1
+//   return () => {
+//     console.log('mem:', mem)
+//     mem < 3 && mem ++
+//     return mem<3
+//   }
+// }
+// window.flushWork = flushWork
+// window.f = f
 
-exports.planWork = planWork;
-
-var f = function f() {
-  var mem = 1;
-  return function () {
-    console.log('mem:', mem);
-    mem < 3 && mem++;
-    return mem < 3;
-  };
-};
-
-window.flushWork = flushWork;
-window.f = f;
 /**
  * const newFunc = f()
  * 
@@ -17588,6 +17584,9 @@ window.f = f;
 // tb:: currentTask -> Right||Left
 // const tb = 
 
+
+exports.planWork = planWork;
+
 var consoleFunc = function consoleFunc(functor) {
   console.log(functor);
   return functor;
@@ -17596,16 +17595,18 @@ var consoleFunc = function consoleFunc(functor) {
  * 思考一下，这里写错了，不应该这么循环
  * 
  */
+// 需要之后重构一下
 // flushBase:: currentTask -> boolean
 
 
 var flushBase = compose((0, _functor.Either)(compose(function (t) {
   return !!t;
 }, prop('currentTask'), prop('_value')), // 循环写错了
-compose( // consoleFunc,
-function (v) {
+compose((0, _functor.Either)(function (nil) {
+  console.log('nilTask:', nil);
+}, function (v) {
   return flushBase(v);
-}, // 这里错了 出不去了
+}), // 这里错了 出不去了
 // Either(
 // compose(
 // prop('currentTask'),
@@ -17616,8 +17617,10 @@ compose(function (_ref) {
   var didout = _ref.didout,
       currentTask = _ref.currentTask;
   var next = currentTask.callback(didout);
-  next ? currentTask.callback = next : (0, _taskQueue.popTask)();
-  return prop('_value')((0, _taskQueue.peekTask)());
+  next ? currentTask.callback = next : (0, _taskQueue.popTask)(); // peek is null ? either left or right
+
+  var peek = prop('_value')((0, _taskQueue.peekTask)());
+  return peek ? _functor.Right.of(task) : _functor.Left.of(null);
 }))), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
@@ -17637,9 +17640,9 @@ compose(function (_ref) {
     initTime: initTime,
     currentTask: currentTask
   }; // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
-});
+}); // window.flushBase = flushBase
+
 exports.flushBase = flushBase;
-window.flushBase = flushBase; // window.flushBase = flushBase
 },{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js"}],"src/scheduler/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -17681,26 +17684,18 @@ var compose = R.compose,
 
 var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(callback);
-  var num = 10000;
-
-  var _loop = function _loop(i) {
-    (0, _taskQueue.pushTask)(function () {
-      console.log("task".concat(i));
-    });
-  };
-
-  for (var i = 0; i < num; i++) {
-    _loop(i);
-  }
+  var num = 200; // for(let i=0;i<num;i++) {
+  //   pushTask(() => {
+  //     console.log(`task${i}`)
+  //   })
+  // }
 
   (0, _planwork.planWork)(function () {
     return (0, _planwork.flushWork)( // planWork(
     function () {
-      var r = (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value); // console.log(peekTask()._value)
-
+      var r = (0, _planwork.flushBase)((0, _taskQueue.peekTask)()._value);
       return !!(0, _taskQueue.peekTask)()._value;
-    } // )
-    );
+    });
   });
 };
 

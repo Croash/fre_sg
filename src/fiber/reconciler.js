@@ -58,19 +58,18 @@ const reconcileWork = compose(
   },
   (didout) => {
     const curFiber = shiftUpdateItem()
-    console.log(getTime())
     return trampoline(reconcileLoop)(didout, shouldYield(), curFiber)
   }
 )
 
-window.shouldYield = shouldYield
+// window.shouldYield = shouldYield
 
-window.reconcileMock = reconcileMock
+// window.reconcileMock = reconcileMock
 
-window.pushUpdateItem = pushUpdateItem
+// window.pushUpdateItem = pushUpdateItem
 
-window.updateQueueFunctor = updateQueueFunctor
+// window.updateQueueFunctor = updateQueueFunctor
 
-window.shiftUpdateItem = shiftUpdateItem
+// window.shiftUpdateItem = shiftUpdateItem
 
-window.reconcileWork = reconcileWork
+// window.reconcileWork = reconcileWork

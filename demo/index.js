@@ -1,5 +1,5 @@
 import { h } from '../src/dom/h'
-import { render } from '../src/dom/render'
+import { render } from '../src/fiber/reconciler'
 
 function App() {
   return (

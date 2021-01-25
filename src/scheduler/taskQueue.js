@@ -14,12 +14,12 @@ const pushTaskBase = map(curry(push))(taskQueueFunctor)
 // pushTask::  ( -> ) -> taskqFunctor
 const pushTask = compose(
   ap(pushTaskBase),
-  (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300})
+  (cb) => Functor.of({ callback: cb, startTime: getTime(), dueTime: getTime() + 300}),
 )
 const peekTask = () => map(peek)(taskQueueFunctor)
 const popTask = () => map(pop)(taskQueueFunctor)
 
-window.pushTask = pushTask
+window.taskQueueFunctor = taskQueueFunctor
 window.popTask = popTask
 window.peekTask = peekTask
 

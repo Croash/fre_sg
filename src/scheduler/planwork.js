@@ -32,17 +32,18 @@ const planWork = (() => {
   return cb => setTimeout(cb || flushWork)
 })()
 
-let f = () => {
-  var mem = 1
-  return () => {
-    console.log('mem:', mem)
-    mem < 3 && mem ++
-    return mem<3
-  }
-}
+// let f = () => {
+//   var mem = 1
+//   return () => {
+//     console.log('mem:', mem)
+//     mem < 3 && mem ++
+//     return mem<3
+//   }
+// }
 
-window.flushWork = flushWork
-window.f = f
+// window.flushWork = flushWork
+// window.f = f
+
 /**
  * const newFunc = f()
  * 
@@ -67,19 +68,22 @@ const consoleFunc = (functor) => {
  * 思考一下，这里写错了，不应该这么循环
  * 
  */
+// 需要之后重构一下
 
 // flushBase:: currentTask -> boolean
 const flushBase = compose(
   Either(
     compose(
-      t => !!t, 
+      t => !!t,
       prop('currentTask'),
       prop('_value')
     ),
     // 循环写错了
     compose(
-      // consoleFunc,
-      (v) => flushBase(v),
+      Either(
+        (nil) => { console.log('nilTask:', nil) },
+        (v) => flushBase(v),
+      ),
       // 这里错了 出不去了
       // Either(
         // compose(
@@ -91,7 +95,9 @@ const flushBase = compose(
         ({ didout, currentTask }) => {
           const next = currentTask.callback(didout)
           next ? (currentTask.callback = next) : popTask()
-          return prop('_value')(peekTask())
+          // peek is null ? either left or right
+          const peek = prop('_value')(peekTask())
+          return peek ? Right.of(task) : Left.of(null)
         }
       )
     ), 
@@ -108,8 +114,6 @@ const flushBase = compose(
     // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
   }
 )
-
-window.flushBase = flushBase
 
 export {
   flushBase,

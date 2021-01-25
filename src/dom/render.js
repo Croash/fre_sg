@@ -1,4 +1,4 @@
-import { Functor } from '../functor'
+// import { Functor } from '../functor'
 import { createElement } from './dom'
 
 function renderMock(vnode, node, done) {

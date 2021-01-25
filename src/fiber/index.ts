@@ -7,10 +7,10 @@
 interface fiberProps {
   node: any
   props: Object
-  done: boolean
+  done: boolean | null
 }
 
-const fiber = {
+const fiber: fiberProps = {
   node: '',
   props: {},
   done: false,
