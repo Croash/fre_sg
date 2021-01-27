@@ -11,14 +11,12 @@ const pushBase = (
   )
 )(commitQueueFunctor)
 
-const shiftBase = queue => queue.shift()
-
 const pushCommitItem = compose(
   ap(pushBase),
   (fiberItem) => Functor.of(fiberItem)
 )
 
-const shiftCommitItem = map(shiftBase)(commitQueueFunctor)
+const shiftCommitItem = map(queue => queue.shift())(commitQueueFunctor)
 
 export {
   commitQueueFunctor,

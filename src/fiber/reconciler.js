@@ -27,7 +27,7 @@ export function scheduleWork(fiber) {
 // fiberMock : fiber计数用
 let fiberMock = 2
 const reconcileMock = fiber => {
-  let num = 100000
+  let num = 10000
   const res = fiberMock > num ? null : fiber
   if(fiberMock >= num-1) {
     console.log(fiberMock)
