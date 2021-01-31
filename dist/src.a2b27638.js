@@ -17497,9 +17497,6 @@ var popTask = function popTask() {
 };
 
 exports.popTask = popTask;
-window.taskQueueFunctor = taskQueueFunctor;
-window.popTask = popTask;
-window.peekTask = peekTask;
 },{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
 "use strict";
 
@@ -17568,8 +17565,6 @@ var planWork = function () {
 //     return mem<3
 //   }
 // }
-// window.flushWork = flushWork
-// window.f = f
 
 /**
  * const newFunc = f()
@@ -17640,8 +17635,7 @@ compose(function (_ref) {
     initTime: initTime,
     currentTask: currentTask
   }; // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
-}); // window.flushBase = flushBase
-
+});
 exports.flushBase = flushBase;
 },{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js"}],"src/scheduler/index.js":[function(require,module,exports) {
 "use strict";
@@ -17700,7 +17694,6 @@ var scheduleCallback = function scheduleCallback(callback) {
 };
 
 exports.scheduleCallback = scheduleCallback;
-window.scheduleCallback = scheduleCallback;
 },{"ramda":"node_modules/ramda/es/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js","./planwork":"src/scheduler/planwork.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -17735,7 +17728,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65338" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

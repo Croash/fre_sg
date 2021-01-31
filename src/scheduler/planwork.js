@@ -41,9 +41,6 @@ const planWork = (() => {
 //   }
 // }
 
-// window.flushWork = flushWork
-// window.f = f
-
 /**
  * const newFunc = f()
  * 
@@ -120,6 +117,3 @@ export {
   flushWork,
   planWork
 }
-
-// window.flushBase = flushBase
-

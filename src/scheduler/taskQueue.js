@@ -19,10 +19,6 @@ const pushTask = compose(
 const peekTask = () => map(peek)(taskQueueFunctor)
 const popTask = () => map(pop)(taskQueueFunctor)
 
-window.taskQueueFunctor = taskQueueFunctor
-window.popTask = popTask
-window.peekTask = peekTask
-
 export {
   pushTask,
   peekTask,

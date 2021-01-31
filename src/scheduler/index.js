@@ -29,8 +29,6 @@ const scheduleCallback = (callback) => {
   )
 }
 
-window.scheduleCallback = scheduleCallback
-
 export {
   planWork,
   scheduleCallback,
