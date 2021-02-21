@@ -5,8 +5,6 @@ import { shouldYield } from './common'
 import { pushTask, popTask, peekTask, taskQueueFunctor } from './taskQueue'
 import { flushWork, planWork, flushBase } from './planwork'
 
-const { compose, curry, map, ap } = R
-
 // scheduleCallback:: callback => void
 const scheduleCallback = (callback) => {
   pushTask(callback)
