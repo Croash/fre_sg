@@ -94,7 +94,7 @@ const flushBase = compose(
           next ? (currentTask.callback = next) : popTask()
           // peek is null ? either left or right
           const peek = prop('_value')(peekTask())
-          return peek ? Right.of(task) : Left.of(null)
+          return peek ? Right.of(peek) : Left.of(null)
         }
       )
     ), 
