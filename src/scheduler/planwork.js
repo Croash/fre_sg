@@ -3,6 +3,8 @@ import { Either, Left, Right } from '../functor'
 import { getTime, shouldYield, updateDeadline, timeFunctor } from './common'
 import { peekTask, popTask, taskQueueFunctor } from './taskQueue'
 
+import { consoleFunc } from '../utils'
+
 const { compose, prop } = R
 
 // getTime 有问题，应该修改成传入而非使用getTime
@@ -56,10 +58,10 @@ const planWork = (() => {
 // tb:: currentTask -> Right||Left
 // const tb = 
 
-const consoleFunc = (functor) => {
-  console.log(functor)
-  return functor
-}
+// const consoleFunc = (functor) => {
+//   console.log(functor)
+//   return functor
+// }
 
 /**
  * 思考一下，这里写错了，不应该这么循环
@@ -109,7 +111,7 @@ const flushBase = compose(
     // console.log(currentTask)
     return { initTime, currentTask }
     // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
-  }
+  },
 )
 
 export {
