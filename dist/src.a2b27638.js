@@ -17497,7 +17497,73 @@ var popTask = function popTask() {
 };
 
 exports.popTask = popTask;
-},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
+},{"ramda":"node_modules/ramda/es/index.js","../utils/heapify":"src/utils/heapify.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js"}],"src/utils/sc.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.trampoline = void 0;
+
+var trampoline = function trampoline(f) {
+  return function () {
+    var result = f.apply(void 0, arguments);
+
+    while (typeof result === 'function') {
+      result = result();
+    }
+
+    return result;
+  };
+};
+/**
+ * 
+ * @param {*} n 
+ * @param {*} prevSum 
+ * 
+ * just like this
+ * 
+ * const sum0 = (n, prevSum = 0) => {
+ * if (n <= 1) return n + prevSum;
+ * return () => sum0(n-1, n + prevSum)
+ * }
+ * const sum = trampoline(sum0);
+ * console.log(sum(1000000)); // 不会栈溢出
+ * 
+ */
+
+
+exports.trampoline = trampoline;
+},{}],"src/utils/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "trampoline", {
+  enumerable: true,
+  get: function () {
+    return _sc.trampoline;
+  }
+});
+exports.consoleFunc = exports.isFn = void 0;
+
+var _ramda = require("ramda");
+
+var _sc = require("./sc");
+
+// util function
+var isFn = function isFn(fn) {
+  return typeof fn === 'function';
+};
+
+exports.isFn = isFn;
+var consoleFunc = (0, _ramda.curry)(function (label, ins) {
+  console.log("console.log:".concat(label), ins);
+  return ins;
+});
+exports.consoleFunc = consoleFunc;
+},{"ramda":"node_modules/ramda/es/index.js","./sc":"src/utils/sc.js"}],"src/scheduler/planwork.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17512,6 +17578,8 @@ var _functor = require("../functor");
 var _common = require("./common");
 
 var _taskQueue = require("./taskQueue");
+
+var _utils = require("../utils");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -17578,14 +17646,11 @@ var planWork = function () {
 // const taskCheckBase = curry(taskCheck)
 // tb:: currentTask -> Right||Left
 // const tb = 
+// const consoleFunc = (functor) => {
+//   console.log(functor)
+//   return functor
+// }
 
-
-exports.planWork = planWork;
-
-var consoleFunc = function consoleFunc(functor) {
-  console.log(functor);
-  return functor;
-};
 /**
  * 思考一下，这里写错了，不应该这么循环
  * 
@@ -17594,6 +17659,7 @@ var consoleFunc = function consoleFunc(functor) {
 // flushBase:: currentTask -> boolean
 
 
+exports.planWork = planWork;
 var flushBase = compose((0, _functor.Either)(compose(function (t) {
   return !!t;
 }, prop('currentTask'), prop('_value')), // 循环写错了
@@ -17615,7 +17681,7 @@ compose(function (_ref) {
   next ? currentTask.callback = next : (0, _taskQueue.popTask)(); // peek is null ? either left or right
 
   var peek = prop('_value')((0, _taskQueue.peekTask)());
-  return peek ? _functor.Right.of(task) : _functor.Left.of(null);
+  return peek ? _functor.Right.of(peek) : _functor.Left.of(null);
 }))), function (_ref2) {
   var initTime = _ref2.initTime,
       currentTask = _ref2.currentTask;
@@ -17637,7 +17703,7 @@ compose(function (_ref) {
   }; // return currentTask ? Right.of({ initTime, currentTask }) : Left.of({ currentTask })
 });
 exports.flushBase = flushBase;
-},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js"}],"src/scheduler/index.js":[function(require,module,exports) {
+},{"ramda":"node_modules/ramda/es/index.js","../functor":"src/functor/index.js","./common":"src/scheduler/common.js","./taskQueue":"src/scheduler/taskQueue.js","../utils":"src/utils/index.js"}],"src/scheduler/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17674,12 +17740,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 // scheduleCallback:: callback => void
 var scheduleCallback = function scheduleCallback(callback) {
   (0, _taskQueue.pushTask)(callback);
-  var num = 200; // for(let i=0;i<num;i++) {
-  //   pushTask(() => {
-  //     console.log(`task${i}`)
-  //   })
-  // }
-
   (0, _planwork.planWork)(function () {
     return (0, _planwork.flushWork)( // planWork(
     function () {
@@ -17724,7 +17784,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53574" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56425" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,12 +1,14 @@
-import { compose, curry, map, props } from 'ramda'
+import { compose, curry, map, prop } from 'ramda'
 import { scheduleCallback, shouldYield } from '../scheduler'
 import { getTime } from '../scheduler/common'
 import { updateQueueFunctor, pushUpdateItem, shiftUpdateItem } from './updateQueue'
-import { pushCommitItem } from './commitQueue'
-import { isFn, trampoline } from '../utils'
+import { pushCommitItem, shiftCommitItem } from './commitQueue'
+import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
 
 import { Either, Left, Right } from '../functor'
+
+let WIP
 
 export function render(vnode, node, done) {
   let rootFiber = {
@@ -19,9 +21,11 @@ export function render(vnode, node, done) {
 }
 
 export function scheduleWork(fiber) {
+  console.log('cfff', fiber)
   if (!fiber.dirty && (fiber.dirty = true)) {
     pushUpdateItem(fiber)
   }
+  console.log('fiber', fiber)
   scheduleCallback(reconcileWork)
 }
 
@@ -41,84 +45,102 @@ const reconcile = fiber => {
 }
 
 // reconcileLoop :: didout -> 
-const reconcileLoop = (didout, fiber, time) => {
-  // shouldYield 没想到怎么处理成参数，怎么curryfy
-  // use liftA2
-  // console.log(shouldYieldStatus)
+const reconcileLoop = (didout, fiber) => {
   const fiberNext = reconcile(fiber)
-  return fiberNext ? () => reconcileLoop(didout, fiberNext, time) : null
+  console.log('fiberNext', fiberNext)
+  return fiberNext ? () => reconcileLoop(didout, fiberNext) : null
 }
 
 const preCommit = true // to change
 // lpBase :: fiberFunctor -> 
 const reconcileLoopBase = compose(
-  map(
-    Either(
-      fiberF => fiberF,
-      map(fiberIns => {
-        const loop = ins => {
-          if (fiber) {
-            if (fiber.sibling) {
-              return fiber.sibling
-            }
-            if (!preCommit && fiber.dirty === false) {
-              // console.log('first', WIP)
-              preCommit = WIP
-              return null
-            }
-          }
-          return fiber.parent
-        }
-        return trampoline(loop)(fiberIns)
-      })
-    ),
-    fiber => fiber.child ? Right.of(fiber) : Left.of(fiber),
-  ),
-
-  map(pushCommitItem),
-
   Either(
-    // todo
-    // updateHOOK
-    fiberF => fiberF,
-    // updateHOST
-    fiberF => fiberF,
-  ),
-  // map
-  fiber => {
-    return isFn(fiber.type) ? Right.of(fiber) : Left.of(fiber)
-  },
-    
-  // get fiber's parent and set parent value
-  // and update fiber dirty props and oldProps
-  // fiber :: fiber -> fiber
-  fiberIns => {
-    return compose(
-      f => { console.log('f'); return f },
+    () => { console.log('nilFiber'); return null },
+    // consoleFunc('finish'),
+    compose(
+      // fiber console? WIP?
+      consoleFunc('fiberFinish'),
+      map(
+        compose(
+          Either(
+            consoleFunc('fiberF'),
+            map(fiberIns => {
+              const loop = ins => {
+                console.log('ins', ins)
+                if (fiber) {
+                  if (fiber.sibling) {
+                    return fiber.sibling
+                  }
+                  if (!preCommit && fiber.dirty === false) {
+                    // console.log('first', WIP)
+                    preCommit = WIP
+                    return null
+                  }
+                }
+                return fiber.parent
+              }
+              return trampoline(loop)(fiberIns)
+            })
+          ),
+          fiber => fiber.child ? Right.of(fiber) : Left.of(fiber),
+          consoleFunc('getFiber from arr'),
+          (arr) => arr.shift(),
+        )
+      ),
+      consoleFunc('fiber_test'),
+      prop('_value'),
+      // map nesty the functor into _value, need to prop('_value'),
+      // use lift ?? i think
+      // or too junk code
+      map(pushCommitItem),
+      // tag 0306-1115
+      // tag 0303-2356
+      Either(
+        // todo
+        // updateHOOK
+        fiberFunctor => fiberFunctor,
+        // updateHOST
+        fiberFunctor => fiberFunctor,
+      ),
+      // map
       fiber => {
-        Object.assign(fiberIns, {
-          parentNode: fiber,
-        })
-        return fiberIns
+        console.log('fff', fiber)
+        return isFn(fiber.type) ? Right.of(fiber) : Left.of(fiber)
       },
-      // get this fiber's parent
-      fiber => getParentNode(fiber)
-    )
-  }
-
+      prop('_value'),
+      // get fiber's parent and set parent value
+      // and update fiber dirty props and oldProps
+      // fiber :: fiber -> fiber
+      map(
+        (fiberIns) => 
+          compose(
+            fiber => {
+              Object.assign(fiberIns, {
+                parentNode: fiber,
+              })
+              return fiberIns
+            },
+            // get this fiber's parent
+            fiber => getParentNode(fiber),
+          )(fiberIns),
+      ),
+    ),
+  ),
+  (didout, fiberIns) => {
+    console.log('!d', !didout)
+    return !didout ? Right.of(fiberIns) : Left.of(null)
+  },
 )
 
 // const reconcileBase = curry()
 
 // reconcileWork :: didout -> ( () => {}|null )
 const reconcileWork = compose(
-  (v) => {
-    console.log('v', v)
-    console.log('gtt', getTime())
-    return v
-  },
   (didout) => {
-    const curFiber = shiftUpdateItem()
-    return trampoline(reconcileLoop)(didout, curFiber, getTime())
-  }
+    WIP = shiftUpdateItem()._value
+    console.log('cf', curFiber)
+    // trampoline change to closure
+    return trampoline(curry(reconcileLoopBase)(didout))(WIP)
+  },
+  consoleFunc('didoutM'),
 )

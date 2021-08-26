@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel -p 9998 watch index.html",
+    "start": "parcel -p 9990 watch index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

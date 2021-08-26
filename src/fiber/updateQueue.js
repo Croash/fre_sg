@@ -1,13 +1,17 @@
 import * as R from 'ramda'
+import { consoleFunc } from '../utils'
 import { Functor } from '../functor'
 
-const { compose, curry, map, ap } = R
+const { compose, curry, map, ap, prop } = R
 
 const updateQueueFunctor = Functor.of([])
 
 const pushBase = map(
   curry(
-    (queue, item) => queue.push(item)
+    (queue, item) => {
+      queue.push(item);
+      return queue
+    }
   )
 )(updateQueueFunctor)
 
@@ -18,7 +22,11 @@ const pushUpdateItem = compose(
   (fiberItem) => Functor.of(fiberItem)
 )
 
-const shiftUpdateItem = () => map(queue => queue.shift())(updateQueueFunctor)
+// ap
+const shiftUpdateItem = () => 
+  // prop('_value'),
+  map(queue => queue.shift())(updateQueueFunctor)
+
 
 export {
   updateQueueFunctor,

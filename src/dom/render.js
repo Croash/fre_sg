@@ -12,14 +12,14 @@ function renderMock(vnode, node, done) {
     },
     done
   }
-  console.log(rootFiber)
+  console.log(rootFiber, 'rootFiber')
   let child
   if (rootFiber.type instanceof Function) {
     child = rootFiber.type(rootFiber.props)
     console.log(child)
   }
   const mockDom = createElement(rootFiber)
-  console.log(mockDom)
+  console.log('mock', mockDom)
   node.insertBefore(null, mockDom)
 }
 

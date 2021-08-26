@@ -4,7 +4,14 @@ export function updateElement(dom, oldProps, newProps) {
   for (let name in { ...oldProps, ...newProps }) {
     let oldValue = oldProps[name]
     let newValue = newProps[name]
-
+    /**
+     * 1. equal or children, no opt
+     * 2. style, update style
+     * 3. on means bind function, remove old, bind new
+     * 4. has newVal, set
+     * 5. new is null, remove
+     * 6. otherwise set val
+     */
     if (oldValue == newValue || name === 'children') {
     } else if (name === 'style') {
       for (const k in { ...oldValue, ...newValue }) {
@@ -13,6 +20,7 @@ export function updateElement(dom, oldProps, newProps) {
         }
       }
     } else if (name[0] === 'o' && name[1] === 'n') {
+      // 'o' && 'n' ?? on, wtf, on means this is function
       name = name.slice(2).toLowerCase()
       if (oldValue) dom.removeEventListener(name, oldValue)
       dom.addEventListener(name, newValue)
