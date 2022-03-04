@@ -3,7 +3,7 @@ import { render } from '../src/fiber/reconciler'
 
 function App() {
   return (
-   <div>test</div>
+   <div>test<span>1234</span></div>
   )
 }
 

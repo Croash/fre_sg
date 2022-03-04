@@ -9,6 +9,8 @@ const consoleFunc = curry((label, ins) => {
   return ins
 })
 
+export const isArr = Array.isArray
+
 export {
   isFn,
   trampoline,
