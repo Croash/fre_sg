@@ -1,6 +1,6 @@
 import { compose, curry, map, prop } from 'ramda'
-import { scheduleCallback, shouldYield } from '../scheduler'
-import { getTime } from '../scheduler/common'
+import { scheduleCallback, shouldYield } from 'scheduler_sg'
+import { getTime } from 'scheduler_sg'
 import { pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { pushCommitItem, shiftCommitItem } from './commitQueue'
 import { isFn, trampoline, consoleFunc } from '../utils'

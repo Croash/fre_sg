@@ -4,6 +4,7 @@ export const isStr = s => typeof s === 'string' || typeof s === 'number'
 export const MEMO = 0
 
 export function h(type, attrs, ...args) {
+  console.log('hhh', type)
 
   let props = attrs || {}
   let key = props.key || null

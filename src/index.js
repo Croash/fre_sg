@@ -1,3 +1,3 @@
-import { getTime } from './scheduler'
+import { getTime } from 'scheduler_sg'
 
 window.getTime = getTime
