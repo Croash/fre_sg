@@ -5,10 +5,10 @@ import { consoleFunc } from '../utils'
 const { compose, curry, map, ap, prop } = R
 
 // functor
-export const WIPFunctor = Functor.of({ WIP: null })
+const WIPFunctor = Functor.of({ WIP: null })
 
 // update
-export const updateBase = map(
+const updateBase = map(
   curry((obj, v) => {
     Object.assign(obj, { WIP: v })
     return obj

@@ -5,6 +5,7 @@ export const getParentNode = fiber => {
   const loop = fiberIns => {
     // console.log(!isFn(fiberIns.type) )
     // fiberIns 未判空 想一下
+    console.log('fiberIns', !isFn(fiberIns.type), fiberIns)
     return !isFn(fiberIns.type) ? fiberIns.node : (() => {
       fiberIns = fiberIns.parent
       return loop

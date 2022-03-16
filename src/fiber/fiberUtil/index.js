@@ -1,11 +1,12 @@
+import { isArr } from '../../dom/h'
 const hs = (i, j, k) =>
   k != null && j != null
-    ? '.' + i + '.' + k
-    : j != null
-    ? '.' + i + '.' + j
+    ? ('.' + i + '.' + k)
+    : (j != null
+    ? ('.' + i + '.' + j)
     : k != null
-    ? '.' + k
-    : '.' + i
+    ? ('.' + k)
+    : ('.' + i))
 
 export const hashfy = c => {
   const out = {}
@@ -18,4 +19,8 @@ export const hashfy = c => {
       )
     : (out[hs(0, null, c.key)] = c)
   return out
+}
+
+export const createFiber = (vnode, op) => {
+  return { ...vnode, op }
 }

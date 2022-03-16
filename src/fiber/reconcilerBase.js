@@ -1,7 +1,7 @@
 import { compose, composeP, curry, map, prop } from 'ramda'
 import { scheduleCallback, shouldYield, getTime } from 'scheduler_sg'
 // import { getTime } from '../scheduler/common'
-import { createElement, SVG } from '../dom/dom'
+import { createElement } from '../dom/dom'
 import { pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { pushCommitItem, shiftCommitItem } from './commitQueue'
 import { preCommitFunctor, getPreCommit } from './preComit'
@@ -9,19 +9,82 @@ import { getWIP, updateWIP } from './WIP'
 import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
 import { shouldPlace, shouldUpdate } from './utils'
+import { hashfy, createFiber } from './fiberUtil'
+import { NOWORK, PLACE, UPDATE, DELETE, SVG } from './constant'
 
 import { Either, Left, Right } from '../functor'
 let preCommit = null
-let WIP = null
 
+// reconcileChildren 
+// 只将WIP和WIP.children以及相关的sibling
 const reconcileChildren = compose(
   Either(
     compose(nil => nil),
-    compose(WIP => WIP),
+    compose(({WIP, children}) => {
+      delete WIP.child // *a
+      const oldFibers = WIP.kids
+      // 这里是如何对应的？？？
+      const newFibers = (WIP.kids = hashfy(children))
+      const reused = {}
+      for (let k in oldFibers) {
+        const oldFiber = oldFibers[k]
+        const newFiber = newFibers[k]
+        if (oldFiber && oldFiber) {
+          reused[k] = oldFiber
+        } else {
+          oldFiber.op = DELETE
+          pushCommitItem(oldFiber)
+        }
+      }
+      
+
+      // newfiber处理
+      let prevFiber = null
+      let alternate = null
+
+      for (const k in newFibers) {
+        let newFiber = newFibers[k]
+        let oldFiber = reused[k]
+
+        if (oldFiber) {
+          alternate = createFiber(oldFiber, UPDATE)
+          newFiber.op = UPDATE
+          // how to update? not {...newFiber, ...alternate} ??
+          newFiber = { ...alternate, ...newFiber }
+          newFiber.lastProps = alternate.props
+          if (shouldPlace(newFiber)) {
+            newFiber.op = PLACE
+          }
+        } else {
+          newFiber = createFiber(newFiber, PLACE)
+        }
+
+        newFibers[k] = newFiber
+        // 设置parent
+        // 忽然明白，其实sibling的设置，不需要关注是否为从上到下或者从左到右，只需要关心是否遍历到就行
+        newFiber.parent = WIP
+
+        if (prevFiber) {
+          // 设置sibling
+          prevFiber.sibling = newFiber
+        } else {
+          if (WIP.tag === SVG) newFiber.tag = SVG
+          // 设置child
+          WIP.child = newFiber // newFiber 与 WIP 链接，整体child, sibling 和 paraent的网络就完成了
+        }
+        prevFiber = newFiber
+      }
+
+      // 结束 prevFiber置为null
+      if (prevFiber) prevFiber.sibling = null
+
+
+      return WIP
+    }),
   ),
   (WIP, children) => {
-    console.log('WIP, children',WIP, children)
-    return children ? Right.of(WIP) : Left.of(null)
+    console.log('chidlren', children)
+    return children ? Right.of({WIP, children}) : Left.of(null)
   }
 )
 
@@ -30,6 +93,7 @@ const updateHost = compose(
     // insertPoint ?? 
     // parentNode ??
     // node.last ??
+    console.log('WIP.parentNode', WIP)
     let p = WIP.parentNode || {}
     WIP.insertPoint = p.last || null
     p.last = WIP
@@ -37,6 +101,7 @@ const updateHost = compose(
     // insertPoint & parentNode are used when commit
     // and node.last ? i think wont use
     reconcileChildren(WIP, WIP.props.children)
+    return WIP
   },
   Either(
     compose(WIP => {
@@ -58,6 +123,8 @@ const updateHook = (WIP) => {
 }
 
 export const reconcile = compose(
+  consoleFunc('WIP is:'),
+
   Either(
     compose(WIP => {
       // trampoline tail recurse how to work ???
@@ -68,13 +135,16 @@ export const reconcile = compose(
     compose(WIP => WIP),
   ),
   (WIP) => {
+    // console.log('WIP', WIP)
     WIP.parentNode = getParentNode(WIP)
+    // console.log(WIP, WIP.parentNode)
     isFn(WIP.type) ? updateHook(WIP) : updateHost(WIP)
     WIP.dirty = WIP.dirty ? false : 0
     WIP.oldProps = WIP.props
     // 这里就push吗，不太理解
     // console.log('push213')
     // commitItems 这里push了多次，有问题
+    // 相当于push了root节点的fiber
     pushCommitItem(WIP)
     return WIP.child ? Right.of(WIP.child) : Left.of(WIP)
   },
@@ -89,14 +159,15 @@ export const reconcileWorkLoop = compose(
     compose(
       // reconcile
       // () => function
-      (WIP) => reconcile(WIP),
+      ({WIP, didout}) => () => reconcileWorkLoop(didout, WIP), // 用于触发trancompile tail recurse
+      ({WIP, didout}) => ({ WIP: reconcile(WIP), didout }),
     ),
   ),
   (didout, WIP) => {
     // some problem
+    // console.log(didout, WIP)
     const goonWork = !shouldYield() || didout
-    // console.log('goonWork && WIP', shouldYield(), getTime())
-    return (goonWork && WIP) ? Right.of(WIP) : Left.of(WIP)
+    return (goonWork && WIP) ? Right.of({WIP, didout}) : Left.of(WIP)
   },
 )
 
@@ -117,17 +188,15 @@ export const reconcileWork = compose(
   ),
   ({ didout, newWIP }) => {
     const notOut = !didout // current WIP not out, so can be processed in next reconcileLoop(reconcile stream)
-    // console.log('newWIP',newWIP, notOut, notOut && newWIP)
-    // console.log((!notOut && newWIP))// ?? not sure
-    console.log('notOut && newWIP', notOut && newWIP)
     return (notOut && newWIP) ? Right.of(reconcileWork.bind(null)) : Left.of(null)
   },
   (didout) => {
     if (!getWIP()) updateWIP(shiftUpdateItem()._value)
-    WIP = getWIP()
+    const WIP = getWIP()
     // 到这里没有问题，因为还没有处理到WIP
     // 实际上需要reconcileWorkLoop来处理wip，但是reconcileWorkLoop暂时还没对WIP进行处理
     const newWIP = trampoline(curry(reconcileWorkLoop)(didout))(WIP)
+
     updateWIP(null) // 之后注释即可， 因为WIP没有变为null，所以这里会一直循环下去，之后把这里删掉就可以
     // 这里先将WIP=null，保证不会一直循环
     return { didout, newWIP }
