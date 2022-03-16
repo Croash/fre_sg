@@ -1,4 +1,4 @@
-const SVG = 4
+export const SVG = 4
 
 export function updateElement(dom, oldProps, newProps) {
   for (let name in { ...oldProps, ...newProps }) {

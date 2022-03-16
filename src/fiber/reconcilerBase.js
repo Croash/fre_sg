@@ -1,22 +1,59 @@
-import { compose, curry, map, prop } from 'ramda'
+import { compose, composeP, curry, map, prop } from 'ramda'
 import { scheduleCallback, shouldYield, getTime } from 'scheduler_sg'
 // import { getTime } from '../scheduler/common'
+import { createElement, SVG } from '../dom/dom'
 import { pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { pushCommitItem, shiftCommitItem } from './commitQueue'
 import { preCommitFunctor, getPreCommit } from './preComit'
+import { getWIP, updateWIP } from './WIP'
 import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
+import { shouldPlace, shouldUpdate } from './utils'
 
 import { Either, Left, Right } from '../functor'
-
 let preCommit = null
 let WIP = null
 
-const updateHost = WIP => {
-  return WIP
-}
+const reconcileChildren = compose(
+  Either(
+    compose(nil => nil),
+    compose(WIP => WIP),
+  ),
+  (WIP, children) => {
+    console.log('WIP, children',WIP, children)
+    return children ? Right.of(WIP) : Left.of(null)
+  }
+)
+
+const updateHost = compose(
+  (WIP) => {
+    // insertPoint ?? 
+    // parentNode ??
+    // node.last ??
+    let p = WIP.parentNode || {}
+    WIP.insertPoint = p.last || null
+    p.last = WIP
+    WIP.node.last = null
+    // insertPoint & parentNode are used when commit
+    // and node.last ? i think wont use
+    reconcileChildren(WIP, WIP.props.children)
+  },
+  Either(
+    compose(WIP => {
+      if (WIP.type === 'svg') {
+        WIP.tag = SVG
+      }
+      WIP.node = createElement(WIP)
+    }),
+    compose(WIP => WIP)
+  ),
+  WIP => {
+    return WIP.node ? Right.of(WIP) : Left.of(WIP)
+  }
+)
 
 const updateHook = (WIP) => {
+  console.log('hook')
   return WIP
 }
 
@@ -36,7 +73,7 @@ export const reconcile = compose(
     WIP.dirty = WIP.dirty ? false : 0
     WIP.oldProps = WIP.props
     // 这里就push吗，不太理解
-    console.log('push213')
+    // console.log('push213')
     // commitItems 这里push了多次，有问题
     pushCommitItem(WIP)
     return WIP.child ? Right.of(WIP.child) : Left.of(WIP)
@@ -58,7 +95,7 @@ export const reconcileWorkLoop = compose(
   (didout, WIP) => {
     // some problem
     const goonWork = !shouldYield() || didout
-    console.log('goonWork && WIP', goonWork , WIP, shouldYield())
+    // console.log('goonWork && WIP', shouldYield(), getTime())
     return (goonWork && WIP) ? Right.of(WIP) : Left.of(WIP)
   },
 )
@@ -83,13 +120,16 @@ export const reconcileWork = compose(
     // console.log('newWIP',newWIP, notOut, notOut && newWIP)
     // console.log((!notOut && newWIP))// ?? not sure
     console.log('notOut && newWIP', notOut && newWIP)
-    return (notOut && newWIP) ? Right.of(reconcileWork) : Left.of(null)
+    return (notOut && newWIP) ? Right.of(reconcileWork.bind(null)) : Left.of(null)
   },
   (didout) => {
-    if (!WIP) WIP = shiftUpdateItem()._value
+    if (!getWIP()) updateWIP(shiftUpdateItem()._value)
+    WIP = getWIP()
     // 到这里没有问题，因为还没有处理到WIP
     // 实际上需要reconcileWorkLoop来处理wip，但是reconcileWorkLoop暂时还没对WIP进行处理
     const newWIP = trampoline(curry(reconcileWorkLoop)(didout))(WIP)
+    updateWIP(null) // 之后注释即可， 因为WIP没有变为null，所以这里会一直循环下去，之后把这里删掉就可以
+    // 这里先将WIP=null，保证不会一直循环
     return { didout, newWIP }
   },
 )
