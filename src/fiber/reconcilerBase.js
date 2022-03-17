@@ -8,12 +8,17 @@ import { preCommitFunctor, getPreCommit } from './preComit'
 import { getWIP, updateWIP } from './WIP'
 import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
-import { shouldPlace, shouldUpdate } from './utils'
+import { shouldPlace, shouldUpdate, cloneChildren } from './utils'
 import { hashfy, createFiber } from './fiberUtil'
 import { NOWORK, PLACE, UPDATE, DELETE, SVG } from './constant'
+import { createText, MEMO, isStr } from '../dom/h'
 
 import { Either, Left, Right } from '../functor'
 let preCommit = null
+
+let currentFiber = null
+
+export const getCurrentFiber = () => currentFiber || null
 
 // reconcileChildren 
 // 只将WIP和WIP.children以及相关的sibling
@@ -83,7 +88,6 @@ const reconcileChildren = compose(
     }),
   ),
   (WIP, children) => {
-    console.log('chidlren', children)
     return children ? Right.of({WIP, children}) : Left.of(null)
   }
 )
@@ -93,7 +97,6 @@ const updateHost = compose(
     // insertPoint ?? 
     // parentNode ??
     // node.last ??
-    console.log('WIP.parentNode', WIP)
     let p = WIP.parentNode || {}
     WIP.insertPoint = p.last || null
     p.last = WIP
@@ -109,6 +112,7 @@ const updateHost = compose(
         WIP.tag = SVG
       }
       WIP.node = createElement(WIP)
+      return WIP
     }),
     compose(WIP => WIP)
   ),
@@ -118,33 +122,56 @@ const updateHost = compose(
 )
 
 const updateHook = (WIP) => {
-  console.log('hook')
+  if (
+    WIP.type.tag === MEMO &&
+    WIP.dirty == 0 &&
+    !shouldUpdate(WIP.oldProps, WIP.props)
+  ) {
+    cloneChildren(WIP)
+    return
+  }
+  currentFiber = WIP
+  WIP.type.fiber = WIP
+
+  // console.log('cur', WIP.type.fiber, WIP.props)
+  // resetCursor?? 重置
+  // resetCursor()
+  let children = WIP.type(WIP.props)
+  if (isStr(children)) {
+    children = createText(children)
+  }
+  reconcileChildren(WIP, children)
   return WIP
 }
 
 export const reconcile = compose(
-  consoleFunc('WIP is:'),
-
   Either(
     compose(WIP => {
-      // trampoline tail recurse how to work ???
-      // const reconcileLoop = compose((WIP) => WIP)
-      // WIP = trampoline(curry(reconcileLoop)(WIP))()
-      return WIP
+      while (WIP) {
+        // preCommit ??
+        // 忘记了
+        // console.log(preCommit, WIP.dirty)
+        if (!preCommit && WIP.dirty === false) {
+          // console.log('first', WIP)
+          // console.log(WIP)
+          preCommit = WIP
+          return null
+        }
+        if (WIP.sibling) {
+          return WIP.sibling
+        }
+        // 忘记了是做什么了，变为parent，是否会回到root节点？
+        WIP = WIP.parent
+      }
     }),
     compose(WIP => WIP),
   ),
   (WIP) => {
-    // console.log('WIP', WIP)
     WIP.parentNode = getParentNode(WIP)
-    // console.log(WIP, WIP.parentNode)
     isFn(WIP.type) ? updateHook(WIP) : updateHost(WIP)
     WIP.dirty = WIP.dirty ? false : 0
     WIP.oldProps = WIP.props
-    // 这里就push吗，不太理解
-    // console.log('push213')
-    // commitItems 这里push了多次，有问题
-    // 相当于push了root节点的fiber
+    // 其实是每次update完，将children的关系处理完，将WIP的status处理完之后，再将该fiber推入commitItemsArr中
     pushCommitItem(WIP)
     return WIP.child ? Right.of(WIP.child) : Left.of(WIP)
   },
@@ -159,13 +186,15 @@ export const reconcileWorkLoop = compose(
     compose(
       // reconcile
       // () => function
-      ({WIP, didout}) => () => reconcileWorkLoop(didout, WIP), // 用于触发trancompile tail recurse
-      ({WIP, didout}) => ({ WIP: reconcile(WIP), didout }),
+
+      ({ WIP, didout }) => () => reconcileWorkLoop(didout, WIP), // 用于触发trancompile tail recurse
+      
+      ({ WIP, didout }) => ({ WIP: reconcile(WIP), didout }),      
     ),
   ),
   (didout, WIP) => {
     // some problem
-    // console.log(didout, WIP)
+    console.log('didout', didout, WIP)
     const goonWork = !shouldYield() || didout
     return (goonWork && WIP) ? Right.of({WIP, didout}) : Left.of(WIP)
   },
@@ -196,7 +225,6 @@ export const reconcileWork = compose(
     // 到这里没有问题，因为还没有处理到WIP
     // 实际上需要reconcileWorkLoop来处理wip，但是reconcileWorkLoop暂时还没对WIP进行处理
     const newWIP = trampoline(curry(reconcileWorkLoop)(didout))(WIP)
-
     updateWIP(null) // 之后注释即可， 因为WIP没有变为null，所以这里会一直循环下去，之后把这里删掉就可以
     // 这里先将WIP=null，保证不会一直循环
     return { didout, newWIP }
