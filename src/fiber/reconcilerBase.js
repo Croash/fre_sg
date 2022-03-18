@@ -12,6 +12,7 @@ import { shouldPlace, shouldUpdate, cloneChildren } from './utils'
 import { hashfy, createFiber } from './fiberUtil'
 import { NOWORK, PLACE, UPDATE, DELETE, SVG } from './constant'
 import { createText, MEMO, isStr } from '../dom/h'
+import { commitWork } from './commit'
 
 import { Either, Left, Right } from '../functor'
 let preCommit = null
@@ -194,7 +195,6 @@ export const reconcileWorkLoop = compose(
   ),
   (didout, WIP) => {
     // some problem
-    console.log('didout', didout, WIP)
     const goonWork = !shouldYield() || didout
     return (goonWork && WIP) ? Right.of({WIP, didout}) : Left.of(WIP)
   },
@@ -209,7 +209,7 @@ export const reconcileWork = compose(
     compose(
       () => {
         console.log('end')
-        if(preCommit) pushUpdateItem(preCommit)
+        if (preCommit) commitWork(preCommit)
         return null
       }
     ),
