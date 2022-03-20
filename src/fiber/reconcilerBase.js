@@ -13,9 +13,11 @@ import { hashfy, createFiber } from './fiberUtil'
 import { NOWORK, PLACE, UPDATE, DELETE, SVG } from './constant'
 import { createText, MEMO, isStr } from '../dom/h'
 import { commitWork } from './commit'
+import { resetCursor } from './hooks'
 
 import { Either, Left, Right } from '../functor'
 let preCommit = null
+export const clearPreCommit = () => preCommit = null
 
 let currentFiber = null
 
@@ -139,7 +141,7 @@ const updateHook = (WIP) => {
 
   // console.log('cur', WIP.type.fiber, WIP.props)
   // resetCursor?? 重置
-  // resetCursor()
+  resetCursor()
   let children = WIP.type(WIP.props)
   if (isStr(children)) {
     children = createText(children)
@@ -201,6 +203,7 @@ export const reconcileWorkLoop = compose(
   ),
   (didout, WIP) => {
     // some problem
+    console.log('WIP', WIP)
     const goonWork = !shouldYield() || didout
     return (goonWork && WIP) ? Right.of({WIP, didout}) : Left.of(WIP)
   },
@@ -228,10 +231,11 @@ export const reconcileWork = compose(
   (didout) => {
     if (!getWIP()) updateWIP(shiftUpdateItem()._value)
     const WIP = getWIP()
+    console.log('WIP', WIP)
     // 到这里没有问题，因为还没有处理到WIP
     // 实际上需要reconcileWorkLoop来处理wip，但是reconcileWorkLoop暂时还没对WIP进行处理
     const newWIP = trampoline(curry(reconcileWorkLoop)(didout))(WIP)
-    updateWIP(null) // 之后注释即可， 因为WIP没有变为null，所以这里会一直循环下去，之后把这里删掉就可以
+    // updateWIP(null) // 之后注释即可， 因为WIP没有变为null，所以这里会一直循环下去，之后把这里删掉就可以
     // 这里先将WIP=null，保证不会一直循环
     return { didout, newWIP }
   },

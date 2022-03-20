@@ -1,8 +1,11 @@
 import { map, compose } from 'ramda'
+import { planWork } from 'scheduler_sg'
 import { commitQueueFunctor, shiftCommitItem } from '../commitQueue'
 import { updateElement } from '../../dom/dom'
 import { NOWORK, PLACE, UPDATE, DELETE, SVG } from '../constant'
 import { isFn } from '../../utils'
+import { updateWIP } from '../WIP'
+import { clearPreCommit } from '../reconcilerBase'
 
 const refer = (ref, dom) => {
   if (ref) isFn(ref) ? ref(dom) : (ref.current = dom)
@@ -14,6 +17,11 @@ const cleanupRef = (kids) => {
     refer(kid.ref, null)
     if (kid.kids) cleanupRef(kid.kids)
   }
+}
+
+const effect = e => {
+  const res = e[0]()
+  if (isFn(res)) e[2] = res
 }
 
 const cleanup = e => e[2] && e[2]()
@@ -65,8 +73,10 @@ export const commitWork = (fiber) => {
   }
 
   fiber.done && fiber.done()
-  // commitQueue = []
+  // commitQueue = []// 已经为空
   // preCommit = null
+  clearPreCommit()
+  updateWIP(null)
   // WIP = null
 
 
