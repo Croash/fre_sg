@@ -44,6 +44,11 @@ export function useReducer(reducer, initState) {
   }
 
   if (hook.length) {
+    // 相当于我会新提供一个[val, setter], val 是新的，只要我的hook[0]有更新，那么h产生的fiber就会更新，然后
+    // scheduleWork之后才会进行更新，我理解是这样的
+    // 当然 他是如何保证先return下方结果，再进行scheduleWork的呢？
+    // 这个比较好奇，剩余的流程，我都明白了
+    // 之后整理文档
     return [hook[0], setter]
   } else {
     hook[0] = initState

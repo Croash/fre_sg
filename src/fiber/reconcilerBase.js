@@ -49,7 +49,6 @@ const reconcileChildren = compose(
       // newfiber处理
       let prevFiber = null
       let alternate = null
-
       for (const k in newFibers) {
         let newFiber = newFibers[k]
         let oldFiber = reused[k]
@@ -138,8 +137,6 @@ const updateHook = (WIP) => {
   }
   currentFiber = WIP
   WIP.type.fiber = WIP
-
-  // console.log('cur', WIP.type.fiber, WIP.props)
   // resetCursor?? 重置
   resetCursor()
   let children = WIP.type(WIP.props)
@@ -203,7 +200,6 @@ export const reconcileWorkLoop = compose(
   ),
   (didout, WIP) => {
     // some problem
-    console.log('WIP', WIP)
     const goonWork = !shouldYield() || didout
     return (goonWork && WIP) ? Right.of({WIP, didout}) : Left.of(WIP)
   },
@@ -231,7 +227,6 @@ export const reconcileWork = compose(
   (didout) => {
     if (!getWIP()) updateWIP(shiftUpdateItem()._value)
     const WIP = getWIP()
-    console.log('WIP', WIP)
     // 到这里没有问题，因为还没有处理到WIP
     // 实际上需要reconcileWorkLoop来处理wip，但是reconcileWorkLoop暂时还没对WIP进行处理
     const newWIP = trampoline(curry(reconcileWorkLoop)(didout))(WIP)

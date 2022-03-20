@@ -26,6 +26,7 @@ export const scheduleWork = (fiber) => {
   if (!fiber.dirty && (fiber.dirty = true)) {
     pushUpdateItem(fiber)
   }
+
   scheduleCallback(reconcileWork)
 }
 
