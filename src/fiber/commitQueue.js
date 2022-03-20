@@ -23,7 +23,7 @@ const pushCommitItem = compose(
   (fiberItem) => Functor.of(fiberItem),
 )
 
-const shiftCommitItem = map(queue => queue.shift())(commitQueueFunctor)
+const shiftCommitItem = () => map(queue => queue.shift())(commitQueueFunctor)
 
 export {
   commitQueueFunctor,

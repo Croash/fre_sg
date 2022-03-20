@@ -113,11 +113,14 @@ const updateHost = compose(
         WIP.tag = SVG
       }
       WIP.node = createElement(WIP)
+      // console.log('???', WIP.node)
+
       return WIP
     }),
     compose(WIP => WIP)
   ),
   WIP => {
+    // console.log('WIP.node', WIP.node)
     return WIP.node ? Right.of(WIP) : Left.of(WIP)
   }
 )
@@ -168,12 +171,15 @@ export const reconcile = compose(
     compose(WIP => WIP),
   ),
   (WIP) => {
-    WIP.parentNode = getParentNode(WIP)
+    const pIns = getParentNode(WIP)
+    WIP.parentNode = pIns
+
     isFn(WIP.type) ? updateHook(WIP) : updateHost(WIP)
     WIP.dirty = WIP.dirty ? false : 0
     WIP.oldProps = WIP.props
     // 其实是每次update完，将children的关系处理完，将WIP的status处理完之后，再将该fiber推入commitItemsArr中
     pushCommitItem(WIP)
+
     return WIP.child ? Right.of(WIP.child) : Left.of(WIP)
   },
 )
