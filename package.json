@@ -1,7 +1,7 @@
 {
   "name": "fre_sg",
   "version": "1.0.0",
-  "description": "",
+  "description": "a react-like-like lib (from fre), just for fun",
   "main": "index.js",
   "scripts": {
     "start": "parcel -p 9990 watch index.html",
