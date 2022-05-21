@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { Either, Left, Right } from '../functor'
+import { Either, Left, Right } from 'sg_func'
 import { getTime, shouldYield, updateDeadline, timeFunctor } from './common'
 import { peekTask, popTask, taskQueueFunctor } from './taskQueue'
 

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { consoleFunc } from '../utils'
-import { Functor } from '../functor'
+import { Functor } from 'sg_func'
 
 const { compose, curry, map, ap, prop } = R
 

@@ -15,7 +15,7 @@ import { createText, MEMO, isStr } from '../dom/h'
 import { commitWork } from './commit'
 import { resetCursor } from './hooks'
 
-import { Either, Left, Right } from '../functor'
+import { Either, Left, Right } from 'sg_func'
 let preCommit = null
 export const clearPreCommit = () => preCommit = null
 

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { push, pop, peek } from '../utils/heapify'
-import { Functor, Maybe, Either } from '../functor'
+import { Functor, Maybe, Either } from 'sg_func'
 import { frameLength ,getTime, shouldYield } from './common'
 
 const { compose, curry, map, ap, prop, chain } = R

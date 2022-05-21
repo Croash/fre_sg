@@ -6,7 +6,7 @@ import { pushCommitItem, shiftCommitItem } from './commitQueue'
 import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
 
-import { Either, Left, Right } from '../functor'
+import { Either, Left, Right } from 'sg_func'
 
 import { reconcileLoopBase, reconcileWork } from './reconcilerBase'
 

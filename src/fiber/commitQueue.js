@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { Functor } from '../functor'
+import { Functor } from 'sg_func'
 import { consoleFunc } from '../utils'
 
 const { compose, curry, map, ap } = R

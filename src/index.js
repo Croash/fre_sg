@@ -1,3 +1,15 @@
-import { getTime } from 'scheduler_sg'
+import { h } from './dom/h'
+import { createElement } from './dom/dom'
+import { useState, useEffect, useLayout, useReducer, useCallback, useMemo, useRef } from './fiber/hooks'
 
-window.getTime = getTime
+export default {
+  h,
+  createElement,
+  useState,
+  useEffect,
+  useLayout,
+  useReducer,
+  useCallback,
+  useMemo,
+  useRef,
+}

@@ -92,14 +92,3 @@ export function useCallback(cb, deps) {
 export function useRef(current) {
   return useMemo(() => ({ current }), [])
 }
-
-export function getHook(cursor) {
-  const current = getCurrentFiber()
-  let hooks =
-    current.hooks || (current.hooks = { list: [], effect: [], layout: [] })
-  if (cursor >= hooks.list.length) {
-    hooks.list.push([])
-  }
-  return [hooks.list[cursor], current]
-}
-
