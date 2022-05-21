@@ -1,8 +1,8 @@
 # fre_sg
 
-fre_sg 的 scheduler 已经剥离为了单独的 lib，scheduler_sg，可以动态的 push 进 task 和消费掉 task，消费的同时，会以 spare 出时间，专门给浏览器做渲染（fre 中这样做，就是为了兼容没有 requestIdle 的浏览器），习惯了还是很好用的。
+fre_sg 的 scheduler 已经剥离为了单独的 lib，scheduler_sg，一个调度器，有任务时，会在渲染间隙完成任务，同时任务超时的时候，会优先处理任务。
 
-## fre_sg 源码解析
+## 代码部分
 
 只看 fiber 的部分.
 
@@ -12,7 +12,7 @@ import { scheduleCallback } from "scheduleCallback_sg";
 
 reconciler.js 中的 render 方法，其实是整个 fiber 渲染的入口，之后将 jsx 中的组件通过 h 方法(对应 react.createElement)将组件转化为一个个的 fiber。
 并将该 fiber 做一个标记，是从该 fiber 开始渲染（或者有改变），之后 sibling，children，parent 回来时，该标记触发 commit，进入 commit 和之后的 dom 节点替换阶段。
-之后将 fiber 推入 updateQueue 中，scheduleCallback 调用 reconcileWork，正式开始我们的 fiber 之旅。
+之后将 fiber 推入 updateQueue 中，scheduleCallback 调用 reconcileWork，正式开始处理 fiber。
 
 ### reconcileWork
 
@@ -35,5 +35,5 @@ reconcile 会将 currentFiber 的 type 进行判断，如果为 function，则�
 如果是 updateHost，会根据是否有 node 来为其添加 node 属性。
 
 二者之后都会调用 reconcileChildren 来构建 currentFiber 和其 children 的关系，当循环回 curFiber（存疑） 时，该函数即结束。
-
+reconcileChildren 相当于是构建了 parent,sibling,children 的关系（没有用到 return）。
 之后通过循环，所有的 fiber 的关系也就关联起来了。
