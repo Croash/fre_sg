@@ -1,8 +1,8 @@
 {
   "name": "fre_sg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a react-like-like lib (from fre), just for fun",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "parcel -p 9990 watch index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
