@@ -1,6 +1,6 @@
 {
   "name": "fre_sg",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a react-like-like lib (from fre), just for fun",
   "main": "dist/index.js",
   "scripts": {
