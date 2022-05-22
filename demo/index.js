@@ -1,8 +1,10 @@
-import { h } from '../src/dom/h'
+import { h, useRef } from '../src/index'
 import { render } from '../src/fiber/reconciler'
 import { useState } from '../src/fiber/hooks'
 
 function App() {
+  const appRef = useRef(null)
+  console.log(appRef)
   const [val, updateVal] = useState(1234)
 
   const [val1, updateVal1] = useState(5678)
@@ -16,7 +18,9 @@ function App() {
         console.log('vv', e.target.value)
         updateInput(e.target.value)
       }}></input>
-      <button onClick={() => {
+      <button
+        ref={appRef}
+        onClick={() => {
         updateVal(val + 1)
       }}>{val}</button>
       <button onClick={() => {

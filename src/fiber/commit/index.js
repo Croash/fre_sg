@@ -57,6 +57,8 @@ const commit = (fiber) => {
     if (after === null && node === parentNode.lastChild) return
     parentNode.insertBefore(node, after)
   }
+
+  refer(ref, node)
   // NOWORK 不需要做操作
   // DELETE 删除
   // hooksFn ?? 不理解
