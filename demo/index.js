@@ -1,7 +1,7 @@
 import { h, useRef } from '../src/index'
 import { render } from '../src/fiber/reconciler'
 import { useState } from '../src/fiber/hooks'
-window.useRef = useRef
+
 function App() {
   const appRef = useRef(null)
   console.log(appRef)
