@@ -3,7 +3,6 @@ import { scheduleCallback, shouldYield, getTime } from 'scheduler_sg'
 import { createElement } from '../dom/dom'
 import { pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { pushCommitItem, shiftCommitItem } from './commitQueue'
-import { preCommitFunctor, getPreCommit } from './preComit'
 import { getWIP, updateWIP } from './WIP'
 import { isFn, trampoline, consoleFunc } from '../utils'
 import { getParentNode } from './getParentNode'
@@ -208,6 +207,8 @@ export const reconcileWorkLoop = compose(
 
 // reconcileWork :: didout -> ( () => {}|null )
 // reconcileWork finishe
+// reconcileWork 中的 rcWorkFunc => rcWorkFunc，这里用了 scheduler中
+// flushWork的next = callback(didout) 来替换了scheduler堆顶的task，从而没有scheduler中进行popTask
 export const reconcileWork = compose(
   Either(
     compose(

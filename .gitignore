@@ -10,4 +10,4 @@ server/**/node_modules/
 demo/**/.cache/
 demo/**/dist/
 demo/**/preact/
-# /dist/
+/dist/
