@@ -19623,8 +19623,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-window.useRef = _index.useRef;
-
 function App() {
   var appRef = (0, _index.useRef)(null);
   console.log(appRef);
@@ -19698,7 +19696,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53144" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62600" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

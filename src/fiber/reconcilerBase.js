@@ -1,6 +1,5 @@
 import { compose, composeP, curry, map, prop } from 'ramda'
 import { scheduleCallback, shouldYield, getTime } from 'scheduler_sg'
-// import { getTime } from '../scheduler/common'
 import { createElement } from '../dom/dom'
 import { pushUpdateItem, shiftUpdateItem } from './updateQueue'
 import { pushCommitItem, shiftCommitItem } from './commitQueue'
