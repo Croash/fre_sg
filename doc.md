@@ -1,16 +1,16 @@
 ### main
-可以分成三层，taskManager(用来处理task)；fiber(单独处理fiber和推入taskManager两种处理方式)；dom，
+可以分成三层，scheduler(用来处理task)；fiber(单独处理fiber和推入scheduler两种处理方式)；dom，
 
-### 1. taskManager
+### 1. scheduler
 
-taskManager是用来处理task的。作为fre的底层，原理很简单。
+scheduler是用来处理task的。作为fre的底层，原理很简单。
 推入task时，初始化task。之后对比时间，已超时或还在当前帧可用时间内，则处理task，然后pop出来。否则则继续等下一帧，task继续前一步的执行。直到taskQueue为空或者推入新的task为止。
 
 虽然原理简单，实现起来还是有点麻烦的。需要两层递归叠在一起，还有一个是两个函数互相调用的递归，实在是。。。（主要是抄代码的时候没有细想还有没有好的处理方式）。
 
 可以暴露出来 planWork, scheduleWork， shouldYield三个api。
-planWork其实和taskManager无关，可以认为类似setTimeout的函数。
-scheduleWork是核心，推入callback，帮你处理成task然后在taskManager中执行。
+planWork其实和scheduler无关，可以认为类似setTimeout的函数。
+scheduleWork是核心，推入callback，帮你处理成task然后在scheduler中执行。
 shouldYield? 时间相关的。
 
 ### 2. reconciler
@@ -38,6 +38,13 @@ const App = () => {
 ```
 类似于上文，如果App对应fiber所绑定的hooks，存储了 [vis, setVis]的hook，而Comp则存储[num, setNum]的hook。当vis为false，Comp的fiber会被gc掉，hook同理。vis再次被置为true时，新Comp的fiber再次被创建。
 
+### 总结
+1. fiber原理以及处理目的
+网上有流程介绍
+2. fiber的reconcile流程
+fiber新旧内容的对比，以及增删改查（后续还有commit）
+3. hooks
+内容同上
 
 ### todo
 
