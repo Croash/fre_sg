@@ -35,7 +35,7 @@ const reconcileChildren = compose(
       for (let k in oldFibers) {
         const oldFiber = oldFibers[k]
         const newFiber = newFibers[k]
-        if (oldFiber && oldFiber) {
+        if (newFiber && newFiber.type === oldFiber.type) {
           reused[k] = oldFiber
         } else {
           oldFiber.op = DELETE
