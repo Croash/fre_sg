@@ -19,6 +19,26 @@ reconciler是用来处理fiber的。
 reconciler真正重要的是两个部分，将各个fiber与它的child，parent，sibling链接起来和从头到底进行遍历两个方面。
 所以比较合理的，是先将网编好（其实是一个队列），然后再对着队列遍历（虽然理论上是队列，但是实际处理还是根据parent，sibling，child来进行判断递归的，不过执行上没有问题）。
 
+### 3. hooks
+
+1. hooks 相当于一个数据的单独缓存，当有useState的时候，会顺序在hooks对象中放入缓存值和更新函数。如果更新函数执行，则缓存值进行更新，之后走fiber的路径，更新fiber，更新视图。
+2. 每一个fc comp都会有一个hooks，如果组件销毁，hooks则被释放。
+```js
+impprt { useState } from '??'
+
+const Comp = () => {
+  const [num, setNum] = useState(0)
+  return <div>{num}</div>
+}
+
+const App = () => {
+  const [vis, setVis] = useState(false)
+  return vis ? <Comp /> : null
+}
+```
+类似于上文，如果App对应fiber所绑定的hooks，存储了 [vis, setVis]的hook，而Comp则存储[num, setNum]的hook。当vis为false，Comp的fiber会被gc掉，hook同理。vis再次被置为true时，新Comp的fiber再次被创建。
+
+
 ### todo
 
 1. 将createElement和updateElement剥离出来
