@@ -2,6 +2,7 @@
 /.idea/
 /.cache/
 /coverage/
+dist
 yarn-error.log
 .ignore/
 packages/.fre/

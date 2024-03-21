@@ -1,7 +1,7 @@
 import { compose, curry } from 'ramda'
 
 // Left
-export class Left {
+class Left {
   constructor(value) {
     this._value = value
   }
@@ -16,7 +16,7 @@ Left.of = (val) => {
 }
 
 // Right
-export class Right {
+class Right {
   constructor(value) {
     this._value = value
   }
@@ -30,9 +30,15 @@ Right.of = (val) => {
   return new Right(val)
 }
 
-export const Either = curry(function(f, g, e) {
+const Either = curry(function(f, g, e) {
   switch(e.constructor) {
     case Left: return f(e._value);
     case Right: return g(e._value);
   }
 })
+
+export {
+  Left,
+  Right,
+  Either
+}

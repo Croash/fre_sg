@@ -1,6 +1,6 @@
 import { compose } from 'ramda'
 
-export class IO {
+export default class IO {
   constructor(f) {
     this._value = f;
   }
