@@ -4,10 +4,9 @@
   "author": "zelin.shao",
   "license": "MIT",
   "scripts": {
-    "test": "pnpm run build",
+    "build": "pnpm run build",
     "build:all": "pnpm run build:all",
     "build:utils": "pnpm -C packages/utils run build",
-    "build": "",
     "dev:web": "",
     "version": "bump"
   },
@@ -39,7 +38,5 @@
     "rollup": "^4.13.0",
     "typescript": "^4.9.5"
   },
-  "dependencies": {
-    "parcel": "^2.8.3"
-  }
+  "dependencies": {}
 }

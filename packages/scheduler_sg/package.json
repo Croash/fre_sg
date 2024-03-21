@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel -p 8090 watch test/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build index.js"
+    "build": "npx rollup -c --bundleConfigAsCjs"
   },
   "keywords": [
     "fiber",
@@ -14,21 +14,10 @@
     "scheduler"
   ],
   "dependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "fun-task": "^1.5.2",
-    "lodash": "^4.17.15",
     "ramda": "^0.27.0",
     "sg_func": "^1.0.1"
   },
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.10.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "typescript": "^4.1.3"
-  },
+  "devDependencies": {},
   "author": "zelinshao",
   "license": "MIT"
 }
