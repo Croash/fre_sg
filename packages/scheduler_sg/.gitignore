@@ -1,6 +1,6 @@
+/.cache/
 node_modules
 dist
-lib
 
 # Editor directories and files
 .vscode
