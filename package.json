@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm run build",
-    "build:all": "pnpm run build:all",
+    "build:all": "node shell/build-all.js",
     "build:utils": "pnpm -C packages/utils run build",
     "dev:web": "",
     "version": "bump"
