@@ -22,6 +22,10 @@
       "packages/*"
     ]
   },
+  "workspaces": [
+    "packages/*",
+    "packages/sg_func"
+  ],
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-typescript": "^7.16.7",
@@ -38,5 +42,7 @@
     "rollup": "^4.13.0",
     "typescript": "^4.9.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ramda": "^0.27.2"
+  }
 }

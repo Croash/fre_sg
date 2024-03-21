@@ -13,10 +13,7 @@
     "fre_sg",
     "scheduler"
   ],
-  "dependencies": {
-    "ramda": "^0.27.0",
-    "sg_func": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "author": "zelinshao",
   "license": "MIT"

@@ -17,9 +17,7 @@ export default {
     nodeResolve(), // 解析第三方模块
     commonjs(),
     // 将 CommonJS 模块转换为 ES6
-    // typescript({
-    //   esModuleInterop: true, //
-    // }), // 使用 TypeScript 编译代码
+    typescript(), // 使用 TypeScript 编译代码
     babel({
       // 使用 babel 转换代码
       babelHelpers: 'bundled',
