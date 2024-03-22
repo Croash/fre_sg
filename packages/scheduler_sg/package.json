@@ -13,7 +13,7 @@
   "scripts": {
     "start": "parcel -p 8090 watch test/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx rollup -c --bundleConfigAsCjs"
+    "build": "rm -rf .dist && npx rollup -c --bundleConfigAsCjs"
   },
   "keywords": [
     "fiber",
