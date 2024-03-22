@@ -9,13 +9,13 @@ export default {
   // TypeScript 入口文件路径
   output: [
     {
-      file: 'dist/bundle.esm.js',
+      file: 'dist/index.esm.js',
       format: 'es' // ES Modules 格式
       // sourcemap: true,
       //是否生成 sourcemap
     },
     {
-      file: 'dist/bundle.cjs.js',
+      file: 'dist/index.cjs.js',
       format: 'cjs' // CommonJS 格式
     }
   ],
