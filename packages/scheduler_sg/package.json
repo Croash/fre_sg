@@ -2,7 +2,14 @@
   "name": "scheduler_sg",
   "version": "1.0.1",
   "description": "designed for fre_sg",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "scripts": {
     "start": "parcel -p 8090 watch test/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",

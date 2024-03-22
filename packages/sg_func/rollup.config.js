@@ -6,14 +6,20 @@ import { terser } from 'rollup-plugin-terser';
 export default {
   input: 'src/index.js',
   // TypeScript 入口文件路径
-  output: {
-    file: 'dist/bundle.js',
-    // 输出文件路径
-    format: 'es',
-    // 输出格式为 ES 模块（ESM）
-    // sourcemap: true,
-    //是否生成 sourcemap
-  }, plugins: [
+  // TypeScript 入口文件路径
+  output: [
+    {
+      file: 'dist/bundle.esm.js',
+      format: 'es' // ES Modules 格式
+      // sourcemap: true,
+      //是否生成 sourcemap
+    },
+    {
+      file: 'dist/bundle.cjs.js',
+      format: 'cjs' // CommonJS 格式
+    }
+  ],
+  plugins: [
     nodeResolve(), // 解析第三方模块
     commonjs(),
     // 将 CommonJS 模块转换为 ES6
