@@ -20,8 +20,10 @@
     "fre_sg",
     "scheduler"
   ],
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "ramda": "^0.29.1",
+    "sg_func": "workspace:^1.0.1"
+  },
   "author": "zelinshao",
   "license": "MIT"
 }

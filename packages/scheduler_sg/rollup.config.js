@@ -9,7 +9,7 @@ export default {
   output: [
     {
       file: 'dist/index.esm.js',
-      format: 'es' // ES Modules 格式
+      format: 'es', // ES Modules 格式
       // sourcemap: true,
       //是否生成 sourcemap
     },
