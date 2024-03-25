@@ -8,7 +8,7 @@ import { getParentNode } from './getParentNode'
 
 import { Either, Left, Right } from 'sg_func'
 
-import { reconcileLoopBase, reconcileWork } from './reconcilerBase'
+import { reconcileWork } from './reconcilerBase'
 
 let WIP
 
