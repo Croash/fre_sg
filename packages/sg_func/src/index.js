@@ -8,3 +8,4 @@ export {
   liftA2,
   liftA3
 } from './functor'
+// TODO: remove unused Functors
