@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel -p 9990 watch index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.js"
+    "build":  "echo \"No building\" && exit 1"
   },
   "author": "",
   "license": "ISC",
