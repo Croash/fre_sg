@@ -6,14 +6,13 @@
   "scripts": {
     "start": "parcel -p 9990 watch index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":  "rm -rf ./dist && npx rollup -c --bundleConfigAsCjs"
+    "build": "rm -rf ./dist && npx rollup -c --bundleConfigAsCjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ramda": "^0.27.0",
-    "scheduler_sg": "^1.0.1",
-    "sg_func": "^1.0.1"
-  },
-  "devDependencies": {}
+    "scheduler_sg": "workspace:^",
+    "sg_func": "workspace:^"
+  }
 }
