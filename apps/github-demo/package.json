@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx rollup -c ./rollup.dev.config.js --bundleConfigAsCjs",
+    "prod": "npx rollup -c ./rollup.prod.config --bundleConfigAsCjs"
   },
   "keywords": [],
   "author": "",

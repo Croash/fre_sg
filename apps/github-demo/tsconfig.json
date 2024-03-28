@@ -15,6 +15,7 @@
     "allowJs": true,
     "baseUrl": "./",
     "jsx": "react",
+    "jsxFactory": "h",
     "paths": {
       "*": ["src/components/*", "src/*", "./*"],
       "src": ["src"]
