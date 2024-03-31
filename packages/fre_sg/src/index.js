@@ -1,6 +1,6 @@
 import { h } from './dom/h'
 import { render } from './fiber/reconciler'
-import { createElement } from './dom/dom'
+// import { createElement } from './dom/dom'
 import {
   useState,
   useEffect,
@@ -14,7 +14,7 @@ import {
 export {
   h,
   render,
-  createElement,
+  h as createElement,
   useState,
   useEffect,
   useLayout,
@@ -23,16 +23,3 @@ export {
   useMemo,
   useRef,
 }
-
-// export default {
-//   h,
-//   render,
-//   createElement,
-//   useState,
-//   useEffect,
-//   useLayout,
-//   useReducer,
-//   useCallback,
-//   useMemo,
-//   useRef,
-// }
