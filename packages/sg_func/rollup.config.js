@@ -5,19 +5,6 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 // import pkg from './package.json'
 
-const output = [
-  {
-    format: 'cjs', // 输出格式为 CommonJS
-    dir: 'dist/cjs', // CommonJS 格式的输出目录路径
-    preserveModules: true, // 保持目录结构不变
-  },
-  {
-    format: 'es', // 输出格式为 ES 模块
-    dir: 'dist/esm', // ES 模块格式的输出目录路径
-    preserveModules: true, // 保持目录结构不变
-  }
-]
-
 const cfgList = [
   {
     output: {
