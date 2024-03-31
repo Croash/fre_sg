@@ -1,7 +1,7 @@
-export { h } from './dom/h'
-export { render } from './fiber/reconciler'
-export { createElement } from './dom/dom'
-export {
+import { h } from './dom/h'
+import { render } from './fiber/reconciler'
+import { createElement } from './dom/dom'
+import {
   useState,
   useEffect,
   useLayout,
@@ -10,6 +10,19 @@ export {
   useMemo,
   useRef,
 } from './fiber/hooks'
+
+export {
+  h,
+  render,
+  createElement,
+  useState,
+  useEffect,
+  useLayout,
+  useReducer,
+  useCallback,
+  useMemo,
+  useRef,
+}
 
 // export default {
 //   h,
