@@ -73,12 +73,6 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  apps/github-demo:
-    dependencies:
-      fre_sg:
-        specifier: workspace:^
-        version: link:../../packages/fre_sg
-
   apps/github-pages:
     dependencies:
       '@vitejs/plugin-react-refresh':
