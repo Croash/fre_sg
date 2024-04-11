@@ -1,5 +1,5 @@
-import React from 'react'
+import * as React from 'react'
+import { render } from 'react'
 import { App } from './app.jsx'
 
-console.log('render', render)
 render(<App />, document.getElementById('app'))
