@@ -11,10 +11,9 @@ import {
   useRef,
 } from './fiber/hooks'
 
-export {
+const _react = {
   h,
   render,
-  h as createElement,
   useState,
   useEffect,
   useLayout,
@@ -22,4 +21,20 @@ export {
   useCallback,
   useMemo,
   useRef,
+  createElement: h,
+}
+
+export default _react
+
+export {
+  h,
+  render,
+  useState,
+  useEffect,
+  useLayout,
+  useReducer,
+  useCallback,
+  useMemo,
+  useRef,
+  h as createElement,
 }
