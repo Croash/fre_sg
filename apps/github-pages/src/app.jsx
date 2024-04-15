@@ -6,7 +6,7 @@ import { useState } from 'react'; // 替换成你的 React like 库的引入方�
 const App = () => {
   const [num, setNum] = useState(0)
   return <div>
-    hello world
+    hello fre_sg
     <button onClick={() => setNum(num + 1)}>{num}</button>
   </div>
 }

@@ -1,0 +1,45 @@
+name: pnpm workflow
+on:
+  push:
+    branches:
+      - gh-pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v2
+    - name: 设置 Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 'v16.18.0'
+    - name: 安装 pnpm
+      run: npm install -g pnpm
+    - name: Install deps
+      run: pnpm install
+    - name: Build all packages
+      run: pnpm run build:all
+    - name: Install dependencies and build
+      run: |
+        cd apps/github-pages
+        pnpm install
+        pnpm run build
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        # Upload dist repository
+        path: './apps/github-pages/dist'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
