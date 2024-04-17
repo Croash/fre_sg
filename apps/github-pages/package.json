@@ -16,5 +16,10 @@
     "frc": "^1.0.0",
     "fre_sg": "workspace:^",
     "vite": "^5.2.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }
