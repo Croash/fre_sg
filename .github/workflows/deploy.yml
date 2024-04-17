@@ -23,7 +23,7 @@ jobs:
     - name: 设置 Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 'v16.18.0'
+        node-version: 'v18.12'
     - name: 安装 pnpm
       run: npm install -g pnpm
     - name: Install deps
