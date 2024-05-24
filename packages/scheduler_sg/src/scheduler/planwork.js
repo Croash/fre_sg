@@ -60,7 +60,9 @@ const flushBase = compose(
     ),
     compose(
       Either(
-        (nil) => { console.log('nilTask:', nil) },
+        (nil) => {
+          // console.log('nilTask:', nil)
+        },
         (v) => flushBase(v),
       ),
       // 非常重要的一步，next不为空时，callback直接做替换，然后继续执行（虽然觉着可以用push和pop来代替，不过，就先这样吧）
