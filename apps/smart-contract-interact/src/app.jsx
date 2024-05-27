@@ -1,7 +1,7 @@
 // src/App.jsx
 import * as React from 'react'
 import { useState, useEffect } from 'react'; // 替换成你的 React like 库的引入方式
-import { buyCoffee, getMemos } from './contractInteraction';
+import { buyCoffee, getMemos, listenToNewMemos } from './contractInteraction';
 import './index.css'
 
 // 示例组件
@@ -11,7 +11,6 @@ const App = () => {
   const [amount, setAmount] = useState('');
   const [memos, setMemos] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const [num, setNum] = useState(12)
 
   async function fetchMemos() {
     try {
@@ -24,6 +23,10 @@ const App = () => {
 
   useEffect(() => {
     fetchMemos();
+
+    listenToNewMemos((newMemo) => {
+      setMemos((prevMemos) => [...prevMemos, newMemo]);
+    });
   }, []);
 
   useEffect(() => {
@@ -43,8 +46,8 @@ const App = () => {
     }
 
     await buyCoffee(name, message, amount);
-    const fetchedMemos = await getMemos();
-    setMemos(fetchedMemos);
+    // const fetchedMemos = await getMemos();
+    // setMemos(fetchedMemos);
   };
 
 

@@ -40,4 +40,14 @@ async function getMemos() {
   return [];
 }
 
-export { buyCoffee, getMemos };
+async function listenToNewMemos(callback) {
+  const contract = await getContract();
+  if (contract) {
+    console.log('contract', contract)
+    contract.on("NewMemo", (from, name, message) => {
+      callback({ from, name, message });
+    });
+  }
+}
+
+export { buyCoffee, getMemos, listenToNewMemos };
