@@ -3,8 +3,9 @@ import { contractAddress, abi } from './config.js';
 
 async function getContract() {
   if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const provider = new ethers.JsonRpcProvider('http://localhost:7545')
+    const _p = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    // const provider = new ethers.JsonRpcProvider('http://localhost:7545')
+    const provider = new ethers.BrowserProvider(window.ethereum)
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
     return contract;
